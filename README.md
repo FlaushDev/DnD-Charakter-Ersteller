@@ -1,4 +1,4 @@
-Über das Projekt:
+<h1>__Über das Projekt:__</h1>
 
 Dieser Charakter-Ersteller ist mein erstes großes JavaScript-Projekt und entstand aus der persönlichen Frustration heraus, dass es kaum
 gute, deutschsprachige Tools gibt, die ohne Registrierungszwang oder zeitaufwendige Dateneingabe funktionieren. Mein Ziel ist es, eine schnelle und regelkonforme Lösung zu bieten, die den Fokus zurück auf das Wesentliche legt: das Spiel. Da ich schon länger programmiere,
@@ -17,5 +17,6 @@ Wip Features:
 6. CSS and GUI Improvements
 7. Random Character 
 8. Hover info 
+
 
 Alle Rechte vorbehalten | Erstellt von Paul S.
