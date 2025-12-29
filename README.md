@@ -1,4 +1,4 @@
-<h1>__Über das Projekt:__</h1>
+<h1>Über das Projekt:</h1>
 
 Dieser Charakter-Ersteller ist mein erstes großes JavaScript-Projekt und entstand aus der persönlichen Frustration heraus, dass es kaum
 gute, deutschsprachige Tools gibt, die ohne Registrierungszwang oder zeitaufwendige Dateneingabe funktionieren. Mein Ziel ist es, eine schnelle und regelkonforme Lösung zu bieten, die den Fokus zurück auf das Wesentliche legt: das Spiel. Da ich schon länger programmiere,
@@ -7,7 +7,7 @@ habe ich den gesamten Code von Grund auf selbst entwickelt, um eine schlanke und
 Da das Regelwerk von Dungeons & Dragons extrem komplex ist, befindet sich das Tool in ständiger Entwicklung. Auch wenn die Berechnungen und Abläufe noch nicht in jedem Detail perfekt sind, arbeite ich kontinuierlich daran, die Logik zu verfeinern und neue Features zu implementieren. Es ist ein echtes Herzensprojekt, das mit jeder Code-Zeile wächst, um Spielern den Einstieg in ihre Abenteuer so leicht wie möglich zu machen.
 
 
-Wip Features:
+<h4>Wip Features:</h4>
 
 1. Level Select impact for all calculations and not just subclasses and PB
 2. Alignment Picker
@@ -19,4 +19,5 @@ Wip Features:
 8. Hover info 
 
 
-Alle Rechte vorbehalten | Erstellt von Paul S.
+<footer>Alle Rechte vorbehalten | Erstellt von Paul S.</footer>
+
