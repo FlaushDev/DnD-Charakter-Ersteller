@@ -234,7 +234,7 @@ p {
 }
 
 #savesList, #skillsList {
-  margin-bottom: 0; /* Verhindert, dass die Listen oben unterschiedlich weit starten */
+  margin-bottom: 0; 
   padding-left: 0;
   list-style-type: none;
 }
@@ -316,10 +316,9 @@ p {
   font-size: 1.1rem;
 }
 
-/* --- Media Queries --- */
-
 @media (max-width: 800px) {
   #skillsList {
     column-count: 1;
   }
+
 }
