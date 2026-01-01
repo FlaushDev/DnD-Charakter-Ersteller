@@ -43,7 +43,8 @@ const HINTERGRÜNDE = {
     'Soldat': { skills: ['Athletik', 'Einschüchtern'] },
     'Sonderling': { skills: ['Athletik', 'Überlebenskunst'] },
     'Strassenkind': { skills: ['Fingerfertigkeit', 'Heimlichkeit'] },
-    'Tempeldiener': { skills: ['Motiv erkennen', 'Religion'] }
+    'Tempeldiener': { skills: ['Motiv erkennen', 'Religion'] },
+    'Händler': { skills: ['Motiv erkennen', 'Überzeugen'] }
 };
 
 const CLASS_DATA = {
@@ -98,12 +99,23 @@ let selectedSkills = [];
 
 function calculateModifier(score) { return Math.floor((score - 10) / 2); }
 function getTotalPoints() { return Object.values(scores).reduce((sum, val) => sum + POINT_COSTS[val], 0); }
-function getPB() { return PROFICIENCY_BONUS[parseInt(document.getElementById('levelSelect').value)] || 2; }
-function getBackgroundBonus(attr) { const bgKey = document.getElementById('backgroundSelect').value; return HINTERGRÜNDE[bgKey] ? (HINTERGRÜNDE[bgKey][attr] || 0) : 0; }
+
+function getPB() { 
+    const lvlEl = document.getElementById('levelSelect');
+    const lvl = lvlEl ? parseInt(lvlEl.value) : 1;
+    return PROFICIENCY_BONUS[lvl] || 2; 
+}
+
+function getBackgroundBonus(attr) { 
+    const bgKey = document.getElementById('backgroundSelect').value; 
+    return HINTERGRÜNDE[bgKey] ? (HINTERGRÜNDE[bgKey][attr] || 0) : 0; 
+}
+
 function getAttributeTotal(attr) { return scores[attr] + getRacialBonus(attr) + getBackgroundBonus(attr); }
 
 function updateAttributeTable() {
     const table = document.getElementById('attributesTable');
+    if (!table) return;
     table.innerHTML = '';
     for (const [attr, name] of Object.entries(ATTRIBUTES_MAP)) {
         const base = scores[attr];
@@ -139,18 +151,27 @@ function adjustScore(attr, delta) {
 }
 
 function calculateTotalHP() {
-    const level = parseInt(document.getElementById('levelSelect').value);
-    const classData = CLASS_DATA[document.getElementById('classSelect').value];
-    if (!classData || document.getElementById('classSelect').value === 'Keine') return 0;
+    const levelVal = document.getElementById('levelSelect').value;
+    const level = parseInt(levelVal) || 1;
+    const classKey = document.getElementById('classSelect').value;
+    const classData = CLASS_DATA[classKey];
+
+    if (!classData || classKey === 'Keine') return 0;
+
     const conMod = calculateModifier(getAttributeTotal('CON'));
     const level1HP = classData.hd + conMod;
+    
     if (level === 1) return Math.max(1, level1HP);
-    return level1HP + (level - 1) * (Math.floor(classData.hd / 2) + 1 + conMod);
+
+    const avgHPPerLevel = Math.floor(classData.hd / 2) + 1 + conMod;
+    return level1HP + (level - 1) * avgHPPerLevel;
 }
 
 function updateSavesAndSkills() {
     const savesList = document.getElementById('savesList');
     const skillsList = document.getElementById('skillsList');
+    if (!savesList || !skillsList) return;
+
     savesList.innerHTML = ''; skillsList.innerHTML = '';
     const cls = document.getElementById('classSelect').value;
     const classData = CLASS_DATA[cls] || { saves: [], skillChoices: 0 };
@@ -164,16 +185,13 @@ function updateSavesAndSkills() {
         savesList.innerHTML += `<li>${isProf ? '❤' : '◯'} ${name}: ${val >= 0 ? '+' + val : val}</li>`;
     }
 
-    let classSkillCount = 0;
     for (const [skill, attr] of Object.entries(SKILLS)) {
         const isBgProf = bgSkills.includes(skill);
         const isSelected = selectedSkills.includes(skill);
         const isProf = isBgProf || isSelected;
-        if (isSelected && !isBgProf) classSkillCount++;
         const val = calculateModifier(getAttributeTotal(attr)) + (isProf ? pb : 0);
         skillsList.innerHTML += `<li><input type="checkbox" onchange="handleSkillChange('${skill}')" ${isProf ? 'checked' : ''} ${isBgProf ? 'disabled' : ''}> ${skill}: ${val >= 0 ? '+' + val : val}</li>`;
     }
-    document.getElementById('skillLimitDisplay').textContent = `(${classSkillCount}/${classData.skillChoices})`;
 }
 
 function handleSkillChange(skill) {
@@ -181,8 +199,9 @@ function handleSkillChange(skill) {
     const bgSkills = HINTERGRÜNDE[bgKey]?.skills || [];
     if (bgSkills.includes(skill)) return;
     const classData = CLASS_DATA[document.getElementById('classSelect').value];
-    const limit = classData.skillChoices || 0;
+    const limit = classData ? classData.skillChoices : 0;
     const currentClassSkills = selectedSkills.filter(s => !bgSkills.includes(s));
+    
     if (selectedSkills.includes(skill)) {
         selectedSkills = selectedSkills.filter(s => s !== skill);
     } else if (currentClassSkills.length < limit) {
@@ -193,7 +212,8 @@ function handleSkillChange(skill) {
 
 function getRacialBonus(attr) {
     const main = document.getElementById('mainRaceSelect').value;
-    const raceKey = (RACE_GROUPS[main] || []).length > 1 ? document.getElementById('subRaceSelect').value : main;
+    const subs = RACE_GROUPS[main] || [];
+    const raceKey = subs.length > 1 ? document.getElementById('subRaceSelect').value : main;
     const race = RACES[raceKey];
     if (!race) return 0;
     if (race.custom) {
@@ -220,14 +240,17 @@ function handleMainRaceChange() {
 
 function updateCustomRaceLogic() {
     const main = document.getElementById('mainRaceSelect').value;
-    const raceKey = (RACE_GROUPS[main] || []).length > 1 ? document.getElementById('subRaceSelect').value : main;
-    document.getElementById('customBonuses').style.display = RACES[raceKey]?.custom ? 'block' : 'none';
+    const subs = RACE_GROUPS[main] || [];
+    const raceKey = subs.length > 1 ? document.getElementById('subRaceSelect').value : main;
+    const customDiv = document.getElementById('customBonuses');
+    if (customDiv) customDiv.style.display = RACES[raceKey]?.custom ? 'block' : 'none';
     updateDisplay();
 }
 
 function handleClassChange() {
     const cls = document.getElementById('classSelect').value;
-    const lvl = parseInt(document.getElementById('levelSelect').value);
+    const lvlVal = document.getElementById('levelSelect').value;
+    const lvl = parseInt(lvlVal) || 1;
     const data = CLASS_DATA[cls];
     const subDiv = document.getElementById('subClassSelection');
     if (data && data.subclasses.length > 0 && lvl >= data.level) {
@@ -235,7 +258,9 @@ function handleClassChange() {
         const sel = document.getElementById('subClassSelect');
         sel.innerHTML = '';
         data.subclasses.forEach(s => sel.innerHTML += `<option value="${s}">${s}</option>`);
-    } else subDiv.style.display = 'none';
+    } else {
+        subDiv.style.display = 'none';
+    }
     updateDisplay();
 }
 
@@ -260,7 +285,14 @@ document.getElementById('resetBtn').addEventListener('click', () => { window.loc
 
 document.addEventListener('DOMContentLoaded', () => {
     const lvl = document.getElementById('levelSelect');
-    for (let i = 1; i <= 20; i++) lvl.innerHTML += `<option value="${i}">Level ${i}</option>`;
+    lvl.innerHTML = '';
+    for (let i = 1; i <= 20; i++) {
+        let opt = document.createElement('option');
+        opt.value = i;
+        opt.textContent = `Level ${i}`;
+        lvl.appendChild(opt);
+    }
     handleMainRaceChange();
     handleClassChange();
+    updateDisplay();
 });
