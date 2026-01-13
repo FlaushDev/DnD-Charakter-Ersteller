@@ -18,56 +18,56 @@
         </div>
     </div>
     <div>
-        <label>Level wählen:</label>
-        <select class="select" id="levelSelect"></select>
-    </div>
-    <div>
-        <label>Klasse wählen:</label>
-        <select class="select" id="classSelect">
-            <option value="Barde" selected>Barde</option>
-            <option value="Barbar">Barbar</option>
-            <option value="Druide">Druide</option>
-            <option value="Hexenmeister">Hexenmeister</option>
-            <option value="Kämpfer">Kämpfer</option>
-            <option value="Kleriker">Kleriker</option>
-            <option value="Magier">Magier</option>
-            <option value="Mönch">Mönch</option>
-            <option value="Paladin">Paladin</option>
-            <option value="Schurke">Schurke</option>
-            <option value="Waldläufer">Waldläufer</option>
-            <option value="Zauberer">Zauberer</option>
-            <option value="Keine">Keine (Nur Attributswahl)</option>
-        </select>
-    </div>
-
-    <div id="subClassSelection" style="display:none;">
-        <label>Subklasse wählen:</label>
-        <select class="select" id="subClassSelect"></select>
-    </div>
-
-    <div>
-        <label>Volk wählen:</label>
-        <select class="select" id="mainRaceSelect">
-            <option value="Mensch" selected>Mensch</option>
-            <option value="Elf">Elf</option>
-            <option value="Zwerg">Zwerg</option>
-            <option value="Halbling">Halbling</option>
-            <option value="Gnom">Gnom</option>
-            <option value="Halbelf">Halbelf</option>
-            <option value="Halbork">Halbork</option>
-            <option value="Drachenblütiger">Drachenblütiger</option>
-            <option value="Tiefling">Tiefling</option>
-        </select>
-    </div>
-
-    <div id="subRaceSelection" style="display:none;">
-        <label>Untervolk wählen:</label>
-        <select class="select" id="subRaceSelect"></select>
-    </div>
-
-    <div id="customBonuses" style="display:none;" class="negativpadding">
-        <p id="customBonusText"></p>
         <div>
+            <label>Level wählen:</label>
+            <select class="select" id="levelSelect"></select>
+        </div>
+        <div>
+            <label>Klasse wählen:</label>
+            <select class="select" id="classSelect">
+                <option value="Barde" selected>Barde</option>
+                <option value="Barbar">Barbar</option>
+                <option value="Druide">Druide</option>
+                <option value="Hexenmeister">Hexenmeister</option>
+                <option value="Kämpfer">Kämpfer</option>
+                <option value="Kleriker">Kleriker</option>
+                <option value="Magier">Magier</option>
+                <option value="Mönch">Mönch</option>
+                <option value="Paladin">Paladin</option>
+                <option value="Schurke">Schurke</option>
+                <option value="Waldläufer">Waldläufer</option>
+                <option value="Zauberer">Zauberer</option>
+                <option value="Keine">Keine (Nur Attributswahl)</option>
+            </select>
+        </div>
+
+        <div id="subClassSelection" style="display:block;">
+            <label>Subklasse wählen:</label>
+            <select class="select" id="subClassSelect"></select>
+        </div>
+
+        <div>
+            <label>Volk wählen:</label>
+            <select class="select" id="mainRaceSelect">
+                <option value="Mensch" selected>Mensch</option>
+                <option value="Elf">Elf</option>
+                <option value="Zwerg">Zwerg</option>
+                <option value="Halbling">Halbling</option>
+                <option value="Gnom">Gnom</option>
+                <option value="Halbelf">Halbelf</option>
+                <option value="Halbork">Halbork</option>
+                <option value="Drachenblütiger">Drachenblütiger</option>
+                <option value="Tiefling">Tiefling</option>
+            </select>
+        </div>
+
+        <div id="subRaceSelection" style="display:block;">
+            <label>Untervolk wählen:</label>
+            <select class="select" id="subRaceSelect"></select>
+        </div>
+
+        <div id="customBonuses" style="display:block;">
+            <p id="customBonusText"></p>
             <label>Custom Attributsboni:</label>
             <select class="select" id="customAttr1">
                 <option value="STR" selected>Stärke</option>
@@ -86,42 +86,41 @@
                 <option value="CHA">Charisma</option>
             </select>
         </div>
-    </div>
 
-    <div id="backgroundSelection">
-        <label>Hintergrund wählen:</label>
-        <select class="select" id="backgroundSelect">
-            <option value="Scharlatan">Scharlatan</option>
-            <option value="Tempeldiener">Tempeldiener</option>
-            <option value="Handwerker">Handwerker</option>
-            <option value="Krimineller">Krimineller</option>
-            <option value="Unterhaltungskünstler">Unterhaltungskünstler</option>
-            <option value="Volksheld">Volksheld</option>
-            <option value="Weiser">Weiser</option>
-            <option value="Einsiedler">Einsiedler</option>
-            <option value="Adliger">Adliger</option>
-            <option value="Seeman">Seeman</option>
-            <option value="Soldat">Soldat</option>
-            <option value="Sonderling">Sonderling</option>
-            <option value="Strassenkind">Strassenkind</option>
-        </select>
-    </div>
+        <div id="backgroundSelection">
+            <label>Hintergrund wählen:</label>
+            <select class="select" id="backgroundSelect">
+                <option value="Scharlatan">Scharlatan</option>
+                <option value="Tempeldiener">Tempeldiener</option>
+                <option value="Handwerker">Handwerker</option>
+                <option value="Krimineller">Krimineller</option>
+                <option value="Unterhaltungskünstler">Unterhaltungskünstler</option>
+                <option value="Volksheld">Volksheld</option>
+                <option value="Weiser">Weiser</option>
+                <option value="Einsiedler">Einsiedler</option>
+                <option value="Adliger">Adliger</option>
+                <option value="Seeman">Seeman</option>
+                <option value="Soldat">Soldat</option>
+                <option value="Sonderling">Sonderling</option>
+                <option value="Strassenkind">Strassenkind</option>
+            </select>
+        </div>
 
-    <div class="display123">
-        <div>
-            <p class="small-title">PB (Geübtenbonus)</p>
-            <p id="pbDisplay">+2</p>
-        </div>
-        <div>
-            <p class="small-title">Trefferwürfel</p>
-            <p id="hdDisplay">K.a.</p>
-        </div>
-        <div>
-            <p class="small-title">Trefferpunkte (HP)</p>
-            <p id="hpDisplay">0</p>
+        <div class="display123">
+            <div>
+                <p class="small-title">PB (Geübtenbonus)</p>
+                <p id="pbDisplay">+2</p>
+            </div>
+            <div>
+                <p class="small-title">Trefferwürfel</p>
+                <p id="hdDisplay">K.a.</p>
+            </div>
+            <div>
+                <p class="small-title">Trefferpunkte (HP)</p>
+                <p id="hpDisplay">0</p>
+            </div>
         </div>
     </div>
-
     <div>
         <h2>Attribute</h2>
         <table class="attribute-table">
@@ -153,7 +152,7 @@
         </div>
 
         <div>
-            <h2>Fertigkeiten</h2>
+            <h2>Fertigkeiten <i class="subheader" style="font-style: normal; font-size: 20px;">Fertigkeiten-Limit: <span id="skillLimit"></span></i></h2>
             <ul id="skillsList"></ul>
         </div>
     </div>

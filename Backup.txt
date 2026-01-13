@@ -1,3 +1,5 @@
+CalcScript2014.js
+--------------
 const POINT_COSTS = { 8: 0, 9: 1, 10: 2, 11: 3, 12: 4, 13: 5, 14: 7, 15: 9 };
 const PROFICIENCY_BONUS = { 1: 2, 2: 2, 3: 2, 4: 2, 5: 3, 6: 3, 7: 3, 8: 3, 9: 4, 10: 4, 11: 4, 12: 4, 13: 5, 14: 5, 15: 5, 16: 5, 17: 6, 18: 6, 19: 6, 20: 6 };
 const ATTRIBUTES_MAP = {
@@ -31,20 +33,20 @@ const SKILLS = {
 };
 
 const HINTERGRÜNDE = {
-    'Scharlatan': { skills: ['Täuschen (CHA)', 'Fingerfertigkeit (DEX)'] },
-    'Handwerker': { skills: ['Motiv erkennen (WIS)', 'Überzeugen (CHA)'] },
-    'Krimineller': { skills: ['Heimlichkeit (DEX)', 'Täuschen (CHA)'] },
-    'Unterhaltungskünstler': { skills: ['Auftreten (CHA)', 'Akrobatik (STR)'] },
-    'Volksheld': { skills: ['Tierumgang (WIS)', 'Überleben (WIS)'] },
-    'Weiser': { skills: ['Arkane Kunde (INT)', 'Geschichte (INT)'] },
-    'Einsiedler': { skills: ['Heilkunde (WIS)', 'Religion (INT)'] },
-    'Adliger': { skills: ['Überzeugen (CHA)', 'Geschichte (INT)'] },
-    'Seeman': { skills: ['Athletik (STR)', 'Wahrnehmung (WIS)'] },
-    'Soldat': { skills: ['Athletik (STR)', 'Einschüchtern (CHA)'] },
-    'Sonderling': { skills: ['Athletik (STR)', 'Überleben (WIS)'] },
-    'Strassenkind': { skills: ['Fingerfertigkeit (DEX)', 'Heimlichkeit (DEX)'] },
-    'Tempeldiener': { skills: ['Motiv erkennen (WIS)', 'Religion (INT)'] },
-    'Händler': { skills: ['Motiv erkennen (WIS)', 'Überzeugen (CHA)'] }
+    'Scharlatan': { skills: ['Täuschen', 'Fingerfertigkeit'] },
+    'Handwerker': { skills: ['Motiv erkennen', 'Überzeugen'] },
+    'Krimineller': { skills: ['Heimlichkeit', 'Täuschen'] },
+    'Unterhaltungskünstler': { skills: ['Auftreten', 'Akrobatik'] },
+    'Volksheld': { skills: ['Mit Tieren umgehen', 'Überlebenskunst'] },
+    'Weiser': { skills: ['Arkane Kunde', 'Geschichte'] },
+    'Einsiedler': { skills: ['Heilkunde', 'Religion'] },
+    'Adliger': { skills: ['Überzeugen', 'Geschichte'] },
+    'Seeman': { skills: ['Athletik', 'Wahrnehmung'] },
+    'Soldat': { skills: ['Athletik', 'Einschüchtern'] },
+    'Sonderling': { skills: ['Athletik', 'Überlebenskunst'] },
+    'Strassenkind': { skills: ['Fingerfertigkeit', 'Heimlichkeit'] },
+    'Tempeldiener': { skills: ['Motiv erkennen', 'Religion'] },
+    'Händler': { skills: ['Motiv erkennen', 'Überzeugen'] }
 };
 
 const CLASS_DATA = {
@@ -99,22 +101,6 @@ let selectedSkills = [];
 
 function calculateModifier(score) { return Math.floor((score - 10) / 2); }
 function getTotalPoints() { return Object.values(scores).reduce((sum, val) => sum + POINT_COSTS[val], 0); }
-
-function openPopupStandard() {
-  document.getElementById('popupStandard').style.display = 'block';
-}
-
-function closePopupStandard() {
-  document.getElementById('popupStandard').style.display = 'none';
-}
-
-function openPopupRandom() {
-  document.getElementById('popupRandom').style.display = 'block';
-}
-
-function closePopupRandom() {
-  document.getElementById('popupRandom').style.display = 'none';
-}
 
 function getPB() {
     const lvlEl = document.getElementById('levelSelect');
@@ -310,9 +296,7 @@ function regelwerkAuswahl2014() {
 }
 
 function regelwerkAuswahl2024() {
-    const el = document.getElementById("regelwerk-auswahl-2024");
-    if (!el) return;
-    el.addEventListener('click', () => el.classList.add('enabled'));
+    document.getElementById("regelwerk-auswahl-2024")
 }
 
 document.getElementById('mainRaceSelect').addEventListener('change', handleMainRaceChange);
@@ -322,25 +306,7 @@ document.getElementById('levelSelect').addEventListener('change', updateDisplay)
 document.getElementById('backgroundSelect').addEventListener('change', updateDisplay);
 document.getElementById('customAttr1').addEventListener('change', updateDisplay);
 document.getElementById('customAttr2').addEventListener('change', updateDisplay);
-document.getElementById('resetBtn').addEventListener('click', () => {
-    const mainRaceSel = document.getElementById('mainRaceSelect');
-    if (!mainRaceSel) return;
-    mainRaceSel.value = 'Mensch';
-    const subRaceSel = document.getElementById('subRaceSelect');
-    if (subRaceSel) subRaceSel.selectedIndex = 0;
-    const classSel = document.getElementById('classSelect');
-    if (classSel) classSel.value = 'Kämpfer';
-    const levelSel = document.getElementById('levelSelect');
-    if (levelSel) levelSel.value = '1';
-    const bgSel = document.getElementById('backgroundSelect');
-    if (bgSel) bgSel.value = 'Scharlatan';
-    const subClassSelect = document.getElementById('SubClassselect')
-    if (subClassSelect) subClassSelect.style.display=blocked; 
-    let selectedSkills = [];
-    let scores = { STR: 8, DEX: 8, CON: 8, INT: 8, WIS: 8, CHA: 8 };
-
-});
-
+document.getElementById('resetBtn').addEventListener('click', () => { window.location.reload(); });
 document.addEventListener('DOMContentLoaded', () => {
     const lvl = document.getElementById('levelSelect');
     lvl.innerHTML = '';
@@ -383,3 +349,267 @@ document.addEventListener('DOMContentLoaded', () => {
         updateDisplay();
     });
 });
+
+Homepage.html
+-------------------------
+<!DOCTYPE html>
+<html lang="de">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>D&D 5e Charakter-Rechner</title>
+    <link rel="stylesheet" href="CalcStyle.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
+
+<body>
+    <h1>D&D 5e Charakter-Creator</h1>
+    <div class="text-center">
+        <div class="subheader">
+            Erstelle deinen Charakter: Leicht, Flüssig, Verständlich
+        </div>
+    </div>
+    <div>
+        <h2>Regelwerk auswählen</h2> <!-- WIP Feature zu den Regelwerken Knöpfe gehen beide nicht-->
+    </div>
+    <div>
+        <button onclick="regelwerkAuswahl2014" id="regelwerk-auswahl-2014" class="img-button">
+            2014
+        </button>
+        <button onclick="regelwerkAuswahl2024" id="regelwerk-auswahl-2024" class="img-button">
+            2024
+        </button>
+    </div>
+    <div>
+        <h2>Charakter Erstellen</h2>
+        <!-- WIP Feature premade characters funktionieren alle noch nicht, random Character funktioniert noch nicht-->
+        <button onclick="location.href='DnD_Rechner2014.html'"
+            style="background-image:url('img/plus.png'); background-size: cover;" class="img-button"></button>
+        <button onclick="" style="background-image:url('img/shuffle.png'); background-size: cover;"
+            class="img-button"></button>
+        <button onclick="location.href='premade-characters/DnD_Rechner2014-Rangtor.html'"
+            style="background-image:url('img/rangtor.png'); background-size: cover;" class="img-button"></button>
+        <!--Rangtor, Tiefling, Fighter LvL 1-->
+        <button onclick="" style="background-image:url('img/picture.png'); background-size: cover;"
+            class="img-button"></button> <!--Tiefling,Fighter LvL 1-->
+        <button onclick="" style="background-image:url('img/picture.png'); background-size: cover;"
+            class="img-button"></button> <!--Tiefling,Fighter LvL 1-->
+        <button onclick="" style="background-image:url('img/picture.png'); background-size: cover;"
+            class="img-button"></button> <!--Tiefling,Fighter LvL 1-->
+        <button onclick="" style="background-image:url('img/picture.png'); background-size: cover;"
+            class="img-button"></button> <!--Tiefling,Fighter LvL 1-->
+    </div>
+    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+    <footer>
+        <p style="margin-top: 50px;">Erstellt von Paul S. | Alle Rechte vorbehalten &copy; 2025 </p>
+        <p class="Informationen" style="margin-right: 20px;">DnD 5e Charakter-Creator ist ein inoffizieller Fan-Inhalt
+            im Rahmen der Richtlinie für
+            Fan-Inhalte.
+            Nicht von Wizards gefördert/gesponsert. Bestandteile des enthaltenen Materials sind Eigentum von Wizards of
+            the Coast.
+            ©Wizards of the Coast LLC.
+        </p>
+        </div>
+    </footer>
+    <div class="tooltiptext">D</div>
+    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+    <script type="text/javascript" src="CalcScript2014.js"></script>
+</body>
+
+DnD_Rechner2014.html
+----------------------------------
+<!DOCTYPE html>
+<html lang="de">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>D&D 5e Charakter-Rechner</title>
+    <link rel="stylesheet" href="CalcStyle.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
+
+<body>
+    <h1>D&D 5e Charakter-Creator 2014</h1>
+    <div class="text-center">
+        <div class="tooltip subheader">
+            Erstelle deinen Charakter: Leicht, Flüssig, Verständlich
+            <span class="tooltiptext">Hallo</span>
+        </div>
+    </div>
+    <div>
+        <label>Level wählen:</label>
+        <select class="select" id="levelSelect"></select>
+    </div>
+    <div>
+        <label>Klasse wählen:</label>
+        <select class="select" id="classSelect">
+            <option value="Barde" selected>Barde</option>
+            <option value="Barbar">Barbar</option>
+            <option value="Druide">Druide</option>
+            <option value="Hexenmeister">Hexenmeister</option>
+            <option value="Kämpfer">Kämpfer</option>
+            <option value="Kleriker">Kleriker</option>
+            <option value="Magier">Magier</option>
+            <option value="Mönch">Mönch</option>
+            <option value="Paladin">Paladin</option>
+            <option value="Schurke">Schurke</option>
+            <option value="Waldläufer">Waldläufer</option>
+            <option value="Zauberer">Zauberer</option>
+            <option value="Keine">Keine (Nur Attributswahl)</option>
+        </select>
+    </div>
+
+    <div id="subClassSelection" style="display:none;">
+        <label>Subklasse wählen:</label>
+        <select class="select" id="subClassSelect"></select>
+    </div>
+
+    <div>
+        <label>Volk wählen:</label>
+        <select class="select" id="mainRaceSelect">
+            <option value="Mensch" selected>Mensch</option>
+            <option value="Elf">Elf</option>
+            <option value="Zwerg">Zwerg</option>
+            <option value="Halbling">Halbling</option>
+            <option value="Gnom">Gnom</option>
+            <option value="Halbelf">Halbelf</option>
+            <option value="Halbork">Halbork</option>
+            <option value="Drachenblütiger">Drachenblütiger</option>
+            <option value="Tiefling">Tiefling</option>
+        </select>
+    </div>
+
+    <div id="subRaceSelection" style="display:none;">
+        <label>Untervolk wählen:</label>
+        <select class="select" id="subRaceSelect"></select>
+    </div>
+
+    <div id="customBonuses" style="display:none;" class="negativpadding">
+        <p id="customBonusText"></p>
+        <div>
+            <label>Custom Attributsboni:</label>
+            <select class="select" id="customAttr1">
+                <option value="STR" selected>Stärke</option>
+                <option value="DEX">Geschicklichkeit</option>
+                <option value="CON">Konstitution</option>
+                <option value="INT">Intelligenz</option>
+                <option value="WIS">Weisheit</option>
+                <option value="CHA">Charisma</option>
+            </select>
+            <select class="select" id="customAttr2">
+                <option value="STR">Stärke</option>
+                <option value="DEX" selected>Geschicklichkeit</option>
+                <option value="CON">Konstitution</option>
+                <option value="INT">Intelligenz</option>
+                <option value="WIS">Weisheit</option>
+                <option value="CHA">Charisma</option>
+            </select>
+        </div>
+    </div>
+
+    <div id="backgroundSelection">
+        <label>Hintergrund wählen:</label>
+        <select class="select" id="backgroundSelect">
+            <option value="Scharlatan">Scharlatan</option>
+            <option value="Tempeldiener">Tempeldiener</option>
+            <option value="Handwerker">Handwerker</option>
+            <option value="Krimineller">Krimineller</option>
+            <option value="Unterhaltungskünstler">Unterhaltungskünstler</option>
+            <option value="Volksheld">Volksheld</option>
+            <option value="Weiser">Weiser</option>
+            <option value="Einsiedler">Einsiedler</option>
+            <option value="Adliger">Adliger</option>
+            <option value="Seeman">Seeman</option>
+            <option value="Soldat">Soldat</option>
+            <option value="Sonderling">Sonderling</option>
+            <option value="Strassenkind">Strassenkind</option>
+        </select>
+    </div>
+
+    <div class="display123">
+        <div>
+            <p class="small-title">PB (Geübtenbonus)</p>
+            <p id="pbDisplay">+2</p>
+        </div>
+        <div>
+            <p class="small-title">Trefferwürfel</p>
+            <p id="hdDisplay">K.a.</p>
+        </div>
+        <div>
+            <p class="small-title">Trefferpunkte (HP)</p>
+            <p id="hpDisplay">0</p>
+        </div>
+    </div>
+
+    <div>
+        <h2>Attribute</h2>
+        <table class="attribute-table">
+            <thead>
+                <tr>
+                    <th class="text-left">Attribut</th>
+                    <th class="text-center">Grundwert</th>
+                    <th class="text-center">Völkerbonus</th>
+                    <th class="text-center">Gesamt</th>
+                    <th class="text-center">Modifikator</th>
+                    <th class="text-center">Kosten</th>
+                </tr>
+            </thead>
+            <tbody id="attributesTable"></tbody>
+        </table>
+    </div>
+
+    <div>
+        <div>
+            <span>Verbrauchte Punkte: </span>
+            <span id="pointsDisplay">0 / 27</span>
+        </div>
+    </div>
+
+    <div class="savesNskills">
+        <div>
+            <h2>Rettungswürfe</h2>
+            <ul id="savesList"></ul>
+        </div>
+
+        <div>
+            <h2>Fertigkeiten <i class="subheader" style="font-style: normal; font-size: 20px;">Fertigkeiten-Limit: <span id="skillLimit"></span></i></h2>
+            <ul id="skillsList"></ul>
+        </div>
+    </div>
+
+    <div>
+        <button id="resetBtn" class="reset-button">↻ Zurücksetzen</button>
+    </div>
+
+    <div>
+        <h3>Regeln (Punktekauf):</h3>
+        <ul>
+            <li>Verfügbare Punkte: 27</li>
+            <li>Minimalwert vor Völkerbonus: 8</li>
+            <li>Maximalwert vor Völkerbonus: 15</li>
+            <li>Die Kosten steigen nicht-linear (8=0, 9=1, 10=2, 11=3, 12=4, 13=5, 14=7, 15=9)</li>
+        </ul>
+    </div>
+
+    <footer>
+        <p>Erstellt von Paul S. | Alle Rechte vorbehalten &copy; 2025 </p>
+        <p class="Informationen">DnD 5e Charakter-Creator ist ein inoffizieller Fan-Inhalt im Rahmen der Richtlinie für
+            Fan-Inhalte.
+            Nicht von Wizards gefördert/gesponsert. Bestandteile des enthaltenen Materials sind Eigentum von Wizards of
+            the Coast.
+            ©Wizards of the Coast LLC.
+        </p>
+        </div>
+    </footer>
+    <div class="tooltiptext">D</div>
+    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+    <script type="text/javascript" src="CalcScript2014.js"></script>
+</body>
+
+</html>
+
+CalcStyle.css
+--------------------------------
+
