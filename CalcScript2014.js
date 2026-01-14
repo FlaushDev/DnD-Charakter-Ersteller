@@ -101,19 +101,19 @@ function calculateModifier(score) { return Math.floor((score - 10) / 2); }
 function getTotalPoints() { return Object.values(scores).reduce((sum, val) => sum + POINT_COSTS[val], 0); }
 
 function openPopupStandard() {
-  document.getElementById('popupStandard').style.display = 'block';
+    document.getElementById('popupStandard').style.display = 'block';
 }
 
 function closePopupStandard() {
-  document.getElementById('popupStandard').style.display = 'none';
+    document.getElementById('popupStandard').style.display = 'none';
 }
 
 function openPopupRandom() {
-  document.getElementById('popupRandom').style.display = 'block';
+    document.getElementById('popupRandom').style.display = 'block';
 }
 
 function closePopupRandom() {
-  document.getElementById('popupRandom').style.display = 'none';
+    document.getElementById('popupRandom').style.display = 'none';
 }
 
 function getPB() {
@@ -216,7 +216,7 @@ function handleSkillChange(skill) {
     if (bgSkills.includes(skill)) return;
 
     const classData = CLASS_DATA[document.getElementById('classSelect').value];
-    const limit = classData?.skillChoices ?? 0; 
+    const limit = classData?.skillChoices ?? 0;
     document.getElementById('skillLimit').textContent = limit;
 
     const currentClassSkills = selectedSkills.filter(s => !bgSkills.includes(s));

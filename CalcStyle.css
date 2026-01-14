@@ -18,12 +18,16 @@
 
 body {
     background-color: var(--bg-light);
-    background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 800" opacity="0.05"><path d="M100,200 Q200,100 300,200 T500,200" stroke="%23000" fill="none"/><circle cx="800" cy="400" r="100" stroke="%23000" fill="none"/></svg>');
     color: var(--text-dark);
     font-family: Georgia, 'Times New Roman', serif;
     font-size: 16px;
     line-height: 1.8;
     min-height: 100vh;
+}
+
+.button-container {
+    margin: 20px;
+    text-align: center;
 }
 
 .header {
@@ -267,12 +271,6 @@ select:focus {
 }
 
 .attr-btn {
-    width: 32px;
-    height: 32px;
-    border: 2px solid;
-    border-radius: 50%;
-    cursor: pointer;
-    font-weight: bold;
     font-size: 1.2rem;
     transition: all 0.2s ease;
     display: flex;
@@ -284,6 +282,12 @@ select:focus {
 .attr-btn-minus {
     border-color: #c24641;
     color: #c24641;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    cursor: pointer;
+    border: 2px solid;
+    font-weight: bold;
 }
 
 .attr-btn-minus:hover {
@@ -292,12 +296,18 @@ select:focus {
 }
 
 .attr-btn-plus {
-    border-color: var(--accent-teal);
-    color: var(--accent-teal);
+    border-color: #1ba101;
+    color: #1ba101;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    cursor: pointer;
+    border: 2px solid;
+    font-weight: bold;
 }
 
 .attr-btn-plus:hover {
-    background: var(--accent-teal);
+    background: #1ba101;
     color: white;
 }
 
