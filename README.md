@@ -9,8 +9,7 @@ Da das Regelwerk von Dungeons & Dragons extrem komplex ist, befindet sich das To
 !! Das Projekt ist noch in der Alpha-Phase | The project is still in alpha!!
 <h4>Wip Features:</h4>
 
-0. Level Select impact for all calculations and not just subclasses and PB
-1. Alignment Picker
+1. Level Select impact for all calculations and not just subclasses and PB
 2. Implementations of more features from the 2024/2014 PHB
 3. Choosing between the 2014/2024 Rulebook
 4. Printing to a character sheet directly
@@ -21,6 +20,7 @@ Da das Regelwerk von Dungeons & Dragons extrem komplex ist, befindet sich das To
 
 
 <footer>Alle Rechte vorbehalten | Erstellt von Paul S.</footer>
+
 
 
 
