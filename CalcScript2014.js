@@ -315,6 +315,21 @@ function regelwerkAuswahl2024() {
     el.addEventListener('click', () => el.classList.add('enabled'));
 }
 
+/*function randomizeEverything() {
+    const mainRaceSel = document.getElementById('mainRaceSelect');
+    mainRaceSel.value = random(Object.keys(RACE_GROUPS));
+    handleMainRaceChange();
+    const subRaceSel = document.getElementById('subRaceSelect'); 
+    subRaceSel.selectedIndex = Math.floor(Math.random() * subRaceSel.options.length);
+    const classSel = document.getElementById('classSelect');
+    classSel.value = random(Object.keys(CLASS_DATA).filter(c => c !== 'Keine'));
+    const bgSel = document.getElementById('backgroundSelect');
+    bgSel.value = random(Object.keys(HINTERGRÜNDE));
+    selectedSkills = [random(Object.keys(SKILLS))];
+    scores = { STR: randomScore(), DEX: randomScore(), CON: randomScore(), INT: randomScore(), WIS: randomScore(), CHA: randomScore() };
+    updateDisplay();
+}*/
+
 document.getElementById('mainRaceSelect').addEventListener('change', handleMainRaceChange);
 document.getElementById('subRaceSelect').addEventListener('change', updateCustomRaceLogic);
 document.getElementById('classSelect').addEventListener('change', handleClassChange);
@@ -334,11 +349,10 @@ document.getElementById('resetBtn').addEventListener('click', () => {
     if (levelSel) levelSel.value = '1';
     const bgSel = document.getElementById('backgroundSelect');
     if (bgSel) bgSel.value = 'Scharlatan';
-    const subClassSelect = document.getElementById('SubClassselect')
-    if (subClassSelect) subClassSelect.style.display=blocked; 
     let selectedSkills = [];
     let scores = { STR: 8, DEX: 8, CON: 8, INT: 8, WIS: 8, CHA: 8 };
-
+    handleClassChange()
+    updateDisplay();
 });
 
 document.addEventListener('DOMContentLoaded', () => {
