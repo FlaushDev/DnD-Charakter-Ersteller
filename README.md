@@ -15,11 +15,11 @@ Da das Regelwerk von Dungeons & Dragons extrem komplex ist, befindet sich das To
 4. Printing to a character sheet directly
 5. CSS and GUI improvements
 6. Random character
-7. Hover info <br>
 <br>
 
 
 <footer>Alle Rechte vorbehalten | Erstellt von Paul S.</footer>
+
 
 
 
