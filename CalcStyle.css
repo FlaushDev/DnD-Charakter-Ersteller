@@ -23,11 +23,49 @@ body {
     font-size: 16px;
     line-height: 1.8;
     min-height: 100vh;
+    background-color: #e8dfd6;
 }
 
 .button-container {
-    margin: 20px;
+    margin: 50px;
+    padding: 20px;
     text-align: center;
+    background-color: var(--bg-light);
+}
+ 
+.button {
+    color: #5a6d6e;
+    width: 475px;
+    height: 300px;
+    margin: 20px;
+    color: var(--text-dark);
+    border: 2px solid var(--border-light);
+    border-radius: 6px;
+    padding: 0.75rem 1rem;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-family: Georgia, serif;
+}
+
+.button:hover {
+    transform:scale(1.05);
+}
+
+.dice-button {
+    color: #5a6d6e;
+    width: 175px;
+    height: 200px;
+    margin: 20px;
+    color: var(--text-dark);
+    border: 2px solid var(--border-light);
+    border-radius: 6px;
+    padding: 0.75rem 1rem;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-family: Georgia, serif;
+    background-color: var(--bg-teal);
 }
 
 .header {
@@ -270,15 +308,6 @@ select:focus {
     gap: 0.5rem;
 }
 
-.attr-btn {
-    font-size: 1.2rem;
-    transition: all 0.2s ease;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background: white;
-}
-
 .attr-btn-minus {
     border-color: #c24641;
     color: #c24641;
@@ -293,6 +322,8 @@ select:focus {
 .attr-btn-minus:hover {
     background: #c24641;
     color: white;
+    transition: 0.3s;
+    border-color:#a83c37;
 }
 
 .attr-btn-plus {
@@ -309,6 +340,8 @@ select:focus {
 .attr-btn-plus:hover {
     background: #1ba101;
     color: white;
+    transition: 0.3s;
+    border-color: #147101;
 }
 
 .attr-btn:hover {
@@ -329,14 +362,15 @@ select:focus {
 }
 
 .mod-badge {
-    background: var(--bg-light);
     color: var(--accent-teal);
-    padding: 0.25rem 0.75rem;
-    border-radius: 6px;
-    font-family: monospace;
+    background-color: var(--paper-bg);
+    font-size: 1.3rem;
     font-weight: bold;
-    font-size: 1rem;
-    border: 1px solid var(--border-light);
+    border: var(--border-light);
+    border-style: solid;
+    padding: 0.5rem 0.7rem;
+    border-radius: 1rem;
+    text-align: center;
 }
 
 .skills-section {
@@ -399,33 +433,22 @@ input[type="checkbox"]:disabled {
     cursor: not-allowed;
 }
 
-.button {
-    background: var(--accent-orange);
-    color: white;
-    border: none;
-    padding: 1rem 2rem;
-    border-radius: 6px;
-    font-weight: 600;
-    font-size: 1rem;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    margin-right: 1rem;
-    margin-bottom: 1rem;
-    font-family: Georgia, serif;
-}
-
-.button:hover {
-    background: #c26440;
-    transform: translateY(-2px);
-    box-shadow: 0 4px 12px rgba(212, 115, 74, 0.3);
-}
-
 .reset-button {
     background: #c24641;
+    max-width: fit-content;
+    max-height: 75px;
+    color:#f9f7f4;
+    border-color: #a83c37;
 }
 
 .reset-button:hover {
     background: #a83c37;
+}
+
+.random-button {
+    max-width: fit-content;
+    max-height: 75px;
+    background-color: #f9f7f4;
 }
 
 .points-display {

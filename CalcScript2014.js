@@ -31,20 +31,20 @@ const SKILLS = {
 };
 
 const HINTERGRÜNDE = {
-    'Scharlatan': { skills: ['Täuschen (CHA)', 'Fingerfertigkeit (DEX)'] },
-    'Handwerker': { skills: ['Motiv erkennen (WIS)', 'Überzeugen (CHA)'] },
-    'Krimineller': { skills: ['Heimlichkeit (DEX)', 'Täuschen (CHA)'] },
-    'Unterhaltungskünstler': { skills: ['Auftreten (CHA)', 'Akrobatik (STR)'] },
-    'Volksheld': { skills: ['Tierumgang (WIS)', 'Überleben (WIS)'] },
-    'Weiser': { skills: ['Arkane Kunde (INT)', 'Geschichte (INT)'] },
-    'Einsiedler': { skills: ['Heilkunde (WIS)', 'Religion (INT)'] },
-    'Adliger': { skills: ['Überzeugen (CHA)', 'Geschichte (INT)'] },
-    'Seeman': { skills: ['Athletik (STR)', 'Wahrnehmung (WIS)'] },
-    'Soldat': { skills: ['Athletik (STR)', 'Einschüchtern (CHA)'] },
-    'Sonderling': { skills: ['Athletik (STR)', 'Überleben (WIS)'] },
-    'Strassenkind': { skills: ['Fingerfertigkeit (DEX)', 'Heimlichkeit (DEX)'] },
-    'Tempeldiener': { skills: ['Motiv erkennen (WIS)', 'Religion (INT)'] },
-    'Händler': { skills: ['Motiv erkennen (WIS)', 'Überzeugen (CHA)'] }
+    'Scharlatan (Täuschen (CHA), Fingerfertigkeit (DEX))': { skills: ['Täuschen (CHA)', 'Fingerfertigkeit (DEX)'] },
+    'Handwerker (Motiv erkennen(WIS), Überzeugen (CHA))': { skills: ['Motiv erkennen (WIS)', 'Überzeugen (CHA)'] },
+    'Krimineller (Heimlichkeit (DEX), Täuschen (CHA))': { skills: ['Heimlichkeit (DEX)', 'Täuschen (CHA)'] },
+    'Unterhaltungskünstler (Auftreten (CHA), Akrobatik (STR))': { skills: ['Auftreten (CHA)', 'Akrobatik (STR)'] },
+    'Volksheld (Tierumgang (WIS), Überleben (WIS))': { skills: ['Tierumgang (WIS)', 'Überleben (WIS)'] },
+    'Weiser (Arkane Kunde (INT), Geschichte (INT))': { skills: ['Arkane Kunde (INT)', 'Geschichte (INT)'] },
+    'Einsiedler (Heilkunde (WIS), Religion (INT))': { skills: ['Heilkunde (WIS)', 'Religion (INT)'] },
+    'Adliger (Überzeugen (CHA), Geschichte (INT))': { skills: ['Überzeugen (CHA)', 'Geschichte (INT)'] },
+    'Seeman (Athletik (STR), Wahrnehmung (WIS))': { skills: ['Athletik (STR)', 'Wahrnehmung (WIS)'] },
+    'Soldat (Athletik (STR), Wahrnehmung (WIS))': { skills: ['Athletik (STR)', 'Wahrnehmung (WIS)'] },
+    'Sonderling (Athletik (STR), Überleben (WIS))': { skills: ['Athletik (STR)', 'Überleben (WIS)'] },
+    'Strassenkind (Fingerfertigkeit (DEX), Heimlichkeit (DEX))': { skills: ['Fingerfertigkeit (DEX)', 'Heimlichkeit (DEX)'] },
+    'Tempeldiener (Motiv erkennen (WIS), Religion (INT))': { skills: ['Motiv erkennen (WIS)', 'Religion (INT)'] },
+    'Händler (Motiv erkennen (WIS), Überzeugen (CHA))': { skills: ['Motiv erkennen (WIS)', 'Überzeugen (CHA)'] }
 };
 
 const CLASS_DATA = {
@@ -99,22 +99,6 @@ let selectedSkills = [];
 
 function calculateModifier(score) { return Math.floor((score - 10) / 2); }
 function getTotalPoints() { return Object.values(scores).reduce((sum, val) => sum + POINT_COSTS[val], 0); }
-
-function openPopupStandard() {
-    document.getElementById('popupStandard').style.display = 'block';
-}
-
-function closePopupStandard() {
-    document.getElementById('popupStandard').style.display = 'none';
-}
-
-function openPopupRandom() {
-    document.getElementById('popupRandom').style.display = 'block';
-}
-
-function closePopupRandom() {
-    document.getElementById('popupRandom').style.display = 'none';
-}
 
 function getPB() {
     const lvlEl = document.getElementById('levelSelect');
@@ -303,38 +287,57 @@ function updateDisplay() {
     document.getElementById('hdDisplay').textContent = CLASS_DATA[cls] ? `1d${CLASS_DATA[cls].hd}` : 'k.A.';
 }
 
-function regelwerkAuswahl2014() {
-    const el = document.getElementById("regelwerk-auswahl-2014");
-    if (!el) return;
-    el.addEventListener('click', () => el.classList.add('enabled'));
+function getDiceRoll(max) {
+    max = Number(max);
+    if (!max || max <= 0) {
+        console.log("Ungültiger Wert für max:", max);
+        return null;
+    }
+    let d = Math.floor(Math.random() * max) + 1;
+    console.log("Würfelergebnis:", d);
+    return d;
 }
 
-function regelwerkAuswahl2024() {
-    const el = document.getElementById("regelwerk-auswahl-2024");
-    if (!el) return;
-    el.addEventListener('click', () => el.classList.add('enabled'));
+function random(arr) {
+    return arr[Math.floor(Math.random() * arr.length)];
 }
 
-/*function randomizeEverything() {
+function randomScore() {
+    var scoreArray1 = { STR: 15, DEX: 14, CON: 13, INT: 12, WIS: 10, CHA: 8 };
+    var scoreArray2 = { STR: 8, DEX: 15, CON: 14, INT: 13, WIS: 12, CHA: 10 };
+    var scoreArray3 = { STR: 10, DEX: 8, CON: 15, INT: 14, WIS: 13, CHA: 12 }; 
+    scores = scoreArray1
+    console.log(scores)
+}
+
+function randomizeEverything() {
+    console.log(randomScore())
     const mainRaceSel = document.getElementById('mainRaceSelect');
     mainRaceSel.value = random(Object.keys(RACE_GROUPS));
     handleMainRaceChange();
-    const subRaceSel = document.getElementById('subRaceSelect'); 
-    subRaceSel.selectedIndex = Math.floor(Math.random() * subRaceSel.options.length);
+    const subRaceSel = document.getElementById('subRaceSelect');
+    if (subRaceSel && subRaceSel.options.length > 0) {
+        subRaceSel.selectedIndex = Math.floor(Math.random() * subRaceSel.options.length);
+    }
     const classSel = document.getElementById('classSelect');
     classSel.value = random(Object.keys(CLASS_DATA).filter(c => c !== 'Keine'));
     const bgSel = document.getElementById('backgroundSelect');
     bgSel.value = random(Object.keys(HINTERGRÜNDE));
+    const alSel = document.getElementById('alignmentSelect');
+    alSel.value = random(document.getElementById('alignmentSelect'));
     selectedSkills = [random(Object.keys(SKILLS))];
-    scores = { STR: randomScore(), DEX: randomScore(), CON: randomScore(), INT: randomScore(), WIS: randomScore(), CHA: randomScore() };
+    randomScore();
+    handleMainRaceChange();
+    handleClassChange();
     updateDisplay();
-}*/
+}
 
 document.getElementById('mainRaceSelect').addEventListener('change', handleMainRaceChange);
 document.getElementById('subRaceSelect').addEventListener('change', updateCustomRaceLogic);
 document.getElementById('classSelect').addEventListener('change', handleClassChange);
 document.getElementById('levelSelect').addEventListener('change', updateDisplay);
 document.getElementById('backgroundSelect').addEventListener('change', updateDisplay);
+document.getElementById('alignmentSelect').addEventListener('change', updateDisplay);
 document.getElementById('customAttr1').addEventListener('change', updateDisplay);
 document.getElementById('customAttr2').addEventListener('change', updateDisplay);
 document.getElementById('resetBtn').addEventListener('click', () => {
@@ -349,9 +352,12 @@ document.getElementById('resetBtn').addEventListener('click', () => {
     if (levelSel) levelSel.value = '1';
     const bgSel = document.getElementById('backgroundSelect');
     if (bgSel) bgSel.value = 'Scharlatan';
-    let selectedSkills = [];
-    let scores = { STR: 8, DEX: 8, CON: 8, INT: 8, WIS: 8, CHA: 8 };
-    handleClassChange()
+    const alSel = document.getElementById('alignmentSelect');
+    if (alSel) alSel.value = 'WahrhaftNeutral'
+    selectedSkills = [];
+    scores = { STR: 8, DEX: 8, CON: 8, INT: 8, WIS: 8, CHA: 8 };
+    handleMainRaceChange();
+    handleClassChange();
     updateDisplay();
 });
 

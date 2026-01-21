@@ -13,13 +13,12 @@ Da das Regelwerk von Dungeons & Dragons extrem komplex ist, befindet sich das To
 2. Implementations of more features from the 2024/2014 PHB
 3. Choosing between the 2014/2024 Rulebook
 4. Printing to a character sheet directly
-5. CSS and GUI improvements
-6. Random character
+5. Random character
+6. Hover info <br>
 <br>
 
 
 <footer>Alle Rechte vorbehalten | Erstellt von Paul S.</footer>
-
 
 
 

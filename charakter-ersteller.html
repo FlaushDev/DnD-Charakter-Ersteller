@@ -8,7 +8,6 @@
     <link rel="stylesheet" href="CalcStyle.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
-
 <body>
     <div class="header">
         <div class="nav-container">
@@ -19,12 +18,14 @@
             </a>
             <nav>
                 <a href="rechtliches.html">Rechtliches</a>
-                <a href="https://www.google.com">Github</a>
+                <a href="https://github.com/FlaushDev/DnD-Charakter-Ersteller">Github</a>
+                <a href="impressum.html">Impressum</a>
             </nav>
         </div>
     </div>
     <div class="hero">
         <h1>DnD 5e 2014 Charakter-Ersteller</h1>
+        <div class="subheader">Infos und Erklärungen zu den Klassen gibt es <a href="https://www.dndbeyond.com/classes">hier.</a></div>
     </div>
 
     <div class="container">
@@ -103,19 +104,20 @@
             <div class="form-group">
                 <label>Hintergrund wählen:</label>
                 <select class="select" id="backgroundSelect">
-                    <option value="Scharlatan">Scharlatan</option>
-                    <option value="Tempeldiener">Tempeldiener</option>
-                    <option value="Handwerker">Handwerker</option>
-                    <option value="Krimineller">Krimineller</option>
-                    <option value="Unterhaltungskünstler">Unterhaltungskünstler</option>
-                    <option value="Volksheld">Volksheld</option>
-                    <option value="Weiser">Weiser</option>
-                    <option value="Einsiedler">Einsiedler</option>
-                    <option value="Adliger">Adliger</option>
-                    <option value="Seeman">Seeman</option>
-                    <option value="Soldat">Soldat</option>
-                    <option value="Sonderling">Sonderling</option>
-                    <option value="Strassenkind">Strassenkind</option>
+                    <option value="Scharlatan">Scharlatan  (Täuschen (CHA), Fingerfertigkeit (DEX)) </option>
+                    <option value="Tempeldiener">Tempeldiener (Motiv erkennen(WIS), Religion (INT))</option>
+                    <option value="Handwerker">Handwerker (Motiv erkennen(WIS), Akrobatik (DEX))</option>
+                    <option value="Krimineller">Krimineller (Heimlichkeit (DEX), Täuschen (CHA))</option>
+                    <option value="Unterhaltungskünstler">Unterhaltungskünstler (Auftreten (CHA), Akrobatik (DEX))</option>
+                    <option value="Volksheld">Volksheld (Tierumgang (WIS), Überleben (WIS))</option>
+                    <option value="Weiser">Weiser (Arkane Kunde (INT), Geschichte (INT))</option>
+                    <option value="Einsiedler">Einsiedler (Heilkunde (WIS), Religion (INT))</option>
+                    <option value="Adliger">Adliger (Überzeugen (CHA), Geschichte (INT))</option>
+                    <option value="Seeman">Seeman (Athletik (STR), Wahrnehmung (WIS))</option>
+                    <option value="Soldat">Soldat (Athletik (STR), Wahrnehmung (WIS))</option>
+                    <option value="Sonderling">Sonderling (Athletik (STR), Überleben (WIS))</option>
+                    <option value="Strassenkind">Strassenkind (Fingerfertigkeit (DEX), Heimlichkeit (DEX))</option>
+                    <option value="Händler">Händler (Motiv erkennen(WIS), Überzeugen (CHA))</option>
                 </select>
             </div>
 
@@ -181,8 +183,7 @@
                 </div>
 
                 <div>
-                    <h2>Fertigkeiten <span style="font-size: 1rem; color: var(--text-light);">(Limit: <span
-                                id="skillLimit">0</span>)</span></h2>
+                    <h2>Fertigkeiten <span style="font-size: 1rem; color: var(--text-light);">(Limit: <span id="skillLimit">0</span>)</span></h2>
                     <ul class="skills-list" id="skillsList"></ul>
                 </div>
             </div>
@@ -190,7 +191,7 @@
 
         <div>
             <button id="resetBtn" class="button reset-button">↻ Zurücksetzen</button>
-            <button id="randomizerButton" class="button">🎲 Zufällig generieren</button>
+            <button id="randomizerButton" class="button random-button" onclick="randomizeEverything()">🎲 Zufällig generieren</button>
         </div>
 
         <div class="info-box" id="info">
@@ -204,7 +205,7 @@
         </div>
     </div>
     <footer>
-        <p>Erstellt von Paul S.| Alle Rechte vorbehalten © 2025</p>
+        <p>Erstellt von Paul S.| Alle Rechte vorbehalten © 2025 | owner@tooltrinkets.at </p>
         <p style="margin-top: 1rem; font-size: 0.9rem;">
             DnD 5e Charakter-Creator ist ein inoffizieller Fan-Inhalt im Rahmen der Richtlinie für Fan-Inhalte.
             Nicht von Wizards gefördert/gesponsert. Bestandteile des enthaltenen Materials sind Eigentum von Wizards
