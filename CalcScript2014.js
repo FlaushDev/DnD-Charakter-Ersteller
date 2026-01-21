@@ -288,20 +288,24 @@ function updateDisplay() {
 }
 
 function getDiceRoll() {
-    if (document.getElementById('wuerfelAnzahl').value >= 1000) {
-        alert('Bitte eine Nummer unter 1.000 eingeben')
-        document.getElementById('wuerfelAnzahl').value = 1
-        window.stop()
-
-    }
+    var amount = parseInt(document.getElementById('wuerfelAnzahl').value);
     var dice = parseInt(document.getElementById('wuerfelAuswahl').value);
+    if (document.getElementById('wuerfelAnzahl').value >= 1000) {
+        alert('Bitte geben Sie eine Nummer unter 1.000 ein')
+        document.getElementById('wuerfelAnzahl').value = 1
+        return;
+    }
+    if (isNaN(amount) === true) {
+        alert('Bitte geben sie KEINE Buchstaben ein')
+        document.getElementById('wuerfelAnzahl').value = 1
+        return;
+    }
     if (amount === 0) {
+        alert('Bitte geben Sie eine Nummer zwischen 1 und 1.000 ein')
         console.log('Error: Anzahl an Würfeln darf nicht Null sein');
-        document.getElementById('wuerfelAnzahl').style.borderColor = 'red';
         return;
     }
     var result = 0;
-    var amount = parseInt(document.getElementById('wuerfelAnzahl').value);
     for (var i = 0; i < amount; i++) {
         result += Math.floor(Math.random() * dice) + 1;
     }
