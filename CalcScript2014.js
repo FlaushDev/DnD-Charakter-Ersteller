@@ -288,6 +288,12 @@ function updateDisplay() {
 }
 
 function getDiceRoll() {
+    if (document.getElementById('wuerfelAnzahl').value >= 1000) {
+        alert('Bitte eine Nummer unter 1.000 eingeben')
+        document.getElementById('wuerfelAnzahl').value = 1
+        window.stop()
+
+    }
     var dice = parseInt(document.getElementById('wuerfelAuswahl').value);
     if (amount === 0) {
         console.log('Error: Anzahl an Würfeln darf nicht Null sein');
@@ -300,11 +306,11 @@ function getDiceRoll() {
         result += Math.floor(Math.random() * dice) + 1;
     }
     if (result === 20) {
-        document.getElementById('wuerfelOutput').value += result + '!, ';
+        document.getElementById('wuerfelOutput').value += result + '! (' + amount + 'w' + dice + '), ';
     } else if (result === 1) {
-        document.getElementById('wuerfelOutput').value += result + ' :(, ';
+        document.getElementById('wuerfelOutput').value += result + ' :( (' + amount + 'w' + dice + '), ';
     } else {
-        document.getElementById('wuerfelOutput').value += result + ', ';
+        document.getElementById('wuerfelOutput').value += result + ' (' + amount + 'w' + dice + '), ';
     }
 }
 
