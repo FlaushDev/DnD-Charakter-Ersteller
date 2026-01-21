@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="CalcStyle.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
+
 <body>
     <div class="header">
         <div class="nav-container">
@@ -25,7 +26,8 @@
     </div>
     <div class="hero">
         <h1>DnD 5e 2014 Charakter-Ersteller</h1>
-        <div class="subheader">Infos und Erklärungen zu den Klassen gibt es <a href="https://www.dndbeyond.com/classes">hier.</a></div>
+        <div class="subheader">Infos und Erklärungen zu den Klassen gibt es <a
+                href="https://www.dndbeyond.com/classes">hier.</a></div>
     </div>
 
     <div class="container">
@@ -104,11 +106,12 @@
             <div class="form-group">
                 <label>Hintergrund wählen:</label>
                 <select class="select" id="backgroundSelect">
-                    <option value="Scharlatan">Scharlatan  (Täuschen (CHA), Fingerfertigkeit (DEX)) </option>
+                    <option value="Scharlatan">Scharlatan (Täuschen (CHA), Fingerfertigkeit (DEX)) </option>
                     <option value="Tempeldiener">Tempeldiener (Motiv erkennen(WIS), Religion (INT))</option>
                     <option value="Handwerker">Handwerker (Motiv erkennen(WIS), Akrobatik (DEX))</option>
                     <option value="Krimineller">Krimineller (Heimlichkeit (DEX), Täuschen (CHA))</option>
-                    <option value="Unterhaltungskünstler">Unterhaltungskünstler (Auftreten (CHA), Akrobatik (DEX))</option>
+                    <option value="Unterhaltungskünstler">Unterhaltungskünstler (Auftreten (CHA), Akrobatik (DEX))
+                    </option>
                     <option value="Volksheld">Volksheld (Tierumgang (WIS), Überleben (WIS))</option>
                     <option value="Weiser">Weiser (Arkane Kunde (INT), Geschichte (INT))</option>
                     <option value="Einsiedler">Einsiedler (Heilkunde (WIS), Religion (INT))</option>
@@ -183,7 +186,8 @@
                 </div>
 
                 <div>
-                    <h2>Fertigkeiten <span style="font-size: 1rem; color: var(--text-light);">(Limit: <span id="skillLimit">0</span>)</span></h2>
+                    <h2>Fertigkeiten <span style="font-size: 1rem; color: var(--text-light);">(Limit: <span
+                                id="skillLimit">0</span>)</span></h2>
                     <ul class="skills-list" id="skillsList"></ul>
                 </div>
             </div>
@@ -191,7 +195,8 @@
 
         <div>
             <button id="resetBtn" class="button reset-button">↻ Zurücksetzen</button>
-            <button id="randomizerButton" class="button random-button" onclick="randomizeEverything()">🎲 Zufällig generieren</button>
+            <button id="randomizerButton" class="button random-button" onclick="randomizeEverything()">🎲 Zufällig
+                generieren</button>
         </div>
 
         <div class="info-box" id="info">

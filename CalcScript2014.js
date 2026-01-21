@@ -287,15 +287,31 @@ function updateDisplay() {
     document.getElementById('hdDisplay').textContent = CLASS_DATA[cls] ? `1d${CLASS_DATA[cls].hd}` : 'k.A.';
 }
 
-function getDiceRoll(max) {
-    max = Number(max);
-    if (!max || max <= 0) {
-        console.log("Ungültiger Wert für max:", max);
-        return null;
+function getDiceRoll() {
+    var dice = parseInt(document.getElementById('wuerfelAuswahl').value);
+    if (amount === 0) {
+        console.log('Error: Anzahl an Würfeln darf nicht Null sein');
+        document.getElementById('wuerfelAnzahl').style.borderColor = 'red';
+        return;
     }
-    let d = Math.floor(Math.random() * max) + 1;
-    console.log("Würfelergebnis:", d);
-    return d;
+    var result = 0;
+    var amount = parseInt(document.getElementById('wuerfelAnzahl').value);
+    for (var i = 0; i < amount; i++) {
+        result += Math.floor(Math.random() * dice) + 1;
+    }
+    if (result === 20) {
+        document.getElementById('wuerfelOutput').value += result + '!, ';
+    } else if (result === 1) {
+        document.getElementById('wuerfelOutput').value += result + ' :(, ';
+    } else {
+        document.getElementById('wuerfelOutput').value += result + ', ';
+    }
+}
+
+function resetDicePage() {
+    document.getElementById('wuerfelAuswahl').value = 20;
+    document.getElementById('wuerfelAnzahl').value = 1;
+    document.getElementById('wuerfelOutput').value = ''
 }
 
 function random(arr) {
@@ -305,9 +321,25 @@ function random(arr) {
 function randomScore() {
     var scoreArray1 = { STR: 15, DEX: 14, CON: 13, INT: 12, WIS: 10, CHA: 8 };
     var scoreArray2 = { STR: 8, DEX: 15, CON: 14, INT: 13, WIS: 12, CHA: 10 };
-    var scoreArray3 = { STR: 10, DEX: 8, CON: 15, INT: 14, WIS: 13, CHA: 12 }; 
-    scores = scoreArray1
+    var scoreArray3 = { STR: 10, DEX: 8, CON: 15, INT: 14, WIS: 13, CHA: 12 };
+
+    let number = Math.floor(Math.random() * 6)
+    if (number === 1) {
+        scores = scoreArray1
+    } else if (number === 2){
+        scores = scoreArray2
+    } else if (number === 3){
+        scores = scoreArray3
+    } else if (number === 2){
+        scores = scoreArray2
+    } else if (number === 2){
+        scores = scoreArray2
+    } else if (number === 2){
+        scores = scoreArray2
+    } else if (number === 2){
+        scores = scoreArray2
     console.log(scores)
+    console.log(number)
 }
 
 function randomizeEverything() {
@@ -324,8 +356,11 @@ function randomizeEverything() {
     const bgSel = document.getElementById('backgroundSelect');
     bgSel.value = random(Object.keys(HINTERGRÜNDE));
     const alSel = document.getElementById('alignmentSelect');
-    alSel.value = random(document.getElementById('alignmentSelect'));
-    selectedSkills = [random(Object.keys(SKILLS))];
+    alSel.value = random(Object.keys('alignmentSelect'));
+    selectedSkills = [random(Object.keys(SKILLS)), 'Wahrnehmung (WIS)'];
+    console.log(bgSel);
+    console.log(alSel);
+    console.log(classSel)
     randomScore();
     handleMainRaceChange();
     handleClassChange();

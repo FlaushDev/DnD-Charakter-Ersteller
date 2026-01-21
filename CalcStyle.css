@@ -8,6 +8,7 @@
     --accent-orange: #d4734a;
     --border-light: #d4c9bb;
     --paper-bg: #f5f0e8;
+    --border-dark: #88827a;
 }
 
 * {
@@ -32,7 +33,24 @@ body {
     text-align: center;
     background-color: var(--bg-light);
 }
- 
+
+.wuerfel-button {
+    background-color: var(--bg-light);
+    border-color: var(--border-light);
+    border-radius: 6px;
+    border-style: solid;
+    padding: 0.75rem 1rem;
+    width: 150px;
+    height: 76px;   
+    
+}
+
+.wuerfel-button:hover {
+    border-color: var(--border-dark);
+    background-color: var(--border-light);
+    transition: 0.2s;
+}
+
 .button {
     color: #5a6d6e;
     width: 475px;
@@ -49,23 +67,7 @@ body {
 }
 
 .button:hover {
-    transform:scale(1.05);
-}
-
-.dice-button {
-    color: #5a6d6e;
-    width: 175px;
-    height: 200px;
-    margin: 20px;
-    color: var(--text-dark);
-    border: 2px solid var(--border-light);
-    border-radius: 6px;
-    padding: 0.75rem 1rem;
-    font-size: 1rem;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    font-family: Georgia, serif;
-    background-color: var(--bg-teal);
+    transform: scale(1.05);
 }
 
 .header {
@@ -201,11 +203,23 @@ h1 {
     margin-bottom: 1.5rem;
 }
 
+.wuerfel-output {
+    background-color: var(--bg-light);
+    border-style: solid;
+    border-color: var(--border-light);
+    border-radius: 8px;
+    height: 200px;
+    width: 100%;
+    padding: 1rem 1rem;
+    font-size: 25px;
+}
+
 label {
     display: block;
     color: var(--accent-teal);
     font-weight: 600;
     margin-bottom: 0.5rem;
+    margin-top: 0.5rem;
     font-size: 1.1rem;
 }
 
@@ -323,7 +337,7 @@ select:focus {
     background: #c24641;
     color: white;
     transition: 0.3s;
-    border-color:#a83c37;
+    border-color: #a83c37;
 }
 
 .attr-btn-plus {
@@ -433,11 +447,35 @@ input[type="checkbox"]:disabled {
     cursor: not-allowed;
 }
 
+.spinner-control {
+    width: 104px;
+    display: block;
+    color: var(--accent-teal);
+    margin-bottom: 0.5rem;
+    font-size: 1.1rem;
+    background: white;
+    color: var(--text-dark);
+    border: 2px solid var(--border-light);
+    border-radius: 6px;
+    padding: 0.75rem 1rem;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-family: Georgia, serif;
+}
+
+.spinner-control:hover,
+.spinner-control:focus {
+    border-color: var(--accent-teal);
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(26, 62, 71, 0.1);
+}
+
 .reset-button {
     background: #c24641;
     max-width: fit-content;
     max-height: 75px;
-    color:#f9f7f4;
+    color: #f9f7f4;
     border-color: #a83c37;
 }
 

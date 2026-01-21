@@ -27,8 +27,28 @@
     <div class="hero">
         <h1>Online-Würfel</h1>
     </div>
-    <div class="button-container">
-        <button onclick="getDiceRoll(20)" id ="wuerfel" class="dice-button" style="background-image: url(https://freeimage.host/i/fSib6Al); background-size: contain">Ergebnis<span id="wuerfelErgebnis"></span></button>
+    <div class="container">
+        <div class="form-section">
+            <div class="form-group">
+                <label>Würfel auswählen:</label>
+                <select class="select" id="wuerfelAuswahl">
+                    <option value="3">3-seitiger</option>
+                    <option value="4">4-seitiger</option>
+                    <option value="6">6-seitiger</option>
+                    <option value="8">8-seitiger</option>
+                    <option value="10">10-seitiger</option>
+                    <option value="12">12-seitiger</option>
+                    <option value="20" selected>20-seitiger</option>
+                    <option value="100">100-seitiger</option>
+                </select>
+                <label>Anzahl an Würfeln:</label>
+                <input type="number" min="1" max="20" step="1" value="1" class="spinner-control" id="wuerfelAnzahl">
+                <button class="wuerfel-button" onclick="getDiceRoll()">🎲 Würfeln</button>
+                <button class="reset-button button" onclick="resetDicePage()">↻ Zurücksetzen</button>
+                <label>Ergebnisse:</label>
+                <textarea class="wuerfel-output" id="wuerfelOutput" readonly></textarea>
+            </div>
+        </div>
     </div>
     <footer>
         <p>Erstellt von Paul S.| Alle Rechte vorbehalten © 2025 | owner@tooltrinkets.at </p>
