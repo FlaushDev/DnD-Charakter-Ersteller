@@ -322,6 +322,9 @@ function randomScore() {
     var scoreArray1 = { STR: 15, DEX: 14, CON: 13, INT: 12, WIS: 10, CHA: 8 };
     var scoreArray2 = { STR: 8, DEX: 15, CON: 14, INT: 13, WIS: 12, CHA: 10 };
     var scoreArray3 = { STR: 10, DEX: 8, CON: 15, INT: 14, WIS: 13, CHA: 12 };
+    var scoreArray4 = { STR: 12, DEX: 10, CON: 8, INT: 15, WIS: 14, CHA: 13 };
+    var scoreArray5 = { STR: 13, DEX: 12, CON: 10, INT: 8, WIS: 15, CHA: 14 };
+    var scoreArray6 = { STR: 14, DEX: 13, CON: 12, INT: 10, WIS: 8, CHA: 15 };
 
     let number = Math.floor(Math.random() * 6)
     if (number === 1) {
@@ -330,14 +333,13 @@ function randomScore() {
         scores = scoreArray2
     } else if (number === 3){
         scores = scoreArray3
-    } else if (number === 2){
-        scores = scoreArray2
-    } else if (number === 2){
-        scores = scoreArray2
-    } else if (number === 2){
-        scores = scoreArray2
-    } else if (number === 2){
-        scores = scoreArray2
+    } else if (number === 4){
+        scores = scoreArray4
+    } else if (number === 5){
+        scores = scoreArray5
+    } else if (number === 6){
+        scores = scoreArray6
+    }
     console.log(scores)
     console.log(number)
 }
