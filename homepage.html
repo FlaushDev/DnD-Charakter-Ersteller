@@ -4,8 +4,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>D&D 5e Charakter-Creator</title>
-    <link rel="stylesheet" href="CalcStyle.css">
+    <title>Tools n' trinkets</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
@@ -26,23 +26,34 @@
     <div class="hero">
         <h1>Willkommen bei Tools n' Trinkets</h1>
         <div class="subheader">
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Perferendis id vero nihil beatae molestias,
-            eligendi quidem sint quis ex commodi velit repellendus repudiandae fuga animi, ducimus, consequuntur eos
-            neque quasi.
+            Ein kleines Projekt gedacht für alle deutschen DnD-Spieler mit mehreren Tools um das Spielen zu erleichtern. 
         </div>
     </div>
     <div class="button-container">
-        <button onclick="document.location.href='charakter-ersteller.html'" class="button">2014</button>
-        <button class="button">2024</button>
-        <button onclick="document.location.href='wuerfel.html'" class="button">Online-Würfel</button>
-        <button class="button">Abenteuer</button>
+        <div class="button-container-flex">
+            <div class="max-size">
+                <button onclick="document.location.href='charakter-ersteller.html'" class="button img-button"></button>
+                <label class="label-button">Regelwerk 5e 2014</label>
+            </div>
+            <div class="max-size">
+                <button onclick="document.location.href='charakter-ersteller-2024.html'" class="button img-button"></button>
+                <label class="label-button">Regelwerk 5.5e 2024</label>
+            </div>
+            <div class="max-size">
+                <button onclick="document.location.href='wuerfel.html'" class="button img-button"></button>
+                <label class="label-button">Online-Würfel</label>
+            </div>
+            <div class="max-size">
+                <button class="button img-button"></button>
+                <label class="label-button">Forum 5e</label>
+            </div>
+        </div>
     </div>
-
     <footer>
         <p>Erstellt von Paul S. | Alle Rechte vorbehalten © 2025 | owner@tooltrinkets.at </p>
     </footer>
 
-    <script src="CalcScript2014.js"></script>
+    <script src="main-script.js"></script>
 </body>
 
 </html>
