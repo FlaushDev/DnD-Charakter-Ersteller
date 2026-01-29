@@ -350,6 +350,10 @@ function randomScore() {
     } else if (number === 6){
         scores = scoreArray6
     }
+
+    handleMainRaceChange();
+    handleClassChange();
+    updateDisplay();
 }
 
 function randomizeEverything() {
