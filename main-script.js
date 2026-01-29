@@ -241,6 +241,16 @@ function handleMainRaceChange() {
     updateCustomRaceLogic();
 }
 
+function adjustScore(attr, delta) {
+    const newValue = scores[attr] + delta;
+    if (newValue >= 8 && newValue <= 15) {
+        const costDiff = POINT_COSTS[newValue] - POINT_COSTS[scores[attr]];
+        if (delta > 0 && (getTotalPoints() + costDiff) > 27) return;
+        scores[attr] = newValue;
+        updateDisplay();
+    }
+}
+
 function updateCustomRaceLogic() {
     const main = document.getElementById('mainRaceSelect').value;
     const subs = RACE_GROUPS[main] || [];
