@@ -139,16 +139,6 @@ function updateAttributeTable() {
     }
 }
 
-function adjustScore(attr, delta) {
-    const newValue = scores[attr] + delta;
-    if (newValue >= 8 && newValue <= 15) {
-        const costDiff = POINT_COSTS[newValue] - POINT_COSTS[scores[attr]];
-        if (delta > 0 && (getTotalPoints() + costDiff) > 27) return;
-        scores[attr] = newValue;
-        updateDisplay();
-    }
-}
-
 function calculateTotalHP() {
     const levelVal = document.getElementById('levelSelect').value;
     const level = parseInt(levelVal) || 1;
@@ -336,7 +326,7 @@ function randomScore() {
     var scoreArray5 = { STR: 13, DEX: 12, CON: 10, INT: 8, WIS: 15, CHA: 14 };
     var scoreArray6 = { STR: 14, DEX: 13, CON: 12, INT: 10, WIS: 8, CHA: 15 };
 
-    let number = Math.floor(Math.random() * 6)
+    let number = Math.floor(Math.random() * 7)
     if (number === 1) {
         scores = scoreArray1
     } else if (number === 2){
@@ -353,7 +343,6 @@ function randomScore() {
 }
 
 function randomizeEverything() {
-    console.log(randomScore())
     const mainRaceSel = document.getElementById('mainRaceSelect');
     mainRaceSel.value = random(Object.keys(RACE_GROUPS));
     handleMainRaceChange();

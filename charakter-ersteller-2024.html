@@ -155,13 +155,15 @@
         </div>
 
         <div class="form-section" id="attribute">
-            <div class="tw-toggle">
-                <input type="radio" name="toggle" value="false">
-                <label class="toggle toggle-yes"><i class="fa fa-times"></i></label>
-                <input checked type="radio" name="toggle" value="-1">
-                <label class="toggle toggle-yes"><i class="fa fa-minus"></i></label>
-                <input type="radio" name="toggle" value="true">
-                <label class="toggle toggle-yes"><i class="fa fa-check"></i></label> 
+            <div>
+                <div class="toggle-group">
+                <input type="radio" name="mode" id="27PointBuy" value="27PointBuy" />
+                <label for="economical">27-Punkte System</label>
+                <input type="radio" name="mode" id="StandardArray" value="StandardArray" />
+                <label for="balanced">Standard-Array</label>
+                <input type="radio" name="mode" id="RandomAttributes" value="RandomAttributes" />
+                <label for="performance">Zufällige Generierung</label>
+                </div>
             </div>
             <h2>Attribute</h2>
             <table class="attribute-table">

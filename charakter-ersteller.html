@@ -156,33 +156,27 @@
         </div>
 
         <div class="form-section" id="attribute">
-            <div class="tw-toggle">
-                <input type="radio" name="toggle" value="false">
-                <label class="toggle toggle-yes"><i class="fa fa-times"></i></label>
-                <input checked type="radio" name="toggle" value="-1">
-                <label class="toggle toggle-yes"><i class="fa fa-minus"></i></label>
-                <input type="radio" name="toggle" value="true">
-                <label class="toggle toggle-yes"><i class="fa fa-check"></i></label> 
+            <div id="AttributeSection">
+                <h2>Attribute</h2>
+                <table class="attribute-table">
+                    <thead>
+                        <tr>
+                            <th>Attribut</th>
+                            <th class="text-center">Grundwert</th>
+                            <th class="text-center">Völkerbonus</th>
+                            <th class="text-center">Gesamt</th>
+                            <th class="text-center">Modifikator</th>
+                            <th class="text-center">Kosten</th>
+                        </tr>
+                    </thead>
+                    <tbody id="attributesTable"></tbody>
+                </table>
             </div>
-            <h2>Attribute</h2>
-            <table class="attribute-table">
-                <thead>
-                    <tr>
-                        <th>Attribut</th>
-                        <th class="text-center">Grundwert</th>
-                        <th class="text-center">Völkerbonus</th>
-                        <th class="text-center">Gesamt</th>
-                        <th class="text-center">Modifikator</th>
-                        <th class="text-center">Kosten</th>
-                    </tr>
-                </thead>
-                <tbody id="attributesTable"></tbody>
-            </table>
-
-            <div style="margin-top: 1.5rem;">
+            <div style="margin-top: 1.5rem;" id="pointsDisplaySection">
                 <div class="points-display">
                     Verbrauchte Punkte: <strong id="pointsDisplay">0 / 27</strong>
                 </div>
+                <button id="randomAttribute" class="button random-button" onclick="randomScore()" style="margin-left: 20px">🎲 Zufällig generieren</button>
             </div>
         </div>
 
@@ -194,8 +188,7 @@
                 </div>
 
                 <div>
-                    <h2>Fertigkeiten <span style="font-size: 1rem; color: var(--text-light);">(Limit: <span
-                                id="skillLimit">0</span>)</span></h2>
+                    <h2>Fertigkeiten <span style="font-size: 1rem; color: var(--text-light);">(Limit: <span id="skillLimit">0</span>)</span></h2>
                     <ul class="skills-list" id="skillsList"></ul>
                 </div>
             </div>
@@ -203,8 +196,7 @@
 
         <div>
             <button id="resetBtn" class="button reset-button">↻ Zurücksetzen</button>
-            <button id="randomizerButton" class="button random-button" onclick="randomizeEverything()">🎲 Zufällig
-                generieren</button>
+            <button id="randomizerButton" class="button random-button" onclick="randomizeEverything()">🎲 Zufällig generieren</button>
         </div>
 
         <div class="info-box" id="info">

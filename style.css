@@ -24,73 +24,6 @@ body {
     font-size: 16px;
     line-height: 1.8;
     min-height: 100vh;
-    background-color: #e8dfd6;
-}
-
-.tw-toggle {
-  /* background: #95A5A6; */
-  display: inline-block;
-  padding: 2px 3px;
-  border-radius: 20px;
-  position:relative;
-  border: 2px solid #95A5A6;
-}
-
-.tw-toggle label {
-  text-align: center;
-  font-family: sans-serif;
-  display: inline-block;
-  color: #95A5A6;
-  position:relative;
-  z-index:2;
-  margin: 0;
-  text-align: center;
-  padding: 2px 3px;
-  font-size: 15px;
-  /* cursor: pointer; */
-}
-
-.tw-toggle input {
-  /* display: none; */
-  position: absolute;
-  z-index: 3;
-  opacity: 0;
-  cursor: pointer;
-}
-
-.tw-toggle span {
-  height: 21px;
-  width: 21px;
-  line-height: 21px;
-  border-radius: 50%;
-  background:#fff;
-  display:block;
-  position:absolute;
-  left: 22px;
-  top: 2px;
-  transition:all 0.3s ease-in-out;
-}
-
-.tw-toggle input[value="false"]:checked ~ span{
-  background:#e74c3c;
-  left:2px;
-  color:#fff;
-}
-
-.tw-toggle input[value="true"]:checked ~ span{
-  background:#27ae60;
-  left: 46px;
-}
-.tw-toggle input[value="-1"]:checked ~ span{
-  background:#95A5A6;
-  left: 23px;
-}
-
-.tw-toggle input[value="false"]:checked + label,.tw-toggle input[value="true"]:checked + label{
-  color:#fff;
-}
-.tw-toggle input[value="-1"]:checked + label{
-  color:#fff;
 }
 
 .button-container {
@@ -566,9 +499,11 @@ input[type="checkbox"]:disabled {
 .reset-button {
     background: #c24641;
     max-width: fit-content;
-    max-height: 75px;
+    max-height: 5rem;
+    font-size: 1.2rem;
     color: #f9f7f4;
     border-color: #a83c37;
+    padding: 1rem 2rem;
 }
 
 .reset-button:hover {
@@ -577,8 +512,10 @@ input[type="checkbox"]:disabled {
 
 .random-button {
     max-width: fit-content;
-    max-height: 75px;
+    font-size: 1.2rem;
+    max-height: 5rem;
     background-color: #f9f7f4;
+    padding: 1rem 2rem;
 }
 
 .points-display {
