@@ -1,3 +1,4 @@
+/*Consts using SCREAMING_SNAKE are fixed Lists of Data; NEVER change these with code*/
 const POINT_COSTS = { 8: 0, 9: 1, 10: 2, 11: 3, 12: 4, 13: 5, 14: 7, 15: 9 };
 const PROFICIENCY_BONUS = { 1: 2, 2: 2, 3: 2, 4: 2, 5: 3, 6: 3, 7: 3, 8: 3, 9: 4, 10: 4, 11: 4, 12: 4, 13: 5, 14: 5, 15: 5, 16: 5, 17: 6, 18: 6, 19: 6, 20: 6 };
 const ATTRIBUTES_MAP = {
@@ -48,19 +49,18 @@ const HINTERGRÜNDE = {
 };
 
 const CLASS_DATA = {
-    'Barde': { level: 3, hd: 8, saves: ['DEX', 'CHA'], skillChoices: 3, subclasses: ['College des Ruhms', 'College der Weisheit', 'College der Tapferkeit', 'College des Tanzes'] },
-    'Barbar': { level: 3, hd: 12, saves: ['STR', 'CON'], skillChoices: 2, subclasses: ['Pfad des Berserkers', 'Pfad des Totemkriegers'] },
-    'Druide': { level: 2, hd: 8, saves: ['INT', 'WIS'], skillChoices: 2, subclasses: ['Zirkel des Mondes', 'Zirkel des Landes'] },
-    'Hexenmeister': { level: 1, hd: 8, saves: ['WIS', 'CHA'], skillChoices: 2, subclasses: ['Erzfeen', 'Der Unhold', 'Der Große Alte'] },
-    'Kämpfer': { level: 3, hd: 10, saves: ['STR', 'CON'], skillChoices: 2, subclasses: ['Kampfmeister', 'Meister des Schwertes', 'Mystischer Ritter'] },
-    'Kleriker': { level: 1, hd: 8, saves: ['WIS', 'CHA'], skillChoices: 2, subclasses: ['Lebensdomäne', 'Lichtdomäne', 'Betrugsdomäne'] },
-    'Magier': { level: 2, hd: 6, saves: ['INT', 'WIS'], skillChoices: 2, subclasses: ['Schule der Bannmagie', 'Schule der Hervorrufung', 'Schule der Nekromantie'] },
-    'Mönch': { level: 3, hd: 8, saves: ['STR', 'DEX'], skillChoices: 2, subclasses: ['Weg der offenen Hand', 'Weg des Schattens', 'Weg der Vier Elemente'] },
-    'Paladin': { level: 3, hd: 10, saves: ['WIS', 'CHA'], skillChoices: 2, subclasses: ['Schwur der Hingabe', 'Schwur der Alten', 'Schwur der Rache'] },
-    'Schurke': { level: 3, hd: 8, saves: ['DEX', 'INT'], skillChoices: 4, subclasses: ['Dieb', 'Meuchelmörder', 'Arkaner Betrüger'] },
-    'Waldläufer': { level: 3, hd: 10, saves: ['STR', 'DEX'], skillChoices: 3, subclasses: ['Jäger', 'Tierherr'] },
-    'Zauberer': { level: 1, hd: 6, saves: ['CON', 'CHA'], skillChoices: 2, subclasses: ['Drachenblut', 'Wildmagie', 'Abartige Gedanken'] },
-    'Keine': { level: 1, hd: 6, saves: [], skillChoices: 0, subclasses: [] }
+    'Barde': { subLevel: 3, hd: 8, saves: ['DEX', 'CHA'], skillChoices: 3, subclasses: ['College des Ruhms', 'College der Weisheit', 'College der Tapferkeit', 'College des Tanzes'] },
+    'Barbar': { subLevel: 3, hd: 12, saves: ['STR', 'CON'], skillChoices: 2, subclasses: ['Pfad des Berserkers', 'Pfad des Totemkriegers'] },
+    'Druide': { subLevel: 2, hd: 8, saves: ['INT', 'WIS'], skillChoices: 2, subclasses: ['Zirkel des Mondes', 'Zirkel des Landes'] },
+    'Hexenmeister': { subLevel: 1, hd: 8, saves: ['WIS', 'CHA'], skillChoices: 2, subclasses: ['Eine Erzfee', 'Ein Unhold', 'Ein Großer Alter'] },
+    'Kämpfer': { subLevel: 3, hd: 10, saves: ['STR', 'CON'], skillChoices: 2, subclasses: ['Kampfmeister', 'Meister des Schwertes', 'Mystischer Ritter'] },
+    'Kleriker': { subLevel: 1, hd: 8, saves: ['WIS', 'CHA'], skillChoices: 2, subclasses: ['Lebensdomäne', 'Lichtdomäne', 'Betrugsdomäne'] },
+    'Magier': { subLevel: 2, hd: 6, saves: ['INT', 'WIS'], skillChoices: 2, subclasses: ['Schule der Bannmagie', 'Schule der Hervorrufung', 'Schule der Nekromantie'] },
+    'Mönch': { subLevel: 3, hd: 8, saves: ['STR', 'DEX'], skillChoices: 2, subclasses: ['Weg der offenen Hand', 'Weg des Schattens', 'Weg der Vier Elemente'] },
+    'Paladin': { subLevel: 3, hd: 10, saves: ['WIS', 'CHA'], skillChoices: 2, subclasses: ['Schwur der Hingabe', 'Schwur der Alten', 'Schwur der Rache'] },
+    'Schurke': { subLevel: 3, hd: 8, saves: ['DEX', 'INT'], skillChoices: 4, subclasses: ['Dieb', 'Meuchelmörder', 'Arkaner Betrüger'] },
+    'Waldläufer': { subLevel: 3, hd: 10, saves: ['STR', 'DEX'], skillChoices: 3, subclasses: ['Jäger', 'Tierherr'] },
+    'Zauberer': { subLevel: 1, hd: 6, saves: ['CON', 'CHA'], skillChoices: 2, subclasses: ['Drachenblut', 'Wildmagie', 'Abartige Gedanken'] },
 };
 
 const RACE_GROUPS = {
@@ -94,11 +94,52 @@ const RACES = {
     'Halbling (Stämmig)': { DEX: 2, CON: 1 }
 };
 
+const ALIGNMENT = {
+    'RechtschaffenGut': {},
+    'RechtschaffenNeutral': {},
+    'RechtschaffenBöse': {},
+    'NeutralGut': {},
+    'WahrhaftNeutral': {},
+    'NeutralBöse': {},
+    'ChaotischNeutral': {},
+    'ChaotischBöse': {}
+}
+
+/*let score and let selectedSkills are lets which are changed by code while creating a character*/
+
 let scores = { STR: 8, DEX: 8, CON: 8, INT: 8, WIS: 8, CHA: 8 };
 let selectedSkills = [];
 
-function calculateModifier(score) { return Math.floor((score - 10) / 2); }
-function getTotalPoints() { return Object.values(scores).reduce((sum, val) => sum + POINT_COSTS[val], 0); }
+/*Functions*/
+
+/*Core Update Display*/
+
+function updateDisplay() {
+    updateAttributeTable();
+    updateSavesAndSkills();
+    updateSkillLimit();
+    document.getElementById('pointsDisplay').textContent = `${getTotalPoints()} / 27`;
+    document.getElementById('pbDisplay').textContent = `+${getPB()}`;
+    document.getElementById('hpDisplay').textContent = calculateTotalHP();
+    const cls = document.getElementById('classSelect').value;
+    document.getElementById('hdDisplay').textContent = CLASS_DATA[cls] ? `1d${CLASS_DATA[cls].hd}` : 'k.A.';
+}
+
+/*Functions for HitDice, HitPoints and ProficencyBonus*/
+
+function calculateTotalHP() {
+    const levelVal = document.getElementById('levelSelect').value;
+    const level = parseInt(levelVal) || 1;
+    const classKey = document.getElementById('classSelect').value;
+    const classData = CLASS_DATA[classKey];
+    const conMod = calculateModifier(getAttributeTotal('CON'));
+    const level1HP = classData.hd + conMod;
+
+    if (level === 1) return Math.max(1, level1HP);
+
+    const avgHPPerLevel = Math.floor(classData.hd / 2) + 1 + conMod;
+    return level1HP + (level - 1) * avgHPPerLevel;
+}
 
 function getPB() {
     const lvlEl = document.getElementById('levelSelect');
@@ -106,10 +147,76 @@ function getPB() {
     return PROFICIENCY_BONUS[lvl] || 2;
 }
 
+/*Functions for Level, Class(Subclass), Race (Subrace), Background and Alignment*/
 function getBackgroundBonus(attr) {
     const bgKey = document.getElementById('backgroundSelect').value;
     return HINTERGRÜNDE[bgKey] ? (HINTERGRÜNDE[bgKey][attr] || 0) : 0;
 }
+
+function getRacialBonus(attr) {
+    const main = document.getElementById('mainRaceSelect').value;
+    const subs = RACE_GROUPS[main] || [];
+    const raceKey = subs.length > 1 ? document.getElementById('subRaceSelect').value : main;
+    const race = RACES[raceKey];
+    if (!race) return 0;
+    if (race.custom) {
+        let b = (raceKey === 'Halbelf' && attr === 'CHA') ? 2 : 0;
+        if (document.getElementById('customAttr1').value === attr) b += 1;
+        if (document.getElementById('customAttr2').value === attr) b += 1;
+        return b;
+    }
+    return race[attr] || 0;
+}
+
+function handleMainRaceChange() {
+    const main = document.getElementById('mainRaceSelect').value;
+    const subDiv = document.getElementById('subRaceSelection');
+    const subs = RACE_GROUPS[main] || [];
+    subDiv.style.display = subs.length > 1 ? 'block' : 'none';
+    if (subs.length > 1) {
+        const sel = document.getElementById('subRaceSelect');
+        sel.innerHTML = '';
+        subs.forEach(s => sel.innerHTML += `<option value="${s}">${s}</option>`);
+    }
+    updateCustomRaceLogic();
+}
+
+function handleClassChange() {
+    const cls = document.getElementById('classSelect').value;
+    const lvlVal = document.getElementById('levelSelect').value;
+    const lvl = parseInt(lvlVal) || 1;
+    const data = CLASS_DATA[cls];
+    const subDiv = document.getElementById('subClassSelection');
+    if (data && data.subclasses.length > 0 && lvl >= data.subLevel) {
+        subDiv.style.display = 'block';
+        const sel = document.getElementById('subClassSelect');
+        sel.innerHTML = '';
+        data.subclasses.forEach(s => sel.innerHTML += `<option value="${s}">${s}</option>`);
+        if (cls === "Hexenmeister") {
+            document.getElementById("subClassSelectLabel").textContent = "Patron wählen:"
+            document.getElementById("warlockInfoLabel").style.display = "block"
+        }
+        else {
+            document.getElementById("warlockInfoLabel").style.display = "none"
+            document.getElementById("subClassSelectLabel").textContent = "Subklasse wählen:"
+        };
+    } else {
+        subDiv.style.display = 'none';
+        document.getElementById("warlockInfoLabel").style.display = "none"
+    }
+    updateDisplay();
+}
+
+function updateCustomRaceLogic() {
+    const main = document.getElementById('mainRaceSelect').value;
+    const subs = RACE_GROUPS[main] || [];
+    const raceKey = subs.length > 1 ? document.getElementById('subRaceSelect').value : main;
+    const customDiv = document.getElementById('customBonuses');
+    if (customDiv) customDiv.style.display = RACES[raceKey]?.custom ? 'block' : 'none';
+    updateDisplay();
+}
+
+/*Functions for the Attribute Table */
 
 function getAttributeTotal(attr) { return scores[attr] + getRacialBonus(attr) + getBackgroundBonus(attr); }
 function updateAttributeTable() {
@@ -139,22 +246,20 @@ function updateAttributeTable() {
     }
 }
 
-function calculateTotalHP() {
-    const levelVal = document.getElementById('levelSelect').value;
-    const level = parseInt(levelVal) || 1;
-    const classKey = document.getElementById('classSelect').value;
-    const classData = CLASS_DATA[classKey];
-
-    if (!classData || classKey === 'Keine') return 0;
-
-    const conMod = calculateModifier(getAttributeTotal('CON'));
-    const level1HP = classData.hd + conMod;
-
-    if (level === 1) return Math.max(1, level1HP);
-
-    const avgHPPerLevel = Math.floor(classData.hd / 2) + 1 + conMod;
-    return level1HP + (level - 1) * avgHPPerLevel;
+function adjustScore(attr, delta) {
+    const newValue = scores[attr] + delta;
+    if (newValue >= 8 && newValue <= 15) {
+        const costDiff = POINT_COSTS[newValue] - POINT_COSTS[scores[attr]];
+        if (delta > 0 && (getTotalPoints() + costDiff) > 27) return;
+        scores[attr] = newValue;
+        updateDisplay();
+    }
 }
+
+function calculateModifier(score) { return Math.floor((score - 10) / 2); }
+function getTotalPoints() { return Object.values(scores).reduce((sum, val) => sum + POINT_COSTS[val], 0); }
+
+/*Functions for Saves and Skills */
 
 function updateSavesAndSkills() {
     const savesList = document.getElementById('savesList');
@@ -210,101 +315,40 @@ function updateSkillLimit() {
     document.getElementById('skillLimit').textContent = limit;
 }
 
-document.getElementById('classSelect').addEventListener('change', updateSkillLimit);
-updateSkillLimit();
-
-function getRacialBonus(attr) {
-    const main = document.getElementById('mainRaceSelect').value;
-    const subs = RACE_GROUPS[main] || [];
-    const raceKey = subs.length > 1 ? document.getElementById('subRaceSelect').value : main;
-    const race = RACES[raceKey];
-    if (!race) return 0;
-    if (race.custom) {
-        let b = (raceKey === 'Halbelf' && attr === 'CHA') ? 2 : 0;
-        if (document.getElementById('customAttr1').value === attr) b += 1;
-        if (document.getElementById('customAttr2').value === attr) b += 1;
-        return b;
-    }
-    return race[attr] || 0;
-}
-
-function handleMainRaceChange() {
-    const main = document.getElementById('mainRaceSelect').value;
-    const subDiv = document.getElementById('subRaceSelection');
-    const subs = RACE_GROUPS[main] || [];
-    subDiv.style.display = subs.length > 1 ? 'block' : 'none';
-    if (subs.length > 1) {
-        const sel = document.getElementById('subRaceSelect');
-        sel.innerHTML = '';
-        subs.forEach(s => sel.innerHTML += `<option value="${s}">${s}</option>`);
-    }
-    updateCustomRaceLogic();
-}
-
-function adjustScore(attr, delta) {
-    const newValue = scores[attr] + delta;
-    if (newValue >= 8 && newValue <= 15) {
-        const costDiff = POINT_COSTS[newValue] - POINT_COSTS[scores[attr]];
-        if (delta > 0 && (getTotalPoints() + costDiff) > 27) return;
-        scores[attr] = newValue;
-        updateDisplay();
-    }
-}
-
-function updateCustomRaceLogic() {
-    const main = document.getElementById('mainRaceSelect').value;
-    const subs = RACE_GROUPS[main] || [];
-    const raceKey = subs.length > 1 ? document.getElementById('subRaceSelect').value : main;
-    const customDiv = document.getElementById('customBonuses');
-    if (customDiv) customDiv.style.display = RACES[raceKey]?.custom ? 'block' : 'none';
-    updateDisplay();
-}
-
-function handleClassChange() {
-    const cls = document.getElementById('classSelect').value;
-    const lvlVal = document.getElementById('levelSelect').value;
-    const lvl = parseInt(lvlVal) || 1;
-    const data = CLASS_DATA[cls];
-    const subDiv = document.getElementById('subClassSelection');
-    if (data && data.subclasses.length > 0 && lvl >= data.level) {
-        subDiv.style.display = 'block';
-        const sel = document.getElementById('subClassSelect');
-        sel.innerHTML = '';
-        data.subclasses.forEach(s => sel.innerHTML += `<option value="${s}">${s}</option>`);
-    } else {
-        subDiv.style.display = 'none';
-    }
-    updateDisplay();
-}
-
-function updateDisplay() {
-    updateAttributeTable();
-    updateSavesAndSkills();
-    document.getElementById('pointsDisplay').textContent = `${getTotalPoints()} / 27`;
-    document.getElementById('pbDisplay').textContent = `+${getPB()}`;
-    document.getElementById('hpDisplay').textContent = calculateTotalHP();
-    const cls = document.getElementById('classSelect').value;
-    document.getElementById('hdDisplay').textContent = CLASS_DATA[cls] ? `1d${CLASS_DATA[cls].hd}` : 'k.A.';
-}
+/*Functions for the dice-roll page */
 
 function getDiceRoll() {
     var amount = parseInt(document.getElementById('wuerfelAnzahl').value);
     var dice = parseInt(document.getElementById('wuerfelAuswahl').value);
-    if (document.getElementById('wuerfelAnzahl').value >= 1000) {
-        alert('Bitte geben Sie eine Nummer unter 1.000 ein')
-        document.getElementById('wuerfelAnzahl').value = 1
-        return;
+    if (document.getElementById('wuerfelAuswahl').value === 1000000) {
+        if (isNaN(amount) === true) {
+            alert('Bitte geben sie KEINE Buchstaben ein')
+            document.getElementById('wuerfelAnzahl').value = 1
+            return;
+        }
+        if (amount === 0) {
+            alert('Bitte geben Sie eine Nummer über 0 ein')
+            console.log('Error: Anzahl an Würfeln darf nicht Null sein');
+            return;
+        }
     }
-    if (isNaN(amount) === true) {
-        alert('Bitte geben sie KEINE Buchstaben ein')
-        document.getElementById('wuerfelAnzahl').value = 1
-        return;
+    if (document.getElementById('wuerfelAuswahl').value < 1000000) {
+        if (document.getElementById('wuerfelAnzahl').value >= 1000 ) {
+            alert('Bitte geben Sie eine Nummer unter 1.000 ein')
+            document.getElementById('wuerfelAnzahl').value = 1
+            return;
+        }
+        if (isNaN(amount) === true) {
+            alert('Bitte geben sie KEINE Buchstaben ein')
+            document.getElementById('wuerfelAnzahl').value = 1
+            return;
+        }
+        if (amount === 0) {
+            alert('Bitte geben Sie eine Nummer zwischen 1 und 999 ein')
+            return;
+        }
     }
-    if (amount === 0) {
-        alert('Bitte geben Sie eine Nummer zwischen 1 und 1.000 ein')
-        console.log('Error: Anzahl an Würfeln darf nicht Null sein');
-        return;
-    }
+
     var result = 0;
     for (var i = 0; i < amount; i++) {
         result += Math.floor(Math.random() * dice) + 1;
@@ -323,6 +367,8 @@ function resetDicePage() {
     document.getElementById('wuerfelAnzahl').value = 1;
     document.getElementById('wuerfelOutput').value = ''
 }
+
+/*Random Scores, Classes, etc. */
 
 function random(arr) {
     return arr[Math.floor(Math.random() * arr.length)];
@@ -365,21 +411,22 @@ function randomizeEverything() {
         subRaceSel.selectedIndex = Math.floor(Math.random() * subRaceSel.options.length);
     }
     const classSel = document.getElementById('classSelect');
-    classSel.value = random(Object.keys(CLASS_DATA).filter(c => c !== 'Keine'));
+    classSel.value = random(Object.keys(CLASS_DATA));
     const bgSel = document.getElementById('backgroundSelect');
     bgSel.value = random(Object.keys(HINTERGRÜNDE));
     const alSel = document.getElementById('alignmentSelect');
-    alSel.value = random(Object.keys('alignmentSelect'));
-    selectedSkills = [random(Object.keys(SKILLS)), 'Wahrnehmung (WIS)'];
-    console.log(bgSel);
-    console.log(alSel);
-    console.log(classSel)
+    alSel.value = random(Object.keys(ALIGNMENT));
+    selectedSkills = [random(Object.keys(SKILLS)), random(Object.keys(SKILLS))];
+    if (skillChoices.value === 3)
+        selectedSkills = [random(Object.keys(SKILLS)), random(Object.keys(SKILLS)), random(Object.keys(SKILLS))]
     randomScore();
     handleMainRaceChange();
     handleClassChange();
     updateDisplay();
 }
 
+/*Change Event-Listeners to update Display*/
+document.getElementById('classSelect').addEventListener('change', updateSkillLimit);
 document.getElementById('mainRaceSelect').addEventListener('change', handleMainRaceChange);
 document.getElementById('subRaceSelect').addEventListener('change', updateCustomRaceLogic);
 document.getElementById('classSelect').addEventListener('change', handleClassChange);
@@ -399,7 +446,7 @@ document.getElementById('resetBtn').addEventListener('click', () => {
     const levelSel = document.getElementById('levelSelect');
     if (levelSel) levelSel.value = '1';
     const bgSel = document.getElementById('backgroundSelect');
-    if (bgSel) bgSel.value = 'Scharlatan';
+    if (bgSel) bgSel.value = 'Scharlatan (Täuschen (CHA), Fingerfertigkeit (DEX))';
     const alSel = document.getElementById('alignmentSelect');
     if (alSel) alSel.value = 'WahrhaftNeutral'
     selectedSkills = [];

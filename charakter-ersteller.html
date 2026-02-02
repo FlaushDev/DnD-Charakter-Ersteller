@@ -18,7 +18,6 @@
                 </div>
             </a>
             <nav>
-                <a href="rechtliches.html">Rechtliches</a>
                 <a href="https://github.com/FlaushDev/DnD-Charakter-Ersteller">Github</a>
                 <a href="impressum.html">Impressum</a>
             </nav>
@@ -26,8 +25,7 @@
     </div>
     <div class="hero">
         <h1>DnD 5e 2014 Charakter-Ersteller</h1>
-        <div class="subheader">Infos und Erklärungen zu den Klassen gibt es <a
-                href="https://www.dndbeyond.com/classes">hier.</a></div>
+        <div class="subheader">Infos und Erklärungen zu den Klassen gibt es <a href="https://www.dnddeutsch.de/klassen-und-archetypen/">hier</a>.<br> Bitte beachten Sie, dass dieser Ersteller hauptsächlich für Level 1 Charaktere gedacht ist. </div>
     </div>
 
     <div class="container">
@@ -40,11 +38,11 @@
             <div class="form-group">
                 <label class="label-select">Klasse wählen:</label>
                 <select class="select" id="classSelect">
-                    <option value="Barde" selected>Barde</option>
+                    <option value="Barde">Barde</option>
                     <option value="Barbar">Barbar</option>
                     <option value="Druide">Druide</option>
                     <option value="Hexenmeister">Hexenmeister</option>
-                    <option value="Kämpfer">Kämpfer</option>
+                    <option value="Kämpfer" selected>Kämpfer</option>
                     <option value="Kleriker">Kleriker</option>
                     <option value="Magier">Magier</option>
                     <option value="Mönch">Mönch</option>
@@ -52,12 +50,15 @@
                     <option value="Schurke">Schurke</option>
                     <option value="Waldläufer">Waldläufer</option>
                     <option value="Zauberer">Zauberer</option>
-                    <option value="Keine">Keine (Nur Attributswahl)</option>
                 </select>
             </div>
 
+            <div>
+                <div class="subheader small-subheader" style="display: none;" id="warlockInfoLabel">*<a href="https://www.worldanvil.com/block/809773">Hier</a> klicken um mehr über den Hexenmeister zu lesen</span>
+            </div>
+
             <div class="form-group" id="subClassSelection" style="display:none;">
-                <label class="label-select">Subklasse wählen:</label>
+                <label class="label-select" id="subClassSelectLabel">Subklasse wählen:</label>
                 <select class="select" id="subClassSelect"></select>
             </div>
 
@@ -106,21 +107,20 @@
             <div class="form-group">
                 <label class="label-select">Hintergrund wählen:</label>
                 <select class="select" id="backgroundSelect">
-                    <option value="Scharlatan">Scharlatan (Täuschen (CHA), Fingerfertigkeit (DEX)) </option>
-                    <option value="Tempeldiener">Tempeldiener (Motiv erkennen(WIS), Religion (INT))</option>
-                    <option value="Handwerker">Handwerker (Motiv erkennen(WIS), Akrobatik (DEX))</option>
-                    <option value="Krimineller">Krimineller (Heimlichkeit (DEX), Täuschen (CHA))</option>
-                    <option value="Unterhaltungskünstler">Unterhaltungskünstler (Auftreten (CHA), Akrobatik (DEX))
-                    </option>
-                    <option value="Volksheld">Volksheld (Tierumgang (WIS), Überleben (WIS))</option>
-                    <option value="Weiser">Weiser (Arkane Kunde (INT), Geschichte (INT))</option>
-                    <option value="Einsiedler">Einsiedler (Heilkunde (WIS), Religion (INT))</option>
-                    <option value="Adliger">Adliger (Überzeugen (CHA), Geschichte (INT))</option>
-                    <option value="Seeman">Seeman (Athletik (STR), Wahrnehmung (WIS))</option>
-                    <option value="Soldat">Soldat (Athletik (STR), Wahrnehmung (WIS))</option>
-                    <option value="Sonderling">Sonderling (Athletik (STR), Überleben (WIS))</option>
-                    <option value="Strassenkind">Strassenkind (Fingerfertigkeit (DEX), Heimlichkeit (DEX))</option>
-                    <option value="Händler">Händler (Motiv erkennen(WIS), Überzeugen (CHA))</option>
+                    <option value="Scharlatan (Täuschen (CHA), Fingerfertigkeit (DEX))">Scharlatan (Täuschen (CHA), Fingerfertigkeit (DEX)) </option>
+                    <option value="Tempeldiener (Motiv erkennen (WIS), Religion (INT))">Tempeldiener (Motiv erkennen(WIS), Religion (INT))</option>
+                    <option value="Handwerker (Motiv erkennen(WIS), Akrobatik (DEX))">Handwerker (Motiv erkennen(WIS), Akrobatik (DEX))</option>
+                    <option value="Krimineller (Heimlichkeit (DEX), Täuschen (CHA))">Krimineller (Heimlichkeit (DEX), Täuschen (CHA))</option>
+                    <option value="Unterhaltungskünstler (Auftreten (CHA), Akrobatik (DEX))">Unterhaltungskünstler (Auftreten (CHA), Akrobatik (DEX))</option>
+                    <option value="Volksheld (Tierumgang (WIS), Überleben (WIS))">Volksheld (Tierumgang (WIS), Überleben (WIS))</option>
+                    <option value="Weiser (Arkane Kunde (INT), Geschichte (INT))">Weiser (Arkane Kunde (INT), Geschichte (INT))</option>
+                    <option value="Einsiedler (Heilkunde (WIS), Religion (INT))">Einsiedler (Heilkunde (WIS), Religion (INT))</option>
+                    <option value="Adliger (Überzeugen (CHA), Geschichte (INT))">Adliger (Überzeugen (CHA), Geschichte (INT))</option>
+                    <option value="Seeman (Athletik (STR), Wahrnehmung (WIS))">Seeman (Athletik (STR), Wahrnehmung (WIS))</option>
+                    <option value="Soldat (Athletik (STR), Wahrnehmung (WIS))">Soldat (Athletik (STR), Wahrnehmung (WIS))</option>
+                    <option value="Sonderling (Athletik (STR), Überleben (WIS))">Sonderling (Athletik (STR), Überleben (WIS))</option>
+                    <option value="Strassenkind (Fingerfertigkeit (DEX), Heimlichkeit (DEX))">Strassenkind (Fingerfertigkeit (DEX), Heimlichkeit (DEX))</option>
+                    <option value="Händler (Motiv erkennen(WIS), Überzeugen (CHA))">Händler (Motiv erkennen(WIS), Überzeugen (CHA))</option>
                 </select>
             </div>
 
@@ -139,6 +139,7 @@
                 </select>
             </div>
         </div>
+    </div>
 
         <div class="stats-display">
             <div class="stat-card">
@@ -173,10 +174,9 @@
                 </table>
             </div>
             <div style="margin-top: 1.5rem;" id="pointsDisplaySection">
-                <div class="points-display">
-                    Verbrauchte Punkte: <strong id="pointsDisplay">0 / 27</strong>
+                <div class="points-display">Verbrauchte Punkte: <strong id="pointsDisplay">0 / 27</strong>
                 </div>
-                <button id="randomAttribute" class="button random-button" onclick="randomScore()" style="margin-left: 20px">🎲 Zufällig generieren</button>
+                <button id="randomAttribute" class="random-button" onclick="randomScore()" style="margin-left: 20px">🎲 Zufällig generieren</button>
             </div>
         </div>
 
@@ -195,8 +195,8 @@
         </div>
 
         <div>
-            <button id="resetBtn" class="button reset-button">↻ Zurücksetzen</button>
-            <button id="randomizerButton" class="button random-button" onclick="randomizeEverything()">🎲 Zufällig generieren</button>
+            <button id="resetBtn" class="reset-button">↻ Zurücksetzen</button>
+            <button id="randomizerButton" class="random-button" onclick="randomizeEverything()" style="margin-left: 20px; background-color: var(--paper-bg);">🎲 Zufällig generieren</button>
         </div>
 
         <div class="info-box" id="info">

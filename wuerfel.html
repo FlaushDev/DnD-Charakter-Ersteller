@@ -20,7 +20,6 @@
                 </div>
             </a>
             <nav>
-                <a href="rechtliches.html">Rechtliches</a>
                 <a href="https://github.com/FlaushDev/DnD-Charakter-Ersteller">Github</a>
                 <a href="impressum.html">Impressum</a>
             </nav>
@@ -42,11 +41,14 @@
                     <option value="12">12-seitiger Würfel</option>
                     <option value="20" selected>20-seitiger Würfel</option>
                     <option value="100">100-seitiger Würfel</option>
+                    <option value="500">500-seitiger Würfel</option>
+                    <option value="1000">1000-seitiger Würfel</option>
+                    <option value="1000000">1.000.000-seitiger Würfel (Könnte die Webseite crashen)</option>
                 </select>
                 <label>Anzahl an Würfeln:</label>
-                <input type="number" min="1" max="1000" step="1" value="1" class="spinner-control" id="wuerfelAnzahl">
-                <button class="wuerfel-button" onclick="getDiceRoll()">🎲 Würfeln</button>
-                <button class="reset-button button" onclick="resetDicePage()">↻ Zurücksetzen</button>
+                <input type="number" min="1" max="999" step="1" value="1" class="spinner-control" id="wuerfelAnzahl">
+                <button class="wuerfel-button" onclick="getDiceRoll()" style="margin-top: 15px; margin-bottom: 20px;">🎲 Würfeln</button>
+                <button class="reset-button" onclick="resetDicePage()" style="margin-left: 20px;">↻ Zurücksetzen</button>
                 <div>
                     <label class="label-select">Ergebnisse:</label>
                 </div>
