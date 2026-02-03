@@ -127,6 +127,149 @@ function updateDisplay() {
     document.getElementById('backgroundSelect')
 }
 
+/*Misc function for E-mail */
+
+function copyEmail() {
+    const text = document.getElementById("E-mail").innerText;
+    navigator.clipboard.writeText(text).then(() => {
+        console.log("Text wurde kopiert"); // später einfach ein Toast im rechtem unterem Eck
+    })
+}
+
+/*Printing as a PDF */
+const { PDFDocument } = PDFLib
+
+async function fillForm() {
+    // Get the Proficiency Bonus for each Level
+    const PROFICIENCY_BONUS = { 1: 2, 2: 2, 3: 2, 4: 2, 5: 3, 6: 3, 7: 3, 8: 3, 9: 4, 10: 4, 11: 4, 12: 4, 13: 5, 14: 5, 15: 5, 16: 5, 17: 6, 18: 6, 19: 6, 20: 6 };
+    function getPB() {
+        const lvlEl = document.getElementById('levelSelect');
+        const lvl = lvlEl ? parseInt(lvlEl.value) : 1;
+        return PROFICIENCY_BONUS[lvl] || 2;
+    }
+
+    // Fetch the PDF with form fields
+    const formUrl = 'https://files.catbox.moe/piedns.pdf';
+    const formPdfBytes = await fetch(formUrl).then(res => res.arrayBuffer());
+
+    // Load a PDF with form fields
+    const pdfDoc = await PDFDocument.load(formPdfBytes);
+
+    // Get the form containing all the fields
+    const form = pdfDoc.getForm();
+
+    // Get all fields in the PDF by their names
+    const fields = {
+        level: form.getTextField('Level'),
+        class: form.getTextField('Class'),
+        subclass: form.getTextField('Subclass'),
+        race: form.getTextField('Species'),
+        background: form.getTextField('Background'),
+        pb: form.getTextField('PROF BONUS'),
+        intMod: form.getTextField('INT MOD'),
+        intScore: form.getTextField('INT SCORE'),
+        intSave: form.getTextField('INT SAVE'),
+        intSaveCheckbox: form.getCheckBox('Check Box25'),
+        wisMod: form.getTextField('WIS MOD'),
+        wisScore: form.getTextField('WIS SCORE'),
+        wisSave: form.getTextField('Text Field71'),
+        wisSaveCheckbox: form.getCheckBox('Check Box17'),
+        conMod: form.getTextField('CON MOD'),
+        conScore: form.getTextField('CON SCORE'),
+        conSave: form.getTextField('CON SAVE'),
+        conSaveCheckbox: form.getCheckBox('Check Box7'),
+        strMod: form.getTextField('STR MOD'),
+        strScore: form.getTextField('STR SCORE'),
+        strSave: form.getTextField('STR SAVE'),
+        strSaveCheckbox: form.getCheckBox('Check Box18'),
+        chaMod: form.getTextField('CHA MOD'),
+        chaScore: form.getTextField('CHA SCORE'),
+        chaSave: form.getTextField('CHA SAVE'),
+        chaSaveCheckbox: form.getCheckBox('Check Box6'),
+        dexMod: form.getTextField('DEX MOD'),
+        dexScore: form.getTextField('DEX SCORE'),
+        dexSave: form.getTextField('DEX SAVE'),
+        dexSaveCheckbox: form.getCheckBox('Check Box11'),
+    };
+
+    // Get and fill in selected Class, Background, etc.
+    const getSelectValue = (id) =>
+        document.getElementById(id)?.value ?? '';
+
+    // Convert Numbers to Strings
+    const getConvertedString = (id) =>
+        (id).toString();
+
+    // Calculates the Bonus you get on Saving throws
+    const [attr, name] = Object.entries(ATTRIBUTES_MAP);
+    const cls = document.getElementById('classSelect').value;
+    const classData = CLASS_DATA[cls] || { saves: [] };
+    const isProf = classData.saves.includes(attr);
+
+    const getSavesBonus = (id) =>
+        calculateModifier(getAttributeTotal(id)) + (isProf ? pb : 0);
+
+    const getSavesCheckbox = (attr) => {
+        const isProf = classData.saves.includes(attr);
+        return isProf;
+    }
+
+    for (const [attr, name] of Object.entries(ATTRIBUTES_MAP)) {
+        el = getSavesCheckbox(attr) /*Returns in order: STR, DEX, CON, INT, WIS, CHA */
+        if (getSavesCheckbox(attr) === true) {
+            const nameScoreCheckbox = fields[`${attr.toLowerCase()}SaveCheckbox`];
+            if (nameScoreCheckbox) nameScoreCheckbox.check();
+        }
+    }
+    // Special Fields which need extra steps to fill in properly
+    var backgroundRemoveInfo = document.getElementById('backgroundSelect').value.split("(")[0];
+    fields.background.setText(backgroundRemoveInfo);
+
+    var pbConvertString = getPB();
+    var pbConvertedString = pbConvertString.toString();
+    fields.pb.setText(pbConvertedString);
+
+    if (document.getElementById('subClassSelect').style.display !== 'none') {
+        fields.subclass.setText(getSelectValue('subClassSelect'));
+    }
+
+    // Handles Races which do not have subraces
+    if (document.getElementById('subRaceSelect').style.display !== 'none') {
+        fields.race.setText(getSelectValue('mainRaceSelect'))
+    }
+    else {
+        fields.race.setText(getSelectValue('subRaceSelect'));
+    }
+
+    fields.level.setText(getSelectValue('levelSelect'));
+    fields.class.setText(getSelectValue('classSelect'));
+    fields.intScore.setText(getConvertedString(getAttributeTotal('INT')));
+    fields.wisScore.setText(getConvertedString(getAttributeTotal('WIS')));
+    fields.conScore.setText(getConvertedString(getAttributeTotal('CON')));
+    fields.strScore.setText(getConvertedString(getAttributeTotal('STR')));
+    fields.chaScore.setText(getConvertedString(getAttributeTotal('CHA')));
+    fields.dexScore.setText(getConvertedString(getAttributeTotal('DEX')));
+    fields.intMod.setText(getConvertedString(getModifierTotal('INT')));
+    fields.wisMod.setText(getConvertedString(getModifierTotal('WIS')));
+    fields.conMod.setText(getConvertedString(getModifierTotal('CON')));
+    fields.strMod.setText(getConvertedString(getModifierTotal('STR')));
+    fields.chaMod.setText(getConvertedString(getModifierTotal('CHA')));
+    fields.dexMod.setText(getConvertedString(getModifierTotal('DEX')));
+    fields.intSave.setText(getConvertedString(getSavesBonus('INT')));
+    fields.wisSave.setText(getConvertedString(getSavesBonus('WIS')));
+    fields.conSave.setText(getConvertedString(getSavesBonus('CON')));
+    fields.strSave.setText(getConvertedString(getSavesBonus('STR')));
+    fields.chaSave.setText(getConvertedString(getSavesBonus('CHA')));
+    fields.dexSave.setText(getConvertedString(getSavesBonus('DEX')));
+
+    // Serialize the PDFDocument to bytes (a Uint8Array)
+    const pdfBytes = await pdfDoc.save();
+
+    // Trigger the browser to download the PDF document
+    download(pdfBytes, "piedns.pdf", "application/pdf");
+
+}
+
 /*Functions for HitDice, HitPoints and ProficencyBonus*/
 
 function calculateTotalHP() {
@@ -223,6 +366,7 @@ function updateCustomRaceLogic() {
 /*Functions for the Attribute Table */
 
 function getAttributeTotal(attr) { return scores[attr] + getRacialBonus(attr) + getBackgroundBonus(attr); }
+function getModifierTotal(attr) { return Math.floor((getAttributeTotal(attr) - 10) / 2); }
 function updateAttributeTable() {
     const table = document.getElementById('attributesTable');
     if (!table) return;
