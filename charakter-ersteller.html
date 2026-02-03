@@ -7,7 +7,73 @@
     <title>D&D 5e Charakter-Creator</title>
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src="https://unpkg.com/pdf-lib@1.11.0"></script>
+    <script src="https://unpkg.com/downloadjs@1.4.7"></script>
 </head>
+
+<script>
+    const { PDFDocument } = PDFLib
+
+        async function fillForm() {
+            // Get the Proficiency Bonus for each Level
+            const PROFICIENCY_BONUS = { 1: 2, 2: 2, 3: 2, 4: 2, 5: 3, 6: 3, 7: 3, 8: 3, 9: 4, 10: 4, 11: 4, 12: 4, 13: 5, 14: 5, 15: 5, 16: 5, 17: 6, 18: 6, 19: 6, 20: 6 };
+            function getPB() {
+                const lvlEl = document.getElementById('levelSelect');
+                const lvl = lvlEl ? parseInt(lvlEl.value) : 1;
+                return PROFICIENCY_BONUS[lvl] || 2;
+            }
+
+            // Fetch the PDF with form fields
+            const formUrl = 'https://files.catbox.moe/piedns.pdf';
+            const formPdfBytes = await fetch(formUrl).then(res => res.arrayBuffer());
+
+            // Load a PDF with form fields
+            const pdfDoc = await PDFDocument.load(formPdfBytes);
+
+            // Get the form containing all the fields
+            const form = pdfDoc.getForm();
+
+            // Get all fields in the PDF by their names
+            const fields = {
+                level: form.getTextField('Level'),
+                class: form.getTextField('Class'),
+                subclass: form.getTextField('Subclass'),
+                race: form.getTextField('Species'),
+                background: form.getTextField('Background'),
+                pb: form.getTextField('PROF BONUS'),
+                int: form.getTextField('INT MOD'),
+                wis: form.getTextField('WIS MOD'),
+                con: form.getTextField('CON MOD'),
+                str: form.getTextField('STR MOD'),
+                cha: form.getTextField('CHA MOD'),
+                dex: form.getTextField('DEX MOD')
+            };
+
+            // Get and fill in selected Class, Background, etc.
+            const getSelectValue = (id) =>
+                document.getElementById(id)?.value ?? '';
+
+            fields.level.setText(getSelectValue('levelSelect'));
+            fields.class.setText(getSelectValue('classSelect'));
+            fields.race.setText(getSelectValue('subRaceSelect'));
+
+            var backgroundRemoveInfo = document.getElementById('backgroundSelect').value.split("(")[0];
+            fields.background.setText(backgroundRemoveInfo);
+
+            var pbConvertString = getPB();
+            var pbConvertedString = pbConvertString.toString();
+            fields.pb.setText(pbConvertedString);
+ö
+            if (document.getElementById('subClassSelect').style.display !== 'none')  {
+                fields.subclass.setText(getSelectValue('subClassSelect'));
+            }
+            // Serialize the PDFDocument to bytes (a Uint8Array)
+            const pdfBytes = await pdfDoc.save();
+
+            // Trigger the browser to download the PDF document
+            download(pdfBytes, "piedns.pdf", "application/pdf");
+        }
+</script>
 
 <body>
     <div class="header">
@@ -197,6 +263,7 @@
         <div>
             <button id="resetBtn" class="reset-button">↻ Zurücksetzen</button>
             <button id="randomizerButton" class="random-button" onclick="randomizeEverything()" style="margin-left: 20px; background-color: var(--paper-bg);">🎲 Zufällig generieren</button>
+            <button class="print-button random-button" style="margin-left: 20px;" onclick="fillForm()">In PDF drucken</button>
         </div>
 
         <div class="info-box" id="info">

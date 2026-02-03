@@ -105,7 +105,7 @@ const ALIGNMENT = {
     'ChaotischBöse': {}
 }
 
-/*let score and let selectedSkills are lets which are changed by code while creating a character*/
+/*Let's which are changed by code while creating a character*/
 
 let scores = { STR: 8, DEX: 8, CON: 8, INT: 8, WIS: 8, CHA: 8 };
 let selectedSkills = [];
@@ -118,11 +118,13 @@ function updateDisplay() {
     updateAttributeTable();
     updateSavesAndSkills();
     updateSkillLimit();
+    getBackgroundBonus();
     document.getElementById('pointsDisplay').textContent = `${getTotalPoints()} / 27`;
     document.getElementById('pbDisplay').textContent = `+${getPB()}`;
     document.getElementById('hpDisplay').textContent = calculateTotalHP();
     const cls = document.getElementById('classSelect').value;
     document.getElementById('hdDisplay').textContent = CLASS_DATA[cls] ? `1d${CLASS_DATA[cls].hd}` : 'k.A.';
+    document.getElementById('backgroundSelect')
 }
 
 /*Functions for HitDice, HitPoints and ProficencyBonus*/
@@ -132,6 +134,7 @@ function calculateTotalHP() {
     const level = parseInt(levelVal) || 1;
     const classKey = document.getElementById('classSelect').value;
     const classData = CLASS_DATA[classKey];
+    if (!classData) return 0;
     const conMod = calculateModifier(getAttributeTotal('CON'));
     const level1HP = classData.hd + conMod;
 
@@ -148,6 +151,7 @@ function getPB() {
 }
 
 /*Functions for Level, Class(Subclass), Race (Subrace), Background and Alignment*/
+
 function getBackgroundBonus(attr) {
     const bgKey = document.getElementById('backgroundSelect').value;
     return HINTERGRÜNDE[bgKey] ? (HINTERGRÜNDE[bgKey][attr] || 0) : 0;
@@ -333,7 +337,7 @@ function getDiceRoll() {
         }
     }
     if (document.getElementById('wuerfelAuswahl').value < 1000000) {
-        if (document.getElementById('wuerfelAnzahl').value >= 1000 ) {
+        if (document.getElementById('wuerfelAnzahl').value >= 1000) {
             alert('Bitte geben Sie eine Nummer unter 1.000 ein')
             document.getElementById('wuerfelAnzahl').value = 1
             return;
@@ -385,18 +389,18 @@ function randomScore() {
     let number = Math.floor(Math.random() * 7)
     if (number === 1) {
         scores = scoreArray1
-    } else if (number === 2){
+    } else if (number === 2) {
         scores = scoreArray2
-    } else if (number === 3){
+    } else if (number === 3) {
         scores = scoreArray3
-    } else if (number === 4){
+    } else if (number === 4) {
         scores = scoreArray4
-    } else if (number === 5){
+    } else if (number === 5) {
         scores = scoreArray5
-    } else if (number === 6){
+    } else if (number === 6) {
         scores = scoreArray6
     }
-
+    updateAttributeTable();
     handleMainRaceChange();
     handleClassChange();
     updateDisplay();
@@ -414,11 +418,16 @@ function randomizeEverything() {
     classSel.value = random(Object.keys(CLASS_DATA));
     const bgSel = document.getElementById('backgroundSelect');
     bgSel.value = random(Object.keys(HINTERGRÜNDE));
+    if (bgSel.value === "") {
+        bgSel.value = random(Object.keys(HINTERGRÜNDE));
+        return;
+    }
     const alSel = document.getElementById('alignmentSelect');
     alSel.value = random(Object.keys(ALIGNMENT));
     selectedSkills = [random(Object.keys(SKILLS)), random(Object.keys(SKILLS))];
-    if (skillChoices.value === 3)
-        selectedSkills = [random(Object.keys(SKILLS)), random(Object.keys(SKILLS)), random(Object.keys(SKILLS))]
+    const classData = CLASS_DATA[classSel.value];
+    if (classData?.skillChoices === 3)
+        selectedSkills = [random(Object.keys(SKILLS)), random(Object.keys(SKILLS)), random(Object.keys(SKILLS))];
     randomScore();
     handleMainRaceChange();
     handleClassChange();
@@ -426,6 +435,7 @@ function randomizeEverything() {
 }
 
 /*Change Event-Listeners to update Display*/
+
 document.getElementById('classSelect').addEventListener('change', updateSkillLimit);
 document.getElementById('mainRaceSelect').addEventListener('change', handleMainRaceChange);
 document.getElementById('subRaceSelect').addEventListener('change', updateCustomRaceLogic);
