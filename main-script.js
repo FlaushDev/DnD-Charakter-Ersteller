@@ -124,7 +124,6 @@ function updateDisplay() {
     document.getElementById('hpDisplay').textContent = calculateTotalHP();
     const cls = document.getElementById('classSelect').value;
     document.getElementById('hdDisplay').textContent = CLASS_DATA[cls] ? `1d${CLASS_DATA[cls].hd}` : 'k.A.';
-    document.getElementById('backgroundSelect')
 }
 
 /*Misc function for E-mail */
@@ -297,7 +296,7 @@ function getPB() {
 
 function getBackgroundBonus(attr) {
     const bgKey = document.getElementById('backgroundSelect').value;
-    return HINTERGRÜNDE[bgKey] ? (HINTERGRÜNDE[bgKey][attr] || 0) : 0;
+    return HINTERGRÜNDE[bgKey] ? (HINTERGRÜNDE[bgKey][attr] || 0) : 1;
 }
 
 function getRacialBonus(attr) {
@@ -365,7 +364,7 @@ function updateCustomRaceLogic() {
 
 /*Functions for the Attribute Table */
 
-function getAttributeTotal(attr) { return scores[attr] + getRacialBonus(attr) + getBackgroundBonus(attr); }
+function getAttributeTotal(attr) { return scores[attr] + getRacialBonus(attr)}
 function getModifierTotal(attr) { return Math.floor((getAttributeTotal(attr) - 10) / 2); }
 function updateAttributeTable() {
     const table = document.getElementById('attributesTable');
@@ -374,7 +373,6 @@ function updateAttributeTable() {
     for (const [attr, name] of Object.entries(ATTRIBUTES_MAP)) {
         const base = scores[attr];
         const racial = getRacialBonus(attr);
-        const bg = getBackgroundBonus(attr);
         const total = getAttributeTotal(attr);
         const mod = calculateModifier(total);
 
@@ -386,7 +384,7 @@ function updateAttributeTable() {
                     <span style="min-width: 20px; display: inline-block; font-size: 15">${base}</span>
                     <button class="attr-btn-plus" onclick="adjustScore('${attr}', 1)">+</button>
                 </td>
-                <td class="text-center">+${racial + bg}</td>
+                <td class="text-center">+${racial}</td>
                 <td class="text-center"><strong class="total-score">${total}</strong></td>
                 <td class="text-center"><span class="mod-badge">${mod >= 0 ? '+' + mod : mod}</span></td>
                 <td class="text-center" style="color: #888;">${POINT_COSTS[base]} Pkt</td>
@@ -434,6 +432,7 @@ function updateSavesAndSkills() {
         const val = calculateModifier(getAttributeTotal(attr)) + (isProf ? pb : 0);
         skillsList.innerHTML += `<li><input type="checkbox" onchange="handleSkillChange('${skill}')" ${isProf ? 'checked' : ''} ${isBgProf ? 'disabled' : ''}> ${skill}: ${val >= 0 ? '+' + val : val}</li>`;
     }
+    getBackgroundBonus();
 }
 
 function handleSkillChange(skill) {
@@ -453,7 +452,7 @@ function handleSkillChange(skill) {
     } else if (currentClassSkills.length < limit) {
         selectedSkills.push(skill);
     }
-
+    getBackgroundBonus();
     updateSavesAndSkills();
 }
 
@@ -461,6 +460,7 @@ function updateSkillLimit() {
     const classData = CLASS_DATA[document.getElementById('classSelect').value];
     const limit = classData?.skillChoices ?? 0;
     document.getElementById('skillLimit').textContent = limit;
+    getBackgroundBonus();
 }
 
 /*Functions for the dice-roll page */
@@ -476,7 +476,6 @@ function getDiceRoll() {
         }
         if (amount === 0) {
             alert('Bitte geben Sie eine Nummer über 0 ein')
-            console.log('Error: Anzahl an Würfeln darf nicht Null sein');
             return;
         }
     }
