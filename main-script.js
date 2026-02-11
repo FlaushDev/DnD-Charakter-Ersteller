@@ -284,7 +284,7 @@ async function fillForm() {
 
   // Fill attribute scores, modifiers, and saves
   for (const attr of ATTRIBUTE_FIELDS) {
-    const attrUpper = attr.toUpperCase();
+    const attrUpper = attr.toUpperCase(); // converts cha to CHA
     fields[`${attr}Score`].setText(getConvertedString(getAttributeTotal(attrUpper)));
     fields[`${attr}Mod`].setText(getConvertedString(getModifierTotal(attrUpper)));
     fields[`${attr}Save`].setText(getConvertedString(getSavesBonus(attrUpper)));

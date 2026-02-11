@@ -54,6 +54,10 @@ body {
 
 /*Buttons and their Containers*/
 
+button {
+    font-family: Georgia, 'Times New Roman', serif;
+}
+
 .button-container {
     margin: 50px;
     padding: 20px;
@@ -404,7 +408,7 @@ label-button {
 }
 
 .max-size {
-    max-width: 600px;
+    max-width: 500px;
     margin-bottom: 20px;
 }
 
@@ -677,7 +681,9 @@ input[type="checkbox"]:disabled {
     nav a {
         margin: 0 1rem;
     }
+}
 
+@media (max-width: 900px) {
     .button-container-flex {
         align-content: center;
         align-self: center;
