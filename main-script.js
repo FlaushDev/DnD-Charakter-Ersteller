@@ -1,119 +1,15 @@
-/*Fixed Data*/
-const POINT_COSTS = { 8: 0, 9: 1, 10: 2, 11: 3, 12: 4, 13: 5, 14: 7, 15: 9 };
-const PROFICIENCY_BONUS = { 1: 2, 2: 2, 3: 2, 4: 2, 5: 3, 6: 3, 7: 3, 8: 3, 9: 4, 10: 4, 11: 4, 12: 4, 13: 5, 14: 5, 15: 5, 16: 5, 17: 6, 18: 6, 19: 6, 20: 6 };
-const ATTRIBUTES_MAP = {
-    STR: 'Stärke (STR)',
-    DEX: 'Geschicklichkeit (DEX)',
-    CON: 'Konstitution (CON)',
-    INT: 'Intelligenz (INT)',
-    WIS: 'Weisheit (WIS)',
-    CHA: 'Charisma (CHA)'
+import { CLASS_DATA, SKILLS, POINT_COSTS, PROFICIENCY_BONUS, ATTRIBUTES_MAP, HINTERGRÜNDE, RACES, RACE_GROUPS, ALIGNMENT } from './data.js';
+import { fillFormFull } from './pdf.js';
+
+/*State — als Objekt damit pdf.js darauf zugreifen kann*/
+export const state = {
+    scores: { STR: 8, DEX: 8, CON: 8, INT: 8, WIS: 8, CHA: 8 },
+    selectedSkills: []
 };
-
-const SKILLS = {
-    'Akrobatik (DEX)': 'DEX',
-    'Arkane Kunde (INT)': 'INT',
-    'Geschichte (INT)': 'INT',
-    'Athletik (STR)': 'STR',
-    'Auftreten (CHA)': 'CHA',
-    'Einschüchtern (CHA)': 'CHA',
-    'Heilkunde (WIS)': 'WIS',
-    'Heimlichkeit (DEX)': 'DEX',
-    'Täuschen (CHA)': 'CHA',
-    'Motiv erkennen (WIS)': 'WIS',
-    'Nachforschung (INT)': 'INT',
-    'Naturkunde (INT)': 'INT',
-    'Religion (INT)': 'INT',
-    'Fingerfertigkeit (DEX)': 'DEX',
-    'Tierumgang (WIS)': 'WIS',
-    'Überleben (WIS)': 'WIS',
-    'Überzeugen (CHA)': 'CHA',
-    'Wahrnehmung (WIS)': 'WIS'
-};
-
-const HINTERGRÜNDE = {
-    'Scharlatan (Täuschen (CHA), Fingerfertigkeit (DEX))': { skills: ['Täuschen (CHA)', 'Fingerfertigkeit (DEX)'] },
-    'Handwerker (Motiv erkennen(WIS), Überzeugen (CHA))': { skills: ['Motiv erkennen (WIS)', 'Überzeugen (CHA)'] },
-    'Krimineller (Heimlichkeit (DEX), Täuschen (CHA))': { skills: ['Heimlichkeit (DEX)', 'Täuschen (CHA)'] },
-    'Unterhaltungskünstler (Auftreten (CHA), Akrobatik (STR))': { skills: ['Auftreten (CHA)', 'Akrobatik (STR)'] },
-    'Volksheld (Tierumgang (WIS), Überleben (WIS))': { skills: ['Tierumgang (WIS)', 'Überleben (WIS)'] },
-    'Weiser (Arkane Kunde (INT), Geschichte (INT))': { skills: ['Arkane Kunde (INT)', 'Geschichte (INT)'] },
-    'Einsiedler (Heilkunde (WIS), Religion (INT))': { skills: ['Heilkunde (WIS)', 'Religion (INT)'] },
-    'Adliger (Überzeugen (CHA), Geschichte (INT))': { skills: ['Überzeugen (CHA)', 'Geschichte (INT)'] },
-    'Seeman (Athletik (STR), Wahrnehmung (WIS))': { skills: ['Athletik (STR)', 'Wahrnehmung (WIS)'] },
-    'Soldat (Athletik (STR), Wahrnehmung (WIS))': { skills: ['Athletik (STR)', 'Wahrnehmung (WIS)'] },
-    'Sonderling (Athletik (STR), Überleben (WIS))': { skills: ['Athletik (STR)', 'Überleben (WIS)'] },
-    'Strassenkind (Fingerfertigkeit (DEX), Heimlichkeit (DEX))': { skills: ['Fingerfertigkeit (DEX)', 'Heimlichkeit (DEX)'] },
-    'Tempeldiener (Motiv erkennen (WIS), Religion (INT))': { skills: ['Motiv erkennen (WIS)', 'Religion (INT)'] },
-    'Händler (Motiv erkennen (WIS), Überzeugen (CHA))': { skills: ['Motiv erkennen (WIS)', 'Überzeugen (CHA)'] }
-};
-
-const CLASS_DATA = {
-    'Barde': { subLevel: 3, hd: 8, saves: ['DEX', 'CHA'], skillChoices: 3, subclasses: ['College des Ruhms', 'College der Weisheit', 'College der Tapferkeit', 'College des Tanzes'] },
-    'Barbar': { subLevel: 3, hd: 12, saves: ['STR', 'CON'], skillChoices: 2, subclasses: ['Pfad des Berserkers', 'Pfad des Totemkriegers'] },
-    'Druide': { subLevel: 2, hd: 8, saves: ['INT', 'WIS'], skillChoices: 2, subclasses: ['Zirkel des Mondes', 'Zirkel des Landes'] },
-    'Hexenmeister': { subLevel: 1, hd: 8, saves: ['WIS', 'CHA'], skillChoices: 2, subclasses: ['Eine Erzfee', 'Ein Unhold', 'Ein Großer Alter'] },
-    'Kämpfer': { subLevel: 3, hd: 10, saves: ['STR', 'CON'], skillChoices: 2, subclasses: ['Kampfmeister', 'Meister des Schwertes', 'Mystischer Ritter'] },
-    'Kleriker': { subLevel: 1, hd: 8, saves: ['WIS', 'CHA'], skillChoices: 2, subclasses: ['Lebensdomäne', 'Lichtdomäne', 'Betrugsdomäne'] },
-    'Magier': { subLevel: 2, hd: 6, saves: ['INT', 'WIS'], skillChoices: 2, subclasses: ['Schule der Bannmagie', 'Schule der Hervorrufung', 'Schule der Nekromantie'] },
-    'Mönch': { subLevel: 3, hd: 8, saves: ['STR', 'DEX'], skillChoices: 2, subclasses: ['Weg der offenen Hand', 'Weg des Schattens', 'Weg der Vier Elemente'] },
-    'Paladin': { subLevel: 3, hd: 10, saves: ['WIS', 'CHA'], skillChoices: 2, subclasses: ['Schwur der Hingabe', 'Schwur der Alten', 'Schwur der Rache'] },
-    'Schurke': { subLevel: 3, hd: 8, saves: ['DEX', 'INT'], skillChoices: 4, subclasses: ['Dieb', 'Meuchelmörder', 'Arkaner Betrüger'] },
-    'Waldläufer': { subLevel: 3, hd: 10, saves: ['STR', 'DEX'], skillChoices: 3, subclasses: ['Jäger', 'Tierherr'] },
-    'Zauberer': { subLevel: 1, hd: 6, saves: ['CON', 'CHA'], skillChoices: 2, subclasses: ['Drachenblut', 'Wildmagie', 'Abartige Gedanken'] },
-};
-
-const RACE_GROUPS = {
-    'Mensch': ['Mensch', 'Mensch (Variante)'],
-    'Elf': ['Hochelf', 'Waldelf', 'Dunkelelfen (Drow)'],
-    'Zwerg': ['Zwerg (Hügel)', 'Zwerg (Gebirge)'],
-    'Halbling': ['Halbling (Leichtfuß)', 'Halbling (Stämmig)'],
-    'Gnom': ['Berggnom', 'Waldgnom', 'Tiefengnom'],
-    'Halbelf': ['Halbelf'],
-    'Halbork': ['Halbork'],
-    'Drachenblütiger': ['Drachenblütiger'],
-    'Tiefling': ['Tiefling']
-};
-
-const RACES = {
-    'Mensch': { STR: 1, DEX: 1, CON: 1, INT: 1, WIS: 1, CHA: 1, skillChoices: 1 },
-    'Mensch (Variante)': { custom: 2, skillChoices: 1 },
-    'Halbelf': { CHA: 2, custom: 2, skillChoices: 2 },
-    'Hochelf': { DEX: 2, INT: 1 },
-    'Waldelf': { DEX: 2, WIS: 1 },
-    'Dunkelelfen (Drow)': { DEX: 2, CHA: 1 },
-    'Berggnom': { INT: 2, CON: 2 },
-    'Waldgnom': { INT: 2, DEX: 1 },
-    'Tiefengnom': { INT: 2, DEX: 1 },
-    'Halbork': { STR: 2, CON: 1 },
-    'Drachenblütiger': { STR: 2, CHA: 1 },
-    'Zwerg (Hügel)': { CON: 2, WIS: 1 },
-    'Zwerg (Gebirge)': { CON: 2, STR: 2 },
-    'Tiefling': { INT: 1, CHA: 2 },
-    'Halbling (Leichtfuß)': { DEX: 2, CHA: 1 },
-    'Halbling (Stämmig)': { DEX: 2, CON: 1 }
-};
-
-const ALIGNMENT = {
-    'RechtschaffenGut': {},
-    'RechtschaffenNeutral': {},
-    'RechtschaffenBöse': {},
-    'NeutralGut': {},
-    'WahrhaftNeutral': {},
-    'NeutralBöse': {},
-    'ChaotischNeutral': {},
-    'ChaotischBöse': {}
-}
-
-/*Let's which are changed by code while creating a character*/
-
-let scores = { STR: 8, DEX: 8, CON: 8, INT: 8, WIS: 8, CHA: 8 };
-let selectedSkills = [];
 
 /*Functions*/
 
 /*Core Update Display*/
-
 function updateDisplay() {
     updateAttributeTable();
     updateSavesAndSkills();
@@ -126,211 +22,13 @@ function updateDisplay() {
     document.getElementById('hdDisplay').textContent = CLASS_DATA[cls] ? `1d${CLASS_DATA[cls].hd}` : 'k.A.';
 }
 
-/*Misc functions for E-mail, */
-
+/*Misc*/
 function copyEmail() {
     const text = document.getElementById("E-mail").innerText;
-    navigator.clipboard.writeText(text).then(() => {
-        //console.log("Text wurde kopiert"); // später einfach ein Toast im rechtem unterem Eck
-    })
+    navigator.clipboard.writeText(text).then(() => {});
 }
 
-/*Printing as a PDF */
-const { PDFDocument } = PDFLib
-
-async function fillForm() {
-  // Constants
-  const PROFICIENCY_BONUS = {
-    1: 2, 2: 2, 3: 2, 4: 2,
-    5: 3, 6: 3, 7: 3, 8: 3,
-    9: 4, 10: 4, 11: 4, 12: 4,
-    13: 5, 14: 5, 15: 5, 16: 5,
-    17: 6, 18: 6, 19: 6, 20: 6
-  };
-
-  const ATTRIBUTE_FIELDS = ['int', 'wis', 'con', 'str', 'cha', 'dex'];
-
-  // Helper functions
-  function getPB() {
-    const lvlEl = document.getElementById('levelSelect');
-    const lvl = lvlEl ? parseInt(lvlEl.value) : 1;
-    return PROFICIENCY_BONUS[lvl] || 2;
-  }
-
-  const getSelectValue = (id) => document.getElementById(id)?.value ?? '';
-  const getConvertedString = (value) => value.toString();
-
-  function getSavesBonus(attr) {
-    const cls = getSelectValue('classSelect');
-    const classData = CLASS_DATA[cls] || { saves: [] };
-    const isSave = classData.saves.includes(attr);
-    const pb = getPB();
-    return calculateModifier(getAttributeTotal(attr)) + (isSave ? pb : 0);
-  }
-
-  function getSavesCheckbox(attr) {
-    const cls = getSelectValue('classSelect');
-    const classData = CLASS_DATA[cls] || { saves: [] };
-    return classData.saves.includes(attr);
-  }
-
-  function getSkillProf(skillName) {
-    const bgKey = getSelectValue('backgroundSelect');
-    const bgSkills = HINTERGRÜNDE[bgKey]?.skills || [];
-    const isBgProf = bgSkills.includes(skillName);
-    const isSelected = selectedSkills.includes(skillName);
-    return isBgProf || isSelected;
-  }
-
-  // Load PDF
-  const formUrl = 'https://files.catbox.moe/piedns.pdf';
-  const formPdfBytes = await fetch(formUrl).then(res => res.arrayBuffer());
-  const pdfDoc = await PDFDocument.load(formPdfBytes);
-  const form = pdfDoc.getForm();
-
-  // Get form fields and checkboxes
-  const fields = {
-    level: form.getTextField('Level'),
-    class: form.getTextField('Class'),
-    subclass: form.getTextField('Subclass'),
-    race: form.getTextField('Species'),
-    background: form.getTextField('Background'),
-    pb: form.getTextField('PROF BONUS'),
-    intMod: form.getTextField('INT MOD'),
-    intScore: form.getTextField('INT SCORE'),
-    intSave: form.getTextField('INT SAVE'),
-    intSaveCheckbox: form.getCheckBox('Check Box25'),
-    wisMod: form.getTextField('WIS MOD'),
-    wisScore: form.getTextField('WIS SCORE'),
-    wisSave: form.getTextField('Text Field71'),
-    wisSaveCheckbox: form.getCheckBox('Check Box17'),
-    conMod: form.getTextField('CON MOD'),
-    conScore: form.getTextField('CON SCORE'),
-    conSave: form.getTextField('CON SAVE'),
-    conSaveCheckbox: form.getCheckBox('Check Box7'),
-    strMod: form.getTextField('STR MOD'),
-    strScore: form.getTextField('STR SCORE'),
-    strSave: form.getTextField('STR SAVE'),
-    strSaveCheckbox: form.getCheckBox('Check Box18'),
-    chaMod: form.getTextField('CHA MOD'),
-    chaScore: form.getTextField('CHA SCORE'),
-    chaSave: form.getTextField('CHA SAVE'),
-    chaSaveCheckbox: form.getCheckBox('Check Box6'),
-    dexMod: form.getTextField('DEX MOD'),
-    dexScore: form.getTextField('DEX SCORE'),
-    dexSave: form.getTextField('DEX SAVE'),
-    dexSaveCheckbox: form.getCheckBox('Check Box11'),
-    ÜberzeugenModifier: form.getTextField('PERSUASION'),
-    TäuschenModifier: form.getTextField('PERFORMANCE'),
-    EinschüchternModifier: form.getTextField('INTIMIDATE'),
-    AuftretenModifier: form.getTextField('DECEPTION'),
-    WahrnehmungModifier: form.getTextField('SURVIVAL'),
-    ÜberlebenModifier: form.getTextField('PERCEPTION'),
-    MotivModifier: form.getTextField('MEDICINE'),
-    TierumgangModifier: form.getTextField('INSIGHT'),
-    HeilkundeModifier: form.getTextField('ANIMAL HANDLING'),
-    ReligionModifier: form.getTextField('RELIGION'),
-    NaturkundeModifier: form.getTextField('NATURE'),
-    NachforschungModifier: form.getTextField('INVESTIGATION'),
-    GeschichteModifier: form.getTextField('HISTORY'),
-    ArkaneModifier: form.getTextField('ARCANA'),
-    AthletikModifier: form.getTextField('ATHLETICS'),
-    AkrobatikModifier: form.getTextField('ACROBATICS'),
-    FingerfertigkeitModifier: form.getTextField('SLEIGHT OF HAND'),
-    HeimlichkeitModifier: form.getTextField('STEALTH')
-  };
-
-  const checkboxes = {
-    ÜberzeugenCheckbox: form.getCheckBox('Check Box2'),
-    TäuschenCheckbox: form.getCheckBox('Check Box3'),
-    EinschüchternCheckbox: form.getCheckBox('Check Box4'),
-    AuftretenCheckbox: form.getCheckBox('Check Box5'),
-    WahrnehmungCheckbox: form.getCheckBox('Check Box16'),
-    ÜberlebenCheckbox: form.getCheckBox('Check Box14'),
-    MotivCheckbox: form.getCheckBox('Check Box12'),
-    TierumgangCheckbox: form.getCheckBox('Check Box13'),
-    HeilkundeCheckbox: form.getCheckBox('Check Box15'),
-    ReligionCheckbox: form.getCheckBox('Check Box23'),
-    NaturkundeCheckbox: form.getCheckBox('Check Box22'),
-    NachforschungCheckbox: form.getCheckBox('Check Box21'),
-    GeschichteCheckbox: form.getCheckBox('Check Box20'),
-    ArkaneCheckbox: form.getCheckBox('Check Box25'),
-    AthletikCheckbox: form.getCheckBox('Check Box19'),
-    AkrobatikCheckbox: form.getCheckBox('Check Box8'),
-    FingerfertigkeitCheckbox: form.getCheckBox('Check Box9'),
-    HeimlichkeitCheckbox: form.getCheckBox('Check Box10')
-  };
-
-  // Fill basic fields
-  fields.level.setText(getSelectValue('levelSelect'));
-  fields.class.setText(getSelectValue('classSelect'));
-  fields.pb.setText(getConvertedString(getPB()));
-
-  // Fill background (remove parenthetical info)
-  const backgroundValue = getSelectValue('backgroundSelect').split("(")[0];
-  fields.background.setText(backgroundValue);
-
-  // Fill subclass if visible
-  if (document.getElementById('subClassSelect').style.display !== 'none') {
-    fields.subclass.setText(getSelectValue('subClassSelect'));
-  }
-
-  // Fill race (handle subraces)
-  if (document.getElementById('subRaceSelect').style.display !== 'none') {
-    fields.race.setText(getSelectValue('mainRaceSelect'));
-  } else {
-    fields.race.setText(getSelectValue('subRaceSelect'));
-  }
-
-  // Fill attribute scores, modifiers, and saves
-  for (const attr of ATTRIBUTE_FIELDS) {
-    const attrUpper = attr.toUpperCase(); // converts cha to CHA
-    fields[`${attr}Score`].setText(getConvertedString(getAttributeTotal(attrUpper)));
-    fields[`${attr}Mod`].setText(getConvertedString(getModifierTotal(attrUpper)));
-    fields[`${attr}Save`].setText(getConvertedString(getSavesBonus(attrUpper)));
-  }
-
-  // Check saving throw proficiency checkboxes
-  for (const [attr, name] of Object.entries(ATTRIBUTES_MAP)) {
-    if (getSavesCheckbox(attr)) {
-      const checkboxField = fields[`${attr.toLowerCase()}SaveCheckbox`];
-      if (checkboxField) {
-        checkboxField.check();
-      }
-    }
-  }
-
-  // Check skill proficiency checkboxes
-  const pb = getPB();
-  for (const [key, attr] of Object.entries(SKILLS)) {
-    const isProf = getSkillProf(key);
-    const val = calculateModifier(getAttributeTotal(attr)) + (isProf ? pb : 0);
-    const skillName = key.split(" ")[0];
-    const textName = `${skillName}Modifier`;
-    const textElement = fields[textName];
-    
-    if (textElement) {
-        textElement.setText(getConvertedString(val))
-    };
-
-
-    if (isProf) {
-        const checkboxName = `${skillName}Checkbox`;
-        const checkboxElement = checkboxes[checkboxName];
-        if (checkboxElement) {
-            checkboxElement.check();
-        };
-
-    }
-  }
-
-  // Save and download PDF
-  const pdfBytes = await pdfDoc.save();
-  download(pdfBytes, "piedns.pdf", "application/pdf");
-}
-
-/*Functions for HitDice, HitPoints and ProficencyBonus*/
-
+/*HitDice, HitPoints, ProficiencyBonus*/
 function calculateTotalHP() {
     const levelVal = document.getElementById('levelSelect').value;
     const level = parseInt(levelVal) || 1;
@@ -346,14 +44,13 @@ function calculateTotalHP() {
     return level1HP + (level - 1) * avgHPPerLevel;
 }
 
-function getPB() {
+export function getPB() {
     const lvlEl = document.getElementById('levelSelect');
     const lvl = lvlEl ? parseInt(lvlEl.value) : 1;
     return PROFICIENCY_BONUS[lvl] || 2;
 }
 
-/*Functions for Level, Class(Subclass), Race (Subrace), Background and Alignment*/
-
+/*Background, Race, Class*/
 function getBackgroundBonus(attr) {
     const bgKey = document.getElementById('backgroundSelect').value;
     return HINTERGRÜNDE[bgKey] ? (HINTERGRÜNDE[bgKey][attr] || 0) : 1;
@@ -401,8 +98,7 @@ function handleClassChange() {
         if (cls === "Hexenmeister") {
             document.getElementById("subClassSelectLabel").textContent = "Patron wählen:"
             document.getElementById("warlockInfoLabel").style.display = "block"
-        }
-        else {
+        } else {
             document.getElementById("warlockInfoLabel").style.display = "none"
             document.getElementById("subClassSelectLabel").textContent = "Subklasse wählen:"
         };
@@ -422,16 +118,16 @@ function updateCustomRaceLogic() {
     updateDisplay();
 }
 
-/*Functions for the Attribute Table */
+/*Attribute Table*/
+export function getAttributeTotal(attr) { return state.scores[attr] + getRacialBonus(attr); }
+export function getModifierTotal(attr) { return Math.floor((getAttributeTotal(attr) - 10) / 2); }
 
-function getAttributeTotal(attr) { return scores[attr] + getRacialBonus(attr)}
-function getModifierTotal(attr) { return Math.floor((getAttributeTotal(attr) - 10) / 2); }
 function updateAttributeTable() {
     const table = document.getElementById('attributesTable');
     if (!table) return;
     table.innerHTML = '';
     for (const [attr, name] of Object.entries(ATTRIBUTES_MAP)) {
-        const base = scores[attr];
+        const base = state.scores[attr];
         const racial = getRacialBonus(attr);
         const total = getAttributeTotal(attr);
         const mod = calculateModifier(total);
@@ -453,20 +149,19 @@ function updateAttributeTable() {
 }
 
 function adjustScore(attr, delta) {
-    const newValue = scores[attr] + delta;
+    const newValue = state.scores[attr] + delta;
     if (newValue >= 8 && newValue <= 15) {
-        const costDiff = POINT_COSTS[newValue] - POINT_COSTS[scores[attr]];
+        const costDiff = POINT_COSTS[newValue] - POINT_COSTS[state.scores[attr]];
         if (delta > 0 && (getTotalPoints() + costDiff) > 27) return;
-        scores[attr] = newValue;
+        state.scores[attr] = newValue;
         updateDisplay();
     }
 }
 
-function calculateModifier(score) { return Math.floor((score - 10) / 2); }
-function getTotalPoints() { return Object.values(scores).reduce((sum, val) => sum + POINT_COSTS[val], 0); }
+export function calculateModifier(score) { return Math.floor((score - 10) / 2); }
+function getTotalPoints() { return Object.values(state.scores).reduce((sum, val) => sum + POINT_COSTS[val], 0); }
 
-/*Functions for Saves and Skills */
-
+/*Saves and Skills*/
 function updateSavesAndSkills() {
     const savesList = document.getElementById('savesList');
     const skillsList = document.getElementById('skillsList');
@@ -487,7 +182,7 @@ function updateSavesAndSkills() {
 
     for (const [skill, attr] of Object.entries(SKILLS)) {
         const isBgProf = bgSkills.includes(skill);
-        const isSelected = selectedSkills.includes(skill);
+        const isSelected = state.selectedSkills.includes(skill);
         const isProf = isBgProf || isSelected;
         const val = calculateModifier(getAttributeTotal(attr)) + (isProf ? pb : 0);
         skillsList.innerHTML += `<li><input type="checkbox" onchange="handleSkillChange('${skill}')" ${isProf ? 'checked' : ''} ${isBgProf ? 'disabled' : ''}> ${skill}: ${val >= 0 ? '+' + val : val}</li>`;
@@ -505,12 +200,12 @@ function handleSkillChange(skill) {
     const limit = classData?.skillChoices ?? 0;
     document.getElementById('skillLimit').textContent = limit;
 
-    const currentClassSkills = selectedSkills.filter(s => !bgSkills.includes(s));
+    const currentClassSkills = state.selectedSkills.filter(s => !bgSkills.includes(s));
 
-    if (selectedSkills.includes(skill)) {
-        selectedSkills = selectedSkills.filter(s => s !== skill);
+    if (state.selectedSkills.includes(skill)) {
+        state.selectedSkills = state.selectedSkills.filter(s => s !== skill);
     } else if (currentClassSkills.length < limit) {
-        selectedSkills.push(skill);
+        state.selectedSkills.push(skill);
     }
     getBackgroundBonus();
     updateSavesAndSkills();
@@ -524,8 +219,7 @@ function updateSkillLimit() {
     getBackgroundBonus();
 }
 
-/*Functions for the dice-roll page */
-
+/*Dice Roll*/
 function getDiceRoll() {
     var amount = parseInt(document.getElementById('wuerfelAnzahl').value);
     var dice = parseInt(document.getElementById('wuerfelAuswahl').value);
@@ -576,8 +270,7 @@ function resetDicePage() {
     document.getElementById('wuerfelOutput').value = ''
 }
 
-/*Random Scores, Classes, etc. */
-
+/*Random*/
 function random(arr) {
     return arr[Math.floor(Math.random() * arr.length)];
 }
@@ -591,19 +284,13 @@ function randomScore() {
     var scoreArray6 = { STR: 14, DEX: 13, CON: 12, INT: 10, WIS: 8, CHA: 15 };
 
     let number = Math.floor(Math.random() * 7)
-    if (number === 1) {
-        scores = scoreArray1
-    } else if (number === 2) {
-        scores = scoreArray2
-    } else if (number === 3) {
-        scores = scoreArray3
-    } else if (number === 4) {
-        scores = scoreArray4
-    } else if (number === 5) {
-        scores = scoreArray5
-    } else if (number === 6) {
-        scores = scoreArray6
-    }
+    if (number === 1) { Object.assign(state.scores, scoreArray1); }
+    else if (number === 2) { Object.assign(state.scores, scoreArray2); }
+    else if (number === 3) { Object.assign(state.scores, scoreArray3); }
+    else if (number === 4) { Object.assign(state.scores, scoreArray4); }
+    else if (number === 5) { Object.assign(state.scores, scoreArray5); }
+    else if (number === 6) { Object.assign(state.scores, scoreArray6); }
+
     updateAttributeTable();
     handleMainRaceChange();
     handleClassChange();
@@ -628,17 +315,25 @@ function randomizeEverything() {
     }
     const alSel = document.getElementById('alignmentSelect');
     alSel.value = random(Object.keys(ALIGNMENT));
-    selectedSkills = [random(Object.keys(SKILLS)), random(Object.keys(SKILLS))];
+    state.selectedSkills = [random(Object.keys(SKILLS)), random(Object.keys(SKILLS))];
     const classData = CLASS_DATA[classSel.value];
     if (classData?.skillChoices === 3)
-        selectedSkills = [random(Object.keys(SKILLS)), random(Object.keys(SKILLS)), random(Object.keys(SKILLS))];
+        state.selectedSkills = [random(Object.keys(SKILLS)), random(Object.keys(SKILLS)), random(Object.keys(SKILLS))];
     randomScore();
     handleMainRaceChange();
     handleClassChange();
     updateDisplay();
 }
 
-/*Change Event-Listeners to update Display*/
+/*Event Listeners — müssen global sein für onclick= im HTML*/
+window.adjustScore = adjustScore;
+window.handleSkillChange = handleSkillChange;
+window.randomScore = randomScore;
+window.randomizeEverything = randomizeEverything;
+window.getDiceRoll = getDiceRoll;
+window.resetDicePage = resetDicePage;
+window.copyEmail = copyEmail;
+window.fillFormFull = fillFormFull;
 
 document.getElementById('classSelect').addEventListener('change', updateSkillLimit);
 document.getElementById('mainRaceSelect').addEventListener('change', handleMainRaceChange);
@@ -650,21 +345,15 @@ document.getElementById('alignmentSelect').addEventListener('change', updateDisp
 document.getElementById('customAttr1').addEventListener('change', updateDisplay);
 document.getElementById('customAttr2').addEventListener('change', updateDisplay);
 document.getElementById('resetBtn').addEventListener('click', () => {
-    const mainRaceSel = document.getElementById('mainRaceSelect');
-    if (!mainRaceSel) return;
-    mainRaceSel.value = 'Mensch';
+    document.getElementById('mainRaceSelect').value = 'Mensch';
     const subRaceSel = document.getElementById('subRaceSelect');
     if (subRaceSel) subRaceSel.selectedIndex = 0;
-    const classSel = document.getElementById('classSelect');
-    if (classSel) classSel.value = 'Kämpfer';
-    const levelSel = document.getElementById('levelSelect');
-    if (levelSel) levelSel.value = '1';
-    const bgSel = document.getElementById('backgroundSelect');
-    if (bgSel) bgSel.value = 'Scharlatan (Täuschen (CHA), Fingerfertigkeit (DEX))';
-    const alSel = document.getElementById('alignmentSelect');
-    if (alSel) alSel.value = 'WahrhaftNeutral'
-    selectedSkills = [];
-    scores = { STR: 8, DEX: 8, CON: 8, INT: 8, WIS: 8, CHA: 8 };
+    document.getElementById('classSelect').value = 'Kämpfer';
+    document.getElementById('levelSelect').value = '1';
+    document.getElementById('backgroundSelect').value = 'Scharlatan (Täuschen (CHA), Fingerfertigkeit (DEX))';
+    document.getElementById('alignmentSelect').value = 'WahrhaftNeutral';
+    state.selectedSkills = [];
+    Object.assign(state.scores, { STR: 8, DEX: 8, CON: 8, INT: 8, WIS: 8, CHA: 8 });
     handleMainRaceChange();
     handleClassChange();
     updateDisplay();
@@ -682,16 +371,15 @@ document.addEventListener('DOMContentLoaded', () => {
     handleMainRaceChange();
     handleClassChange();
     updateDisplay();
+
     const sel1 = document.getElementById('customAttr1');
     const sel2 = document.getElementById('customAttr2');
 
     function syncCustomSelectors() {
         const val1 = sel1.value;
         const val2 = sel2.value;
-
         Array.from(sel1.options).forEach(opt => opt.disabled = false);
         Array.from(sel2.options).forEach(opt => opt.disabled = false);
-
         if (val1) {
             const optIn2 = Array.from(sel2.options).find(o => o.value === val1);
             if (optIn2) optIn2.disabled = true;
@@ -702,13 +390,6 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    sel1.addEventListener('change', () => {
-        syncCustomSelectors();
-        updateDisplay();
-    });
-
-    sel2.addEventListener('change', () => {
-        syncCustomSelectors();
-        updateDisplay();
-    });
+    sel1.addEventListener('change', () => { syncCustomSelectors(); updateDisplay(); });
+    sel2.addEventListener('change', () => { syncCustomSelectors(); updateDisplay(); });
 });
