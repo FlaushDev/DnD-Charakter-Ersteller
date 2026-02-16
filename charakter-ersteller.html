@@ -27,9 +27,12 @@
     </div>
     <div class="hero">
         <h1>DnD 5e 2014 Charakter-Ersteller</h1>
-        <div class="subheader">Infos und Erklärungen zu den Klassen gibt es <a href="https://www.dnddeutsch.de/klassen-und-archetypen/">hier</a>.<br> Bitte beachten Sie, dass dieser Ersteller momentan noch in Entwicklung ist. Bei Feedback bitte schreiben Sie mir ein Mail an <a onclick="copyEmail()" id="E-mail" style="a:hover {cursor: pointer;}">owner@tooltrinkets.at</a>.</div>
+        <div class="subheader">Infos und Erklärungen zu den Klassen gibt es <a
+                href="https://www.dnddeutsch.de/klassen-und-archetypen/">hier</a>.<br> Bitte beachten Sie, dass dieser
+            Ersteller momentan noch in Entwicklung ist. Bei Feedback bitte schreiben Sie mir ein Mail an <a
+                onclick="copyEmail()" id="E-mail" style="a:hover {cursor: pointer;}">owner@tooltrinkets.at</a>.</div>
     </div>
-    
+
     <div class="container">
         <div class="form-section">
             <div class="form-group">
@@ -56,92 +59,108 @@
             </div>
 
             <div>
-                <div class="subheader small-subheader" style="display: none;" id="warlockInfoLabel">*<a href="https://www.worldanvil.com/block/809773">Hier</a> klicken um mehr über den Hexenmeister zu lesen</span>
-            </div>
+                <div class="subheader small-subheader" style="display: none;" id="warlockInfoLabel">*<a
+                        href="https://www.worldanvil.com/block/809773">Hier</a> klicken um mehr über den Hexenmeister zu
+                    lesen</span>
+                </div>
 
-            <div class="form-group" id="subClassSelection" style="display:none;">
-                <label class="label-select" id="subClassSelectLabel">Subklasse wählen:</label>
-                <select class="select" id="subClassSelect"></select>
-            </div>
+                <div class="form-group" id="subClassSelection" style="display:none;">
+                    <label class="label-select" id="subClassSelectLabel">Subklasse wählen:</label>
+                    <select class="select" id="subClassSelect"></select>
+                </div>
 
-            <div class="form-group">
-                <label class="label-select">Volk wählen:</label>
-                <select class="select" id="mainRaceSelect">
-                    <option value="Mensch" selected>Mensch</option>
-                    <option value="Elf">Elf</option>
-                    <option value="Zwerg">Zwerg</option>
-                    <option value="Halbling">Halbling</option>
-                    <option value="Gnom">Gnom</option>
-                    <option value="Halbelf">Halbelf</option>
-                    <option value="Halbork">Halbork</option>
-                    <option value="Drachenblütiger">Drachenblütiger</option>
-                    <option value="Tiefling">Tiefling</option>
-                </select>
-            </div>
-
-            <div class="form-group" id="subRaceSelection" style="display:none;">
-                <label class="label-select">Untervolk wählen:</label>
-                <select class="select" id="subRaceSelect"></select>
-            </div>
-
-            <div class="form-group" id="customBonuses" style="display:none;">
-                <label class="label-select">Custom Attributsboni:</label>
-                <div style="display: flex; gap: 1rem;">
-                    <select class="select" id="customAttr1" style="flex: 1;">
-                        <option value="STR" selected>Stärke</option>
-                        <option value="DEX">Geschicklichkeit</option>
-                        <option value="CON">Konstitution</option>
-                        <option value="INT">Intelligenz</option>
-                        <option value="WIS">Weisheit</option>
-                        <option value="CHA">Charisma</option>
+                <div class="form-group">
+                    <label class="label-select">Volk wählen:</label>
+                    <select class="select" id="mainRaceSelect">
+                        <option value="Mensch" selected>Mensch</option>
+                        <option value="Elf">Elf</option>
+                        <option value="Zwerg">Zwerg</option>
+                        <option value="Halbling">Halbling</option>
+                        <option value="Gnom">Gnom</option>
+                        <option value="Halbelf">Halbelf</option>
+                        <option value="Halbork">Halbork</option>
+                        <option value="Drachenblütiger">Drachenblütiger</option>
+                        <option value="Tiefling">Tiefling</option>
                     </select>
-                    <select class="select" id="customAttr2" style="flex: 1;">
-                        <option value="STR">Stärke</option>
-                        <option value="DEX" selected>Geschicklichkeit</option>
-                        <option value="CON">Konstitution</option>
-                        <option value="INT">Intelligenz</option>
-                        <option value="WIS">Weisheit</option>
-                        <option value="CHA">Charisma</option>
+                </div>
+
+                <div class="form-group" id="subRaceSelection" style="display:none;">
+                    <label class="label-select">Untervolk wählen:</label>
+                    <select class="select" id="subRaceSelect"></select>
+                </div>
+
+                <div class="form-group" id="customBonuses" style="display:none;">
+                    <label class="label-select">Custom Attributsboni:</label>
+                    <div style="display: flex; gap: 1rem;">
+                        <select class="select" id="customAttr1" style="flex: 1;">
+                            <option value="STR" selected>Stärke</option>
+                            <option value="DEX">Geschicklichkeit</option>
+                            <option value="CON">Konstitution</option>
+                            <option value="INT">Intelligenz</option>
+                            <option value="WIS">Weisheit</option>
+                            <option value="CHA">Charisma</option>
+                        </select>
+                        <select class="select" id="customAttr2" style="flex: 1;">
+                            <option value="STR">Stärke</option>
+                            <option value="DEX" selected>Geschicklichkeit</option>
+                            <option value="CON">Konstitution</option>
+                            <option value="INT">Intelligenz</option>
+                            <option value="WIS">Weisheit</option>
+                            <option value="CHA">Charisma</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="label-select">Hintergrund wählen:</label>
+                    <select class="select" id="backgroundSelect">
+                        <option value="Scharlatan (Täuschen (CHA), Fingerfertigkeit (DEX))">Scharlatan (Täuschen (CHA),
+                            Fingerfertigkeit (DEX)) </option>
+                        <option value="Tempeldiener (Motiv erkennen (WIS), Religion (INT))">Tempeldiener (Motiv
+                            erkennen(WIS), Religion (INT))</option>
+                        <option value="Handwerker (Motiv erkennen(WIS), Überzeugen (CHA))">Handwerker (Motiv
+                            erkennen(WIS), Akrobatik (DEX))</option>
+                        <option value="Krimineller (Heimlichkeit (DEX), Täuschen (CHA))">Krimineller (Heimlichkeit
+                            (DEX), Täuschen (CHA))</option>
+                        <option value="Unterhaltungskünstler (Auftreten (CHA), Akrobatik (STR))">Unterhaltungskünstler
+                            (Auftreten (CHA), Akrobatik (DEX))</option>
+                        <option value="Volksheld (Tierumgang (WIS), Überleben (WIS))">Volksheld (Tierumgang (WIS),
+                            Überleben (WIS))</option>
+                        <option value="Weiser (Arkane Kunde (INT), Geschichte (INT))">Weiser (Arkane Kunde (INT),
+                            Geschichte (INT))</option>
+                        <option value="Einsiedler (Heilkunde (WIS), Religion (INT))">Einsiedler (Heilkunde (WIS),
+                            Religion (INT))</option>
+                        <option value="Adliger (Überzeugen (CHA), Geschichte (INT))">Adliger (Überzeugen (CHA),
+                            Geschichte (INT))</option>
+                        <option value="Seeman (Athletik (STR), Wahrnehmung (WIS))">Seeman (Athletik (STR), Wahrnehmung
+                            (WIS))</option>
+                        <option value="Soldat (Athletik (STR), Wahrnehmung (WIS))">Soldat (Athletik (STR), Wahrnehmung
+                            (WIS))</option>
+                        <option value="Sonderling (Athletik (STR), Überleben (WIS))">Sonderling (Athletik (STR),
+                            Überleben (WIS))</option>
+                        <option value="Strassenkind (Fingerfertigkeit (DEX), Heimlichkeit (DEX))">Strassenkind
+                            (Fingerfertigkeit (DEX), Heimlichkeit (DEX))</option>
+                        <option value="Händler (Motiv erkennen (WIS), Überzeugen (CHA))">Händler (Motiv erkennen(WIS),
+                            Überzeugen (CHA))</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label class="label-select">Gesinnung:</label>
+                    <select class="select" id="alignmentSelect">
+                        <option value="RechtschaffenGut">Rechtschaffen Gut</option>
+                        <option value="RechtschaffenNeutral">Rechtschaffen Neutral</option>
+                        <option value="RechtschaffenBöse">Rechtschaffen Böse</option>
+                        <option value="NeutralGut">Neutral Gut</option>
+                        <option value="WahrhaftNeutral" selected>Wahrhaft Neutral</option>
+                        <option value="NeutralBöse">Neutral Böse</option>
+                        <option value="ChaotischGut">Chaotisch Gut</option>
+                        <option value="ChaotischNeutral">Chaotisch Neutral</option>
+                        <option value="ChaotischBöse">Chaotisch Böse</option>
                     </select>
                 </div>
             </div>
-
-            <div class="form-group">
-                <label class="label-select">Hintergrund wählen:</label>
-                <select class="select" id="backgroundSelect">
-                    <option value="Scharlatan (Täuschen (CHA), Fingerfertigkeit (DEX))">Scharlatan (Täuschen (CHA), Fingerfertigkeit (DEX)) </option>
-                    <option value="Tempeldiener (Motiv erkennen (WIS), Religion (INT))">Tempeldiener (Motiv erkennen(WIS), Religion (INT))</option>
-                    <option value="Handwerker (Motiv erkennen(WIS), Überzeugen (CHA))">Handwerker (Motiv erkennen(WIS), Akrobatik (DEX))</option>
-                    <option value="Krimineller (Heimlichkeit (DEX), Täuschen (CHA))">Krimineller (Heimlichkeit (DEX), Täuschen (CHA))</option>
-                    <option value="Unterhaltungskünstler (Auftreten (CHA), Akrobatik (STR))">Unterhaltungskünstler (Auftreten (CHA), Akrobatik (DEX))</option>
-                    <option value="Volksheld (Tierumgang (WIS), Überleben (WIS))">Volksheld (Tierumgang (WIS), Überleben (WIS))</option>
-                    <option value="Weiser (Arkane Kunde (INT), Geschichte (INT))">Weiser (Arkane Kunde (INT), Geschichte (INT))</option>
-                    <option value="Einsiedler (Heilkunde (WIS), Religion (INT))">Einsiedler (Heilkunde (WIS), Religion (INT))</option>
-                    <option value="Adliger (Überzeugen (CHA), Geschichte (INT))">Adliger (Überzeugen (CHA), Geschichte (INT))</option>
-                    <option value="Seeman (Athletik (STR), Wahrnehmung (WIS))">Seeman (Athletik (STR), Wahrnehmung (WIS))</option>
-                    <option value="Soldat (Athletik (STR), Wahrnehmung (WIS))">Soldat (Athletik (STR), Wahrnehmung (WIS))</option>
-                    <option value="Sonderling (Athletik (STR), Überleben (WIS))">Sonderling (Athletik (STR), Überleben (WIS))</option>
-                    <option value="Strassenkind (Fingerfertigkeit (DEX), Heimlichkeit (DEX))">Strassenkind (Fingerfertigkeit (DEX), Heimlichkeit (DEX))</option>
-                    <option value="Händler (Motiv erkennen (WIS), Überzeugen (CHA))">Händler (Motiv erkennen(WIS), Überzeugen (CHA))</option>
-                </select>
-            </div>
-
-            <div class="form-group">
-                <label class="label-select">Gesinnung:</label>
-                <select class="select" id="alignmentSelect">
-                    <option value="RechtschaffenGut">Rechtschaffen Gut</option>
-                    <option value="RechtschaffenNeutral">Rechtschaffen Neutral</option>
-                    <option value="RechtschaffenBöse">Rechtschaffen Böse</option>
-                    <option value="NeutralGut">Neutral Gut</option>
-                    <option value="WahrhaftNeutral" selected>Wahrhaft Neutral</option>
-                    <option value="NeutralBöse">Neutral Böse</option>
-                    <option value="ChaotischGut">Chaotisch Gut</option>
-                    <option value="ChaotischNeutral">Chaotisch Neutral</option>
-                    <option value="ChaotischBöse">Chaotisch Böse</option>
-                </select>
-            </div>
         </div>
-    </div>
 
         <div class="stats-display">
             <div class="stat-card">
@@ -178,7 +197,8 @@
             <div style="margin-top: 1.5rem;" id="pointsDisplaySection">
                 <div class="points-display">Verbrauchte Punkte: <strong id="pointsDisplay">0 / 27</strong>
                 </div>
-                <button id="randomAttribute" class="random-button" onclick="randomScore()" style="margin-left: 20px">🎲 Zufällig generieren</button>
+                <button id="randomAttribute" class="random-button" onclick="randomScore()"
+                    style="background-color: var(--paper-bg)">🎲 Zufällig generieren</button>
             </div>
         </div>
 
@@ -190,7 +210,8 @@
                 </div>
 
                 <div>
-                    <h2>Fertigkeiten <span style="font-size: 1rem; color: var(--text-light);">(Limit: <span id="skillLimit">0</span>)</span></h2>
+                    <h2>Fertigkeiten <span style="font-size: 1rem; color: var(--text-light);">(Limit: <span
+                                id="skillLimit">0</span>)</span></h2>
                     <ul class="skills-list" id="skillsList"></ul>
                 </div>
             </div>
@@ -198,8 +219,15 @@
 
         <div>
             <button id="resetBtn" class="reset-button">↻ Zurücksetzen</button>
-            <button id="randomizerButton" class="random-button" onclick="randomizeEverything()" style="margin-left: 20px; background-color: var(--paper-bg);">🎲 Zufällig generieren</button>
-            <button class="print-button random-button" style="margin-left: 20px;" onclick="fillFormFull()">In PDF drucken</button>
+            <button id="randomizerButton" class="random-button" onclick="randomizeEverything()"
+                style="background-color: var(--paper-bg);">🎲 Zufällig generieren</button>
+            <button class="print-button random-button" onclick="dropdownMenuOpenClose()">In PDF drucken <i
+                    class="fa fa-caret-down"></i></button>
+            <div id="dropdownContent" class="dropdown-content">
+                <button onclick="fillFormFull()" class="dropdown-content-button">Alle Felder ausfüllen</button>
+                <button onclick="fillFormEssential()" class="dropdown-content-button">Nur esenziele Felder ausfüllen
+                    (Empfohlen)</button>
+            </div>
         </div>
 
         <div class="info-box" id="info">

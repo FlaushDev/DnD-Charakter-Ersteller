@@ -66,32 +66,30 @@ export const CLASS_DATA = {
 export const RACE_GROUPS = {
     'Mensch': ['Mensch', 'Mensch (Variante)'],
     'Elf': ['Hochelf', 'Waldelf', 'Dunkelelfen (Drow)'],
-    'Zwerg': ['Zwerg (Hügel)', 'Zwerg (Gebirge)'],
-    'Halbling': ['Halbling (Leichtfuß)', 'Halbling (Stämmig)'],
-    'Gnom': ['Berggnom', 'Waldgnom', 'Tiefengnom'],
-    'Halbelf': ['Halbelf'],
-    'Halbork': ['Halbork'],
-    'Drachenblütiger': ['Drachenblütiger'],
-    'Tiefling': ['Tiefling']
+    'Zwerg': ['Zwerg'],
+    'Halbling': ['Halbling'],
+    'Gnom': ['Berggnom', 'Waldgnom'],
+    'Goliath': ['Goliath (Wolken Riese)', 'Goliath (Feuer Riese)', 'Goliath (Frost Riese)', 'Goliath (Hügel Riese)', 'Goliath (Stein Riese)', 'Goliath (Sturm Riese)'],
+    'Drachenblütiger': ['Drachenblütiger (Schwarzer Drache)', 'Drachenblütiger (Blauer Drache)', 'Drachenblütiger (Messinger Drache)', 'Drachenblütiger (Bronzener Drache)', 'Drachenblütiger (Kupferner Drache)' ],
+    'Tiefling': ['Abyssaler Tiefling', 'Chthonic Tiefling', 'Infernaler Tiefling'],
+    'Aasimar': ['Aasimar'],
+    'Ork': ['Ork'],
+
 };
 
 export const RACES = {
     'Mensch': { STR: 1, DEX: 1, CON: 1, INT: 1, WIS: 1, CHA: 1},
     'Mensch (Variante)': { custom: 2, skillChoices: 1},
-    'Halbelf': { CHA: 2, custom: 2, skillChoices: 2 },
     'Hochelf': { DEX: 2, INT: 1, skills:['Wahrnehmung (WIS)'] },
     'Waldelf': { DEX: 2, WIS: 1, skills:['Wahrnehmung (WIS)']  },
     'Dunkelelfen (Drow)': { DEX: 2, CHA: 1, skills:['Wahrnehmung (WIS)'] },
     'Berggnom': { INT: 2, CON: 2 },
     'Waldgnom': { INT: 2, DEX: 1 },
-    'Tiefengnom': { INT: 2, DEX: 1 },
-    'Halbork': { STR: 2, CON: 1, skills:['Einschüchtern (CHA)'] },
     'Drachenblütiger': { STR: 2, CHA: 1 },
     'Zwerg (Hügel)': { CON: 2, WIS: 1 },
     'Zwerg (Gebirge)': { CON: 2, STR: 2 },
     'Tiefling': { INT: 1, CHA: 2 },
     'Halbling (Leichtfuß)': { DEX: 2, CHA: 1 },
-    'Halbling (Stämmig)': { DEX: 2, CON: 1 }
 };
 
 export const ALIGNMENT = {

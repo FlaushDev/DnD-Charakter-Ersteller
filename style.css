@@ -2,6 +2,7 @@
 :root {
     --bg-teal: #1a3e47;
     --bg-darker: #0f2529;
+    --bg-dark: #e3bf9c;
     --bg-light: #e8dfd6;
     --text-dark: #2c3e3f;
     --text-light: #5a6d6e;
@@ -77,6 +78,13 @@ button {
     justify-content: center;
 }
 
+.button-container-flex-small {
+    align-content: center;
+    align-self: center;
+    align-items: center;
+    justify-content: center;
+}
+
 .button {
     color: #5a6d6e;
     width: 440px;
@@ -96,8 +104,8 @@ button {
     transition-duration: 0.2s;
 }
 
-.img-button { 
-    background-size: cover;  
+.img-button {
+    background-size: cover;
 }
 
 .reset-button {
@@ -108,7 +116,7 @@ button {
     border-radius: 6px;
     border-style: solid;
     padding: 0.75rem 1rem;
-    height: 76px;   
+    height: 76px;
     font-size: 1.2rem;
 }
 
@@ -126,7 +134,8 @@ button {
     border-style: solid;
     padding: 0.75rem 1rem;
     width: 150px;
-    height: 76px;   
+    height: 76px;
+    margin-left: 20px;
 }
 
 .wuerfel-button:hover {
@@ -136,7 +145,6 @@ button {
 }
 
 .random-button {
-    color: var(--bg-darker);
     font-size: 1.2rem;
     background-color: var(--bg-light);
     border-color: var(--border-light);
@@ -144,12 +152,13 @@ button {
     border-style: solid;
     padding: 0.75rem 1rem;
     width: fit-content;
-    height: 76px;  
+    height: 76px;
+    margin-left: 20px;
 }
 
 .random-button:hover {
     border-color: var(--border-dark);
-    background-color: var(--text-light);
+    background-color: var(--border-light);
     transition: 0.2s;
 }
 
@@ -157,11 +166,12 @@ button {
     color: var(--paper-bg);
     background-color: var(--accent-teal);
     border-color: var(--bg-darker);
+    margin-left: 20px;
 }
 
 .print-button:hover {
     border-color: var(--border-orange);
-    background-color:var(--accent-orange);
+    background-color: var(--accent-orange);
     transition: 0.2s;
 }
 
@@ -271,7 +281,7 @@ footer {
     margin-bottom: 0.5rem;
 }
 
-/*Logo*/ 
+/*Logo*/
 
 .logo {
     display: flex;
@@ -343,12 +353,64 @@ label {
 }
 
 label-select {
-    display: block; 
+    display: block;
 }
 
 label-button {
     display: inline-block;
     text-align: center;
+}
+
+/*Dropdown*/
+
+.dropdown-button {
+    color: var(--paper-bg);
+    background-color: var(--accent-teal);
+    border-color: var(--bg-darker);
+}
+
+.dropdown-button:hover {
+    border-color: var(--border-orange);
+    background-color: var(--accent-orange);
+    transition: 0.2s;
+}
+
+.dropdown-content {
+    color: var(--paper-bg);
+    background-color: var(--accent-teal);
+    border-color: var(--bg-darker);
+    float: none;
+    text-decoration: none;
+    display: none;
+    box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+    border-radius: 6px;
+    border-style: solid;
+    padding: 0.75rem 1rem;
+    width: fit-content;
+}
+
+.show-dropdown {
+    position: absolute;
+    display: block;
+}
+
+.dropdown-content-button {
+    color: var(--bg-darker);
+    font-size: 1.2rem;
+    background-color: var(--bg-light);
+    border-color: var(--border-light);
+    border-radius: 6px;
+    border-style: solid;
+    padding: 0.75rem 1rem;
+    width: fit-content;
+    height: 76px;
+    margin-left: 20px;
+}
+
+.dropdown-content-button:hover {
+    border-color: var(--border-dark);
+    background-color: var(--bg-dark);
+    transition: 0.2s;
 }
 
 /*Stat-Card*/
@@ -690,5 +752,38 @@ input[type="checkbox"]:disabled {
         display: grid;
         grid-template-columns: auto;
         align-items: center;
+        margin-left: 0px;
+    }
+
+    .button-container {
+        padding-left: 0px;
+    }
+
+    .reset-button {
+        margin-bottom: 10px;
+    }
+}
+
+@media (max-width: 680px) {
+    .print-button {
+        margin-top: 10px;
+        margin-left: 0px;
+    }
+
+    #randomAttribute {
+        margin-left: 0px; 
+    }
+
+}
+
+@media (max-width: 500px) {
+    .random-button {
+        margin-top: 10px;
+        margin-left: 0px;
+    }
+
+    .print-button {
+        margin-top: 10px;
+        margin-left: 0px;
     }
 }

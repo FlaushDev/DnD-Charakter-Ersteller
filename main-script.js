@@ -1,5 +1,5 @@
 import { CLASS_DATA, SKILLS, POINT_COSTS, PROFICIENCY_BONUS, ATTRIBUTES_MAP, HINTERGRÜNDE, RACES, RACE_GROUPS, ALIGNMENT } from './data.js';
-import { fillFormFull } from './pdf.js';
+import { fillFormFull, fillFormEssential } from './pdf.js';
 
 /*State — als Objekt damit pdf.js darauf zugreifen kann*/
 export const state = {
@@ -27,6 +27,16 @@ function copyEmail() {
     const text = document.getElementById("E-mail").innerText;
     navigator.clipboard.writeText(text).then(() => {});
 }
+
+function dropdownMenuOpenClose() {
+    if (document.getElementById('dropdownContent').classList.contains("show-dropdown") === false) {
+        document.getElementById('dropdownContent').classList.add("show-dropdown");
+    }
+    else {
+        document.getElementById('dropdownContent').classList.remove("show-dropdown");
+    }
+}
+
 
 /*HitDice, HitPoints, ProficiencyBonus*/
 function calculateTotalHP() {
@@ -262,6 +272,7 @@ function getDiceRoll() {
     } else {
         document.getElementById('wuerfelOutput').value += result + ' (' + amount + 'w' + dice + '), ';
     }
+    return;
 }
 
 function resetDicePage() {
@@ -334,6 +345,8 @@ window.getDiceRoll = getDiceRoll;
 window.resetDicePage = resetDicePage;
 window.copyEmail = copyEmail;
 window.fillFormFull = fillFormFull;
+window.fillFormEssential = fillFormEssential;
+window.dropdownMenuOpenClose = dropdownMenuOpenClose;
 
 document.getElementById('classSelect').addEventListener('change', updateSkillLimit);
 document.getElementById('mainRaceSelect').addEventListener('change', handleMainRaceChange);
