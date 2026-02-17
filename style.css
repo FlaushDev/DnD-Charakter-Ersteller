@@ -118,6 +118,7 @@ button {
     padding: 0.75rem 1rem;
     height: 76px;
     font-size: 1.2rem;
+    margin-left: 20px;
 }
 
 .reset-button:hover {
@@ -762,25 +763,22 @@ input[type="checkbox"]:disabled {
     .reset-button {
         margin-bottom: 10px;
     }
-}
+} 
 
 @media (max-width: 680px) {
+
     .print-button {
         margin-top: 10px;
         margin-left: 0px;
     }
 
     #randomAttribute {
-        margin-left: 0px; 
+        margin-left: 0px;
     }
 
 }
 
 @media (max-width: 500px) {
-    .random-button {
-        margin-top: 10px;
-        margin-left: 0px;
-    }
 
     .print-button {
         margin-top: 10px;
