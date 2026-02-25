@@ -32,20 +32,22 @@ export const SKILLS = {
 };
 
 export const HINTERGRÜNDE = {
-    'Scharlatan (Täuschen (CHA), Fingerfertigkeit (DEX))': { skills: ['Täuschen (CHA)', 'Fingerfertigkeit (DEX)'] },
-    'Handwerker (Motiv erkennen(WIS), Überzeugen (CHA))': { skills: ['Motiv erkennen (WIS)', 'Überzeugen (CHA)'] },
-    'Krimineller (Heimlichkeit (DEX), Täuschen (CHA))': { skills: ['Heimlichkeit (DEX)', 'Täuschen (CHA)'] },
-    'Unterhaltungskünstler (Auftreten (CHA), Akrobatik (STR))': { skills: ['Auftreten (CHA)', 'Akrobatik (STR)'] },
-    'Volksheld (Tierumgang (WIS), Überleben (WIS))': { skills: ['Tierumgang (WIS)', 'Überleben (WIS)'] },
-    'Weiser (Arkane Kunde (INT), Geschichte (INT))': { skills: ['Arkane Kunde (INT)', 'Geschichte (INT)'] },
-    'Einsiedler (Heilkunde (WIS), Religion (INT))': { skills: ['Heilkunde (WIS)', 'Religion (INT)'] },
     'Adliger (Überzeugen (CHA), Geschichte (INT))': { skills: ['Überzeugen (CHA)', 'Geschichte (INT)'] },
+    'Akolyth (Motiv erkennen(WIS), Religion(INT))': { skills: ['Motiv erkennen(WIS)', 'Religion(INT)'] },
+    'Bauer (Tierumgang (WIS), Naturkunde (INT))': { skills: ['(Tierumgang (WIS)', 'Naturkunde (INT)'] },
+    'Einsiedler (Heilkunde (WIS), Religion (INT))': { skills: ['Heilkunde (WIS)', 'Religion (INT)'] },
+    'Handwerker (Motiv erkennen(WIS), Überzeugen (CHA))': { skills: ['Motiv erkennen (WIS)', 'Überzeugen (CHA)'] },
+    'Händler (Motiv erkennen (WIS), Überzeugen (CHA))': { skills: ['Motiv erkennen (WIS)', 'Überzeugen (CHA)'] },
+    'Krimineller (Heimlichkeit (DEX), Täuschen (CHA))': { skills: ['Heimlichkeit (DEX)', 'Täuschen (CHA)'] },
+    'Reisender (Motiv erkennen(WIS),Heimlichkeit (DEX))': { skills: ['Heimlichkeit (DEX)', 'Motiv erkennen (WIS)'] },
+    'Scharlatan (Täuschen (CHA), Fingerfertigkeit (DEX))': { skills: ['Täuschen (CHA)', 'Fingerfertigkeit (DEX)'] },
+    'Schreiber (Nachforschung (INT), Wahrnehmung (WIS))': { skills: ['Nachforschung (INT)', 'Wahrnehmung (WIS)'] },
     'Seeman (Athletik (STR), Wahrnehmung (WIS))': { skills: ['Athletik (STR)', 'Wahrnehmung (WIS)'] },
     'Soldat (Athletik (STR), Wahrnehmung (WIS))': { skills: ['Athletik (STR)', 'Wahrnehmung (WIS)'] },
-    'Sonderling (Athletik (STR), Überleben (WIS))': { skills: ['Athletik (STR)', 'Überleben (WIS)'] },
-    'Strassenkind (Fingerfertigkeit (DEX), Heimlichkeit (DEX))': { skills: ['Fingerfertigkeit (DEX)', 'Heimlichkeit (DEX)'] },
-    'Tempeldiener (Motiv erkennen (WIS), Religion (INT))': { skills: ['Motiv erkennen (WIS)', 'Religion (INT)'] },
-    'Händler (Motiv erkennen (WIS), Überzeugen (CHA))': { skills: ['Motiv erkennen (WIS)', 'Überzeugen (CHA)'] }
+    'Unterhaltungskünstler (Auftreten (CHA), Akrobatik (STR))': { skills: ['Auftreten (CHA)', 'Akrobatik (STR)'] },
+    'Wache (Athletik (STR), Wahrnehmung (WIS))': { skills: ['Athletik (STR)', 'Wahrnehmung (WIS)'] },
+    'Wegfinder (Heimlichkeit (DEX), Überleben (WIS)': { skills: ['Heimlichkeit (DEX)', 'Überleben (WIS)'] },
+    'Weiser (Arkane Kunde (INT), Geschichte (INT))': { skills: ['Arkane Kunde (INT)', 'Geschichte (INT)'] }
 };
 
 export const CLASS_DATA = {
@@ -70,26 +72,39 @@ export const RACE_GROUPS = {
     'Halbling': ['Halbling'],
     'Gnom': ['Berggnom', 'Waldgnom'],
     'Goliath': ['Goliath (Wolken Riese)', 'Goliath (Feuer Riese)', 'Goliath (Frost Riese)', 'Goliath (Hügel Riese)', 'Goliath (Stein Riese)', 'Goliath (Sturm Riese)'],
-    'Drachenblütiger': ['Drachenblütiger (Schwarzer Drache)', 'Drachenblütiger (Blauer Drache)', 'Drachenblütiger (Messinger Drache)', 'Drachenblütiger (Bronzener Drache)', 'Drachenblütiger (Kupferner Drache)' ],
+    'Drachenblütiger': ['Drachenblütiger (Schwarzer Drache)', 'Drachenblütiger (Blauer Drache)', 'Drachenblütiger (Messinger Drache)', 'Drachenblütiger (Bronzener Drache)', 'Drachenblütiger (Kupferner Drache)'],
     'Tiefling': ['Abyssaler Tiefling', 'Chthonic Tiefling', 'Infernaler Tiefling'],
     'Aasimar': ['Aasimar'],
     'Ork': ['Ork'],
 
 };
 
-export const RACES = {
-    'Mensch': { STR: 1, DEX: 1, CON: 1, INT: 1, WIS: 1, CHA: 1},
-    'Mensch (Variante)': { custom: 2, skillChoices: 1},
-    'Hochelf': { DEX: 2, INT: 1, skills:['Wahrnehmung (WIS)'] },
-    'Waldelf': { DEX: 2, WIS: 1, skills:['Wahrnehmung (WIS)']  },
-    'Dunkelelfen (Drow)': { DEX: 2, CHA: 1, skills:['Wahrnehmung (WIS)'] },
+export const RACES = { /*Note that these Values are currently only placeholders, as I do not have access to the PHB 2024 yet */
+    'Mensch': { STR: 1, DEX: 1, CON: 1, INT: 1, WIS: 1, CHA: 1 },
+    'Mensch (Variante)': { custom: 2, skillChoices: 1 },
+    'Hochelf': { DEX: 2, INT: 1, skills: ['Wahrnehmung (WIS)'] },
+    'Waldelf': { DEX: 2, WIS: 1, skills: ['Wahrnehmung (WIS)'] },
+    'Dunkelelfen (Drow)': { DEX: 2, CHA: 1, skills: ['Wahrnehmung (WIS)'] },
     'Berggnom': { INT: 2, CON: 2 },
     'Waldgnom': { INT: 2, DEX: 1 },
-    'Drachenblütiger': { STR: 2, CHA: 1 },
-    'Zwerg (Hügel)': { CON: 2, WIS: 1 },
-    'Zwerg (Gebirge)': { CON: 2, STR: 2 },
-    'Tiefling': { INT: 1, CHA: 2 },
-    'Halbling (Leichtfuß)': { DEX: 2, CHA: 1 },
+    'Drachenblütiger (Schwarzer Drache)': { STR: 2, CHA: 1 },
+    'Drachenblütiger (Blauer Drache)': { STR: 2, CHA: 1 },
+    'Drachenblütiger (Messinger Drache)': { STR: 2, CHA: 1 },
+    'Drachenblütiger (Bronzener Drache)': { STR: 2, CHA: 1 },
+    'Drachenblütiger (Kupferner Drache)': { STR: 2, CHA: 1 },
+    'Zwerg': { CON: 2, WIS: 1 },
+    'Abyssaler Tiefling': { INT: 1, CHA: 2 },
+    'Chthonic Tiefling': { INT: 1, CHA: 2 },
+    'Infernaler Tiefling': { INT: 1, CHA: 2 },
+    'Halbling': { DEX: 2, CHA: 1 },
+    'Aasimar': { INT: 2, CHA: 2 },
+    'Ork': { STR: 2 },
+    'Goliath (Wolken Riese)': { STR: 1, DEX: 1 },
+    'Goliath (Feuer Riese)': { STR: 1, DEX: 1 },
+    'Goliath (Frost Riese)': { STR: 1, DEX: 1 },
+    'Goliath (Hügel Riese)': { STR: 1, DEX: 1 },
+    'Goliath (Stein Riese)': { STR: 1, DEX: 1 },
+    'Goliath (Sturm Riese)': { STR: 1, DEX: 1 },
 };
 
 export const ALIGNMENT = {
@@ -99,6 +114,7 @@ export const ALIGNMENT = {
     'NeutralGut': {},
     'WahrhaftNeutral': {},
     'NeutralBöse': {},
+    'ChaotischGut': {},
     'ChaotischNeutral': {},
     'ChaotischBöse': {}
 }

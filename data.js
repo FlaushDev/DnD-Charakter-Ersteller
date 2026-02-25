@@ -76,16 +76,16 @@ export const RACE_GROUPS = {
 };
 
 export const RACES = {
-    'Mensch': { STR: 1, DEX: 1, CON: 1, INT: 1, WIS: 1, CHA: 1},
-    'Mensch (Variante)': { custom: 2, skillChoices: 1},
+    'Mensch': { STR: 1, DEX: 1, CON: 1, INT: 1, WIS: 1, CHA: 1 },
+    'Mensch (Variante)': { custom: 2, skillChoices: 1 },
     'Halbelf': { CHA: 2, custom: 2, skillChoices: 2 },
-    'Hochelf': { DEX: 2, INT: 1, skills:['Wahrnehmung (WIS)'] },
-    'Waldelf': { DEX: 2, WIS: 1, skills:['Wahrnehmung (WIS)']  },
-    'Dunkelelfen (Drow)': { DEX: 2, CHA: 1, skills:['Wahrnehmung (WIS)'] },
+    'Hochelf': { DEX: 2, INT: 1, skills: ['Wahrnehmung (WIS)'] },
+    'Waldelf': { DEX: 2, WIS: 1, skills: ['Wahrnehmung (WIS)'] },
+    'Dunkelelfen (Drow)': { DEX: 2, CHA: 1, skills: ['Wahrnehmung (WIS)'] },
     'Berggnom': { INT: 2, CON: 2 },
     'Waldgnom': { INT: 2, DEX: 1 },
     'Tiefengnom': { INT: 2, DEX: 1 },
-    'Halbork': { STR: 2, CON: 1, skills:['Einschüchtern (CHA)'] },
+    'Halbork': { STR: 2, CON: 1, skills: ['Einschüchtern (CHA)'] },
     'Drachenblütiger': { STR: 2, CHA: 1 },
     'Zwerg (Hügel)': { CON: 2, WIS: 1 },
     'Zwerg (Gebirge)': { CON: 2, STR: 2 },
@@ -101,6 +101,7 @@ export const ALIGNMENT = {
     'NeutralGut': {},
     'WahrhaftNeutral': {},
     'NeutralBöse': {},
+    'ChaotischGut': {},
     'ChaotischNeutral': {},
     'ChaotischBöse': {}
 }

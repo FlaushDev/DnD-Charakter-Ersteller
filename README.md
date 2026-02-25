@@ -7,6 +7,7 @@ habe ich den gesamten Code von Grund auf selbst entwickelt, um eine schlanke und
 Da das Regelwerk von Dungeons & Dragons extrem komplex ist, befindet sich das Tool in ständiger Entwicklung. Auch wenn die Berechnungen und Abläufe noch nicht in jedem Detail perfekt sind, arbeite ich kontinuierlich daran, die Logik zu verfeinern und neue Features zu implementieren. Es ist ein echtes Herzensprojekt, das mit jeder Code-Zeile wächst, um Spielern den Einstieg in ihre Abenteuer so leicht wie möglich zu machen.
 
 !! Das Projekt ist noch in der Alpha-Phase | The project is still in alpha!!
+
 <h4>Wip Features:</h4>
 
 1. Implementations of more features from the 2024/2014 PHB

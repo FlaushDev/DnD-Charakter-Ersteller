@@ -25,7 +25,7 @@ function updateDisplay() {
 /*Misc*/
 function copyEmail() {
     const text = document.getElementById("E-mail").innerText;
-    navigator.clipboard.writeText(text).then(() => {});
+    navigator.clipboard.writeText(text).then(() => { });
 }
 
 function dropdownMenuOpenClose() {

@@ -2,7 +2,7 @@
 import { CLASS_DATA, HINTERGRÜNDE, SKILLS, ATTRIBUTES_MAP } from './data.js';
 import { state, getPB, getAttributeTotal, getModifierTotal, calculateModifier } from './main-script.js';
 
-const PDF_URL = 'https://files.catbox.moe/piedns.pdf';
+const PDF_URL = 'charakterbogen.pdf';
 
 const getSelectValue = (id) => document.getElementById(id)?.value ?? '';
 const getConvertedString = (value) => value.toString();
@@ -162,7 +162,7 @@ export async function fillFormFull() {
     fillSkillsAndCheckboxes(fields, checkboxes);
 
     const pdfBytes = await pdfDoc.save();
-    download(pdfBytes, 'piedns.pdf', 'application/pdf');
+    download(pdfBytes, 'charakterbogen.pdf', 'application/pdf');
 }
 
 export async function fillFormEssential() {
@@ -180,5 +180,5 @@ export async function fillFormEssential() {
     fillSkillsAndCheckboxes(fields, checkboxes);
 
     const pdfBytes = await pdfDoc.save();
-    download(pdfBytes, 'piedns.pdf', 'application/pdf');
+    download(pdfBytes, 'charakterbogen.pdf', 'application/pdf');
 }
