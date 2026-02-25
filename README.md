@@ -11,10 +11,10 @@ Da das Regelwerk von Dungeons & Dragons extrem komplex ist, befindet sich das To
 <h4>Wip Features:</h4>
 
 1. Implementations of more features from the 2024/2014 PHB
-2. Choosing between the 2014/2024 Rulebook
-3. Printing to a character sheet directly <br>
+2. More Tools for DMs and Players
 <br>
 
 
 
 <footer>Alle Rechte vorbehalten | Erstellt von Paul S.</footer>
+
