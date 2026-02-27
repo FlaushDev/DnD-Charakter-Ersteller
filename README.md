@@ -1,6 +1,6 @@
 <h1>Über das Projekt:</h1>
 
-Dieser Charakter-Ersteller ist mein erstes großes JavaScript-Projekt und entstand aus der persönlichen Frustration heraus, dass es kaum
+Dieser Charakter-Ersteller ist mein erstes (großes) JavaScript-Projekt und entstand aus der persönlichen Frustration heraus, dass es kaum
 gute, deutschsprachige Tools gibt, die ohne Registrierungszwang oder zeitaufwendige Dateneingabe funktionieren. Mein Ziel ist es, eine schnelle und regelkonforme Lösung zu bieten, die den Fokus zurück auf das Wesentliche legt: das Spiel. Da ich schon länger programmiere,
 habe ich den gesamten Code von Grund auf selbst entwickelt, um eine schlanke und intuitive Alternative zu den oft überladenen englischen Portalen zu schaffen.
 
@@ -12,6 +12,11 @@ Da das Regelwerk von Dungeons & Dragons extrem komplex ist, befindet sich das To
 
 1. Implementations of more features from the 2024/2014 PHB
 2. More Tools for DMs and Players
+-> Putting Grids on Maps
+-> Daytime Tracker
+-> Encounter Tracker
+--> Mob List
+3. Style renew
 <br>
 
 
