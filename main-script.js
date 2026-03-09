@@ -1,3 +1,7 @@
+/** main-script.js
+ *  All functions in this JS are essential for the website to work
+ *  If you change something in other JS modules you MUST import and export for it to work
+ */
 import { CLASS_DATA, SKILLS, POINT_COSTS, PROFICIENCY_BONUS, ATTRIBUTES_MAP, HINTERGRÜNDE, RACES, RACE_GROUPS, ALIGNMENT } from './data.js';
 import { fillFormFull, fillFormEssential } from './pdf.js';
 
@@ -26,6 +30,21 @@ function updateDisplay() {
 function copyEmail() {
     const text = document.getElementById("E-mail").innerText;
     navigator.clipboard.writeText(text).then(() => { });
+    Toastify({
+        text: "E-Mail kopiert",
+        duration: 2500,
+        newWindow: true,
+        close: true,
+        gravity: "bottom", // `top` or `bottom`
+        position: "right", // `left`, `center` or `right`
+        stopOnFocus: true, // Prevents dismissing of toast on hover
+        style: {
+            background: "#1a3e47",
+            border: "solid #0f2529",
+            borderRadius: "6px",
+        },
+        onClick: function () { } // Callback after click
+    }).showToast();
 }
 
 function dropdownMenuOpenClose() {
@@ -309,6 +328,21 @@ function randomScore() {
 }
 
 function randomizeEverything() {
+    Toastify({
+        text: "Alles zufällig ausgewählt!",
+        duration: 2500,
+        newWindow: true,
+        close: true,
+        gravity: "bottom", // `top` or `bottom`
+        position: "right", // `left`, `center` or `right`
+        stopOnFocus: true, // Prevents dismissing of toast on hover
+        style: {
+            background: "#1a3e47",
+            border: "solid #0f2529",
+            borderRadius: "6px",
+        },
+        onClick: function () { } // Callback after click
+    }).showToast();
     const mainRaceSel = document.getElementById('mainRaceSelect');
     mainRaceSel.value = random(Object.keys(RACE_GROUPS));
     handleMainRaceChange();
@@ -336,7 +370,7 @@ function randomizeEverything() {
     updateDisplay();
 }
 
-/*Event Listeners — müssen global sein für onclick= im HTML*/
+/*Event Listeners — müssen global sein für onclick = im HTML*/
 window.adjustScore = adjustScore;
 window.handleSkillChange = handleSkillChange;
 window.randomScore = randomScore;
@@ -358,6 +392,21 @@ document.getElementById('alignmentSelect').addEventListener('change', updateDisp
 document.getElementById('customAttr1').addEventListener('change', updateDisplay);
 document.getElementById('customAttr2').addEventListener('change', updateDisplay);
 document.getElementById('resetBtn').addEventListener('click', () => {
+    Toastify({
+        text: "Alles zurückgesetzt",
+        duration: 2500,
+        newWindow: true,
+        close: true,
+        gravity: "bottom", // `top` or `bottom`
+        position: "right", // `left`, `center` or `right`
+        stopOnFocus: true, // Prevents dismissing of toast on hover
+        style: {
+            background: "#c24641",
+            border: "solid #70140f",
+            borderRadius: "6px",
+        },
+        onClick: function () { } // Callback after click
+    }).showToast();
     document.getElementById('mainRaceSelect').value = 'Mensch';
     const subRaceSel = document.getElementById('subRaceSelect');
     if (subRaceSel) subRaceSel.selectedIndex = 0;

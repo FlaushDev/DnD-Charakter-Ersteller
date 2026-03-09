@@ -1,3 +1,7 @@
+/** main-script.js
+ *  All functions in this JS are essential for the website with the 2024 Character Creator to work
+ *  If you change something in other JS modules you MUST import and export for it to work
+ */
 import { CLASS_DATA, SKILLS, POINT_COSTS, PROFICIENCY_BONUS, ATTRIBUTES_MAP, HINTERGRÜNDE, RACES, RACE_GROUPS, ALIGNMENT } from './data2024.js';
 import { fillFormFull, fillFormEssential } from './pdf.js';
 
@@ -227,58 +231,6 @@ function updateSkillLimit() {
     const limit = classData?.skillChoices + raceData?.skillChoices ?? 0;
     document.getElementById('skillLimit').textContent = limit;
     getBackgroundBonus();
-}
-
-/*Dice Roll*/
-function getDiceRoll() {
-    var amount = parseInt(document.getElementById('wuerfelAnzahl').value);
-    var dice = parseInt(document.getElementById('wuerfelAuswahl').value);
-    if (document.getElementById('wuerfelAuswahl').value === 1000000) {
-        if (isNaN(amount) === true) {
-            alert('Bitte geben sie KEINE Buchstaben ein')
-            document.getElementById('wuerfelAnzahl').value = 1
-            return;
-        }
-        if (amount === 0) {
-            alert('Bitte geben Sie eine Nummer über 0 ein')
-            return;
-        }
-    }
-    if (document.getElementById('wuerfelAuswahl').value < 1000000) {
-        if (document.getElementById('wuerfelAnzahl').value >= 1000) {
-            alert('Bitte geben Sie eine Nummer unter 1.000 ein')
-            document.getElementById('wuerfelAnzahl').value = 1
-            return;
-        }
-        if (isNaN(amount) === true) {
-            alert('Bitte geben sie KEINE Buchstaben ein')
-            document.getElementById('wuerfelAnzahl').value = 1
-            return;
-        }
-        if (amount === 0) {
-            alert('Bitte geben Sie eine Nummer zwischen 1 und 999 ein')
-            return;
-        }
-    }
-
-    var result = 0;
-    for (var i = 0; i < amount; i++) {
-        result += Math.floor(Math.random() * dice) + 1;
-    }
-    if (result === 20) {
-        document.getElementById('wuerfelOutput').value += result + '! (' + amount + 'w' + dice + '), ';
-    } else if (result === 1) {
-        document.getElementById('wuerfelOutput').value += result + ' :( (' + amount + 'w' + dice + '), ';
-    } else {
-        document.getElementById('wuerfelOutput').value += result + ' (' + amount + 'w' + dice + '), ';
-    }
-    return;
-}
-
-function resetDicePage() {
-    document.getElementById('wuerfelAuswahl').value = 20;
-    document.getElementById('wuerfelAnzahl').value = 1;
-    document.getElementById('wuerfelOutput').value = ''
 }
 
 /*Random*/

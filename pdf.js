@@ -1,4 +1,7 @@
-// pdf.js
+/** pdf.js
+ * The Module used for printing the website information to a PDF
+ * 'charakterbogen.pdf' must exist in the root directory for this feature to work 
+*/
 import { CLASS_DATA, HINTERGRÜNDE, SKILLS, ATTRIBUTES_MAP } from './data.js';
 import { state, getPB, getAttributeTotal, getModifierTotal, calculateModifier } from './main-script.js';
 
@@ -139,7 +142,26 @@ function fillSkillsAndCheckboxes(fields, checkboxes) {
     }
 }
 
+function showDownloadStart() {
+    Toastify({
+        text: "Download gestartet (Kann ein bisschen dauern)",
+        duration: 5500,
+        newWindow: true,
+        close: true,
+        gravity: "bottom", // `top` or `bottom`
+        position: "right", // `left`, `center` or `right`
+        stopOnFocus: true, // Prevents dismissing of toast on hover
+        style: {
+            background: "#1a3e47",
+            border: "solid #0f2529",
+            borderRadius: "6px",
+        },
+        onClick: function () { } // Callback after click
+    }).showToast();
+}
+
 export async function fillFormFull() {
+    showDownloadStart();
     const { pdfDoc, form } = await loadPdf();
     const fields = getFullFields(form);
     const checkboxes = getCheckboxes(form);
@@ -166,6 +188,7 @@ export async function fillFormFull() {
 }
 
 export async function fillFormEssential() {
+    showDownloadstart();
     const { pdfDoc, form } = await loadPdf();
     const fields = {
         level: form.getTextField('Level'),
@@ -177,7 +200,6 @@ export async function fillFormEssential() {
     const checkboxes = getCheckboxes(form);
 
     fillBasicFields(fields);
-    fillSkillsAndCheckboxes(fields, checkboxes);
 
     const pdfBytes = await pdfDoc.save();
     download(pdfBytes, 'charakterbogen.pdf', 'application/pdf');

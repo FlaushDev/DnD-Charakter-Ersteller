@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <script src="https://unpkg.com/pdf-lib@1.11.0"></script>
     <script src="https://unpkg.com/downloadjs@1.4.7"></script>
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
     <link rel="icon" type="image/x-icon" href="logo.ico">
 </head>
 
@@ -30,8 +31,7 @@
         <h1>DnD 5e 2014 Charakter-Ersteller</h1>
         <div class="subheader">Infos und Erklärungen zu den Klassen gibt es <a
                 href="https://www.dnddeutsch.de/klassen-und-archetypen/">hier</a>.<br> Bitte beachten Sie, dass dieser
-            Ersteller momentan noch in Entwicklung ist. Bei Feedback bitte schreiben Sie mir ein Mail an <a
-                onclick="copyEmail()" id="E-mail" style="a:hover {cursor: pointer;}">owner@tools-n-trinkets.at</a>.
+            Ersteller momentan noch in Entwicklung ist. Bei Feedback bitte schreiben Sie mir ein Mail an <a onclick="copyEmail()" id="E-mail" style="a:hover {cursor: pointer;}">owner@tools-n-trinkets.at</a>.
         </div>
     </div>
 
@@ -203,6 +203,16 @@
                     style="background-color: var(--paper-bg)">🎲 Zufällig generieren</button>
             </div>
         </div>
+        
+        <div class="info-box" id="info">
+            <h3>Regeln (Punktekauf):</h3>
+            <ul>
+                <li>Verfügbare Punkte: 27</li>
+                <li>Minimalwert vor Völkerbonus: 8</li>
+                <li>Maximalwert vor Völkerbonus: 15</li>
+                <li>Die Kosten steigen nicht-linear (8=0, 9=1, 10=2, 11=3, 12=4, 13=5, 14=7, 15=9)</li>
+            </ul>
+        </div>
 
         <div class="form-section" id="skills">
             <div class="skills-section">
@@ -226,20 +236,10 @@
             <button class="print-button random-button" onclick="dropdownMenuOpenClose()">In PDF drucken <i
                     class="fa fa-caret-down"></i></button>
             <div id="dropdownContent" class="dropdown-content">
-                <button onclick="fillFormFull()" class="dropdown-content-button">Alle Felder ausfüllen</button>
+                <button onclick="fillFormFull()" class="dropdown-content-button" style="margin-bottom: 10px;">Alle Felder ausfüllen</button>
                 <button onclick="fillFormEssential()" class="dropdown-content-button">Nur esenziele Felder ausfüllen
                     (Empfohlen)</button>
             </div>
-        </div>
-
-        <div class="info-box" id="info">
-            <h3>Regeln (Punktekauf):</h3>
-            <ul>
-                <li>Verfügbare Punkte: 27</li>
-                <li>Minimalwert vor Völkerbonus: 8</li>
-                <li>Maximalwert vor Völkerbonus: 15</li>
-                <li>Die Kosten steigen nicht-linear (8=0, 9=1, 10=2, 11=3, 12=4, 13=5, 14=7, 15=9)</li>
-            </ul>
         </div>
     </div>
     <footer>
@@ -253,6 +253,7 @@
     </footer>
 
     <script type="module" src="main-script.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
 </body>
 
 </html>
