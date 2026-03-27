@@ -8,6 +8,9 @@
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="icon" type="image/x-icon" href="logo.ico">
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
+    <script src="main-script.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
 </head>
 
 <body>
@@ -32,14 +35,14 @@
         <h1 style="border-bottom: 2px solid var(--border-light); border-top: 2px solid var(--border-light);">Impressum
         </h1>
         <div class="subheader">
-            Medieninhaber: <br>
+            <strong>Medieninhaber:</strong> <br>
             Paul S. <br>
             Österreich <br>
             <br>
-            Kontakt: <br>
-            owner@tools-n-trinkets.at <br>
+            <strong>Kontakt:</strong> <br>
+            <a onclick="copyEmail()" id="E-mail">owner@tools-n-trinkets.at</a><br>
             <br>
-            Offenlegung gemäß §25 MedienG: <br>
+            <strong>Offenlegung gemäß §25 MedienG:</strong> <br>
             <br>
             Diese Website hilft Leuten bei ihrem D&D-Abenteueren und verfolgt keine kommerziellen oder politischen
             Zwecke.<br>
@@ -64,8 +67,6 @@
     <footer>
         <p>Erstellt von Paul S.| Alle Rechte vorbehalten © 2025 | owner@tools-n-trinkets.at </p>
     </footer>
-
-    <script src="main-script.js"></script>
 </body>
 
 </html>

@@ -19,7 +19,5 @@ Da das Regelwerk von Dungeons & Dragons extrem komplex ist, befindet sich das To
 3. Style renew
 <br>
 
-
-
 <footer>Alle Rechte vorbehalten | Erstellt von Paul S.</footer>
 

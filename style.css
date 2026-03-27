@@ -53,7 +53,30 @@ body {
     text-align: center;
 }
 
-/*Buttons and their Containers*/
+/*Special Effects*/
+
+.parallax-hero {
+    padding: 4rem 2rem;
+    text-align: center;
+    border-bottom: 3px solid var(--border-light);
+    background-image: url(/img/hero_image.png); 
+    background-size: cover; 
+    height: 500px;
+    background-attachment: fixed;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    margin-bottom: 50px;
+}
+
+.parallax-hero-text {
+    color: var(--border-light);
+    backdrop-filter: blur(8px);
+    border-radius: 6px;
+    width: auto
+}
+
+/*Buttons and their containers*/
 
 button {
     font-family: Georgia, 'Times New Roman', serif;
@@ -206,6 +229,7 @@ h1 {
 }
 
 h2 {
+    font-weight: bold;
     color: var(--accent-teal);
     font-size: 2rem;
     margin-bottom: 1.5rem;
@@ -238,6 +262,7 @@ footer {
     color: var(--text-light);
     border-top: 2px solid var(--border-light);
     background: linear-gradient(135deg, var(--paper-bg) 0%, #ddd5c7 100%);
+    width:auto;
 }
 
 /*Containers and Boxes*/
@@ -280,6 +305,22 @@ footer {
 
 .info-box li {
     margin-bottom: 0.5rem;
+}
+
+.introduction-text {
+    text-align: justify;
+    color: var(--text-light);
+    font-size: 1.3rem;
+    font-style: italic;
+    max-width: 900px;
+    margin: 0 auto;
+    align-self: center;
+}
+
+.introduction-text a {
+    color: var(--accent-orange);
+    text-decoration: none;
+    border-bottom: 1px solid var(--accent-orange);
 }
 
 /*Logo*/
