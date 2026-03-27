@@ -214,11 +214,6 @@ button {
 
 /*Header, Subheader and Footer*/
 
-.header {
-    background-color: var(--accent-teal);
-    padding: 1rem 0;
-}
-
 h1 {
     color: var(--accent-teal);
     font-size: 3.5rem;
@@ -266,6 +261,12 @@ footer {
 }
 
 /*Containers and Boxes*/
+
+.nav-header {
+    background-color: var(--accent-teal);
+    padding: 1rem 0;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+}
 
 .nav-container {
     max-width: 1400px;

@@ -4,8 +4,9 @@
  */
 import { CLASS_DATA, SKILLS, POINT_COSTS, PROFICIENCY_BONUS, ATTRIBUTES_MAP, HINTERGRÜNDE, RACES, RACE_GROUPS, ALIGNMENT } from './data.js';
 import { fillFormFull, fillFormEssential } from './pdf.js';
+import { copyEmail } from './universal-script.js';
 
-/*State — als Objekt damit pdf.js darauf zugreifen kann*/
+/*State als Objekt damit pdf.js darauf zugreifen kann*/
 export const state = {
     scores: { STR: 8, DEX: 8, CON: 8, INT: 8, WIS: 8, CHA: 8 },
     selectedSkills: []
@@ -27,25 +28,6 @@ function updateDisplay() {
 }
 
 /*Misc*/
-function copyEmail() {
-    const text = document.getElementById("E-mail").innerText;
-    navigator.clipboard.writeText(text).then(() => { });
-    Toastify({
-        text: "E-Mail kopiert",
-        duration: 2500,
-        newWindow: true,
-        close: true,
-        gravity: "bottom", // `top` or `bottom`
-        position: "right", // `left`, `center` or `right`
-        stopOnFocus: true, // Prevents dismissing of toast on hover
-        style: {
-            background: "#1a3e47",
-            border: "solid #0f2529",
-            borderRadius: "6px",
-        },
-        onClick: function () { } // Callback after click
-    }).showToast();
-}
 
 function dropdownMenuOpenClose() {
     if (document.getElementById('dropdownContent').classList.contains("show-dropdown") === false) {
@@ -397,15 +379,15 @@ document.getElementById('resetBtn').addEventListener('click', () => {
         duration: 2500,
         newWindow: true,
         close: true,
-        gravity: "bottom", // `top` or `bottom`
-        position: "right", // `left`, `center` or `right`
-        stopOnFocus: true, // Prevents dismissing of toast on hover
+        gravity: "bottom",
+        position: "right",
+        stopOnFocus: true,
         style: {
             background: "#c24641",
             border: "solid #70140f",
             borderRadius: "6px",
         },
-        onClick: function () { } // Callback after click
+        onClick: function () { }
     }).showToast();
     document.getElementById('mainRaceSelect').value = 'Mensch';
     const subRaceSel = document.getElementById('subRaceSelect');

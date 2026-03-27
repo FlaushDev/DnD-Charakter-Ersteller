@@ -188,7 +188,7 @@ export async function fillFormFull() {
 }
 
 export async function fillFormEssential() {
-    showDownloadstart();
+    showDownloadStart();
     const { pdfDoc, form } = await loadPdf();
     const fields = {
         level: form.getTextField('Level'),
