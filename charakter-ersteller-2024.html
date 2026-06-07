@@ -4,47 +4,51 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>D&D 5.5e Charakter-Creator</title>
+    <title>D&D 5.5e 2024 Charakter-Creator | Tools n' Trinkets</title>
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="icon" type="image/x-icon" href="logo.ico">
     <script src="https://unpkg.com/pdf-lib@1.11.0"></script>
     <script src="https://unpkg.com/downloadjs@1.4.7"></script>
-    <link rel="icon" type="image/x-icon" href="logo.ico">
     <script type="module" src="side-script.js"></script>
 </head>
 
 <body>
-    <div class="nav-header">
+    <header class="nav-header">
         <div class="nav-container">
             <a class="logo" href="homepage.html">
                 <div class="logo-banner">
                     <span class="logo-text">Tools n' Trinkets</span>
                 </div>
             </a>
-            <nav>
+            <nav aria-label="Hauptnavigation">
                 <a href="https://github.com/FlaushDev/DnD-Charakter-Ersteller">Github</a>
                 <a href="impressum.html">Impressum</a>
             </nav>
         </div>
-    </div>
+    </header>
+
     <div class="hero">
         <h1>DnD 5.5e 2024 Charakter-Ersteller</h1>
-        <p class="subheader">Infos und Erklärungen zu den Klassen gibt es <a
-                href="https://www.dnddeutsch.de/klassen-und-archetypen/">hier</a>.<br> Bitte beachten Sie, dass dieser
-            Ersteller momentan noch in Entwicklung ist. Bei Feedback bitte schreiben Sie mir ein Mail an <a
-                onclick="copyEmail()" id="E-mail" style="a:hover {cursor: pointer;}">owner@tools-n-trinkets.at</a>.
+        <p class="subheader">
+            Infos und Erklärungen zu den Klassen gibt es <a href="https://www.dnddeutsch.de/klassen-und-archetypen/">hier</a>.<br>
+            Bitte beachten Sie, dass dieser Ersteller momentan noch in Entwicklung ist.
+            Bei Feedback bitte schreiben Sie mir eine <a onclick="copyEmail()" id="E-mail" style="cursor:pointer;">E-Mail</a>.
         </p>
     </div>
 
-    <div class="container">
-        <div class="form-section">
+    <main class="container">
+
+        <section class="form-section" aria-labelledby="grunddaten-heading">
+            <h2 id="grunddaten-heading" class="visually-hidden">Grunddaten</h2>
+
             <div class="form-group">
-                <label class="label-select">Level wählen:</label>
+                <label class="label-select" for="levelSelect">Level wählen:</label>
                 <select class="select" id="levelSelect"></select>
             </div>
 
             <div class="form-group">
-                <label class="label-select">Klasse wählen:</label>
+                <label class="label-select" for="classSelect">Klasse wählen:</label>
                 <select class="select" id="classSelect">
                     <option value="Barde">Barde</option>
                     <option value="Barbar">Barbar</option>
@@ -61,109 +65,97 @@
                 </select>
             </div>
 
-            <div>
-                <div class="subheader small-subheader" style="display: none;" id="warlockInfoLabel">*<a
-                        href="https://www.worldanvil.com/block/809773">Hier</a> klicken um mehr über den Hexenmeister zu
-                    lesen</span>
-                </div>
+            <p class="subheader small-subheader" style="display:none;" id="warlockInfoLabel">
+                *<a href="https://www.worldanvil.com/block/809773">Hier</a> klicken um mehr über den Hexenmeister zu lesen
+            </p>
 
-                <div class="form-group" id="subClassSelection" style="display:none;">
-                    <label class="label-select" id="subClassSelectLabel">Subklasse wählen:</label>
-                    <select class="select" id="subClassSelect"></select>
-                </div>
+            <div class="form-group" id="subClassSelection" style="display:none;">
+                <label class="label-select" id="subClassSelectLabel" for="subClassSelect">Subklasse wählen:</label>
+                <select class="select" id="subClassSelect"></select>
+            </div>
 
-                <div class="form-group">
-                    <label class="label-select">Volk wählen:</label>
-                    <select class="select" id="mainRaceSelect">
-                        <option value="Mensch" selected>Mensch</option>
-                        <option value="Elf">Elf</option>
-                        <option value="Zwerg">Zwerg</option>
-                        <option value="Halbling">Halbling</option>
-                        <option value="Gnom">Gnom</option>
-                        <option value="Drachenblütiger">Drachenblütiger</option>
-                        <option value="Tiefling">Tiefling</option>
+            <div class="form-group">
+                <label class="label-select" for="mainRaceSelect">Volk wählen:</label>
+                <select class="select" id="mainRaceSelect">
+                    <option value="Mensch" selected>Mensch</option>
+                    <option value="Elf">Elf</option>
+                    <option value="Zwerg">Zwerg</option>
+                    <option value="Halbling">Halbling</option>
+                    <option value="Gnom">Gnom</option>
+                    <option value="Drachenblütiger">Drachenblütiger</option>
+                    <option value="Tiefling">Tiefling</option>
+                    <option value="Goliath">Goliath</option>
+                    <option value="Aasimar">Aasimar</option>
+                    <option value="Ork">Ork</option>
+                </select>
+            </div>
+
+            <div class="form-group" id="subRaceSelection" style="display:none;">
+                <label class="label-select" for="subRaceSelect">Untervolk wählen:</label>
+                <select class="select" id="subRaceSelect"></select>
+            </div>
+
+            <div class="form-group" id="customBonuses" style="display:none;">
+                <label class="label-select">Custom Attributsboni:</label>
+                <div style="display:flex;gap:1rem;">
+                    <select class="select" id="customAttr1" style="flex:1;" aria-label="Erstes Custom-Attribut">
+                        <option value="STR" selected>Stärke</option>
+                        <option value="DEX">Geschicklichkeit</option>
+                        <option value="CON">Konstitution</option>
+                        <option value="INT">Intelligenz</option>
+                        <option value="WIS">Weisheit</option>
+                        <option value="CHA">Charisma</option>
                     </select>
-                </div>
-
-                <div class="form-group" id="subRaceSelection" style="display:none;">
-                    <label class="label-select">Untervolk wählen:</label>
-                    <select class="select" id="subRaceSelect"></select>
-                </div>
-
-                <div class="form-group" id="customBonuses" style="display:none;">
-                    <label class="label-select">Custom Attributsboni:</label>
-                    <div style="display: flex; gap: 1rem;">
-                        <select class="select" id="customAttr1" style="flex: 1;">
-                            <option value="STR" selected>Stärke</option>
-                            <option value="DEX">Geschicklichkeit</option>
-                            <option value="CON">Konstitution</option>
-                            <option value="INT">Intelligenz</option>
-                            <option value="WIS">Weisheit</option>
-                            <option value="CHA">Charisma</option>
-                        </select>
-                        <select class="select" id="customAttr2" style="flex: 1;">
-                            <option value="STR">Stärke</option>
-                            <option value="DEX" selected>Geschicklichkeit</option>
-                            <option value="CON">Konstitution</option>
-                            <option value="INT">Intelligenz</option>
-                            <option value="WIS">Weisheit</option>
-                            <option value="CHA">Charisma</option>
-                        </select>
-                    </div>
-                </div>
-
-                <div class="form-group">
-                    <label class="label-select">Hintergrund wählen:</label>
-                    <select class="select" id="backgroundSelect">
-                        <option value="Scharlatan (Täuschen (CHA), Fingerfertigkeit (DEX))">Scharlatan (Täuschen (CHA),
-                            Fingerfertigkeit (DEX)) </option>
-                        <option value="Tempeldiener (Motiv erkennen (WIS), Religion (INT))">Tempeldiener (Motiv
-                            erkennen(WIS), Religion (INT))</option>
-                        <option value="Handwerker (Motiv erkennen(WIS), Überzeugen (CHA))">Handwerker (Motiv
-                            erkennen(WIS), Akrobatik (DEX))</option>
-                        <option value="Krimineller (Heimlichkeit (DEX), Täuschen (CHA))">Krimineller (Heimlichkeit
-                            (DEX), Täuschen (CHA))</option>
-                        <option value="Unterhaltungskünstler (Auftreten (CHA), Akrobatik (STR))">Unterhaltungskünstler
-                            (Auftreten (CHA), Akrobatik (DEX))</option>
-                        <option value="Volksheld (Tierumgang (WIS), Überleben (WIS))">Volksheld (Tierumgang (WIS),
-                            Überleben (WIS))</option>
-                        <option value="Weiser (Arkane Kunde (INT), Geschichte (INT))">Weiser (Arkane Kunde (INT),
-                            Geschichte (INT))</option>
-                        <option value="Einsiedler (Heilkunde (WIS), Religion (INT))">Einsiedler (Heilkunde (WIS),
-                            Religion (INT))</option>
-                        <option value="Adliger (Überzeugen (CHA), Geschichte (INT))">Adliger (Überzeugen (CHA),
-                            Geschichte (INT))</option>
-                        <option value="Seeman (Athletik (STR), Wahrnehmung (WIS))">Seeman (Athletik (STR), Wahrnehmung
-                            (WIS))</option>
-                        <option value="Soldat (Athletik (STR), Wahrnehmung (WIS))">Soldat (Athletik (STR), Wahrnehmung
-                            (WIS))</option>
-                        <option value="Sonderling (Athletik (STR), Überleben (WIS))">Sonderling (Athletik (STR),
-                            Überleben (WIS))</option>
-                        <option value="Strassenkind (Fingerfertigkeit (DEX), Heimlichkeit (DEX))">Strassenkind
-                            (Fingerfertigkeit (DEX), Heimlichkeit (DEX))</option>
-                        <option value="Händler (Motiv erkennen (WIS), Überzeugen (CHA))">Händler (Motiv erkennen(WIS),
-                            Überzeugen (CHA))</option>
-                    </select>
-                </div>
-
-                <div class="form-group">
-                    <label class="label-select">Gesinnung:</label>
-                    <select class="select" id="alignmentSelect">
-                        <option value="RechtschaffenGut">Rechtschaffen Gut</option>
-                        <option value="RechtschaffenNeutral">Rechtschaffen Neutral</option>
-                        <option value="RechtschaffenBöse">Rechtschaffen Böse</option>
-                        <option value="NeutralGut">Neutral Gut</option>
-                        <option value="WahrhaftNeutral" selected>Wahrhaft Neutral</option>
-                        <option value="NeutralBöse">Neutral Böse</option>
-                        <option value="ChaotischGut">Chaotisch Gut</option>
-                        <option value="ChaotischNeutral">Chaotisch Neutral</option>
-                        <option value="ChaotischBöse">Chaotisch Böse</option>
+                    <select class="select" id="customAttr2" style="flex:1;" aria-label="Zweites Custom-Attribut">
+                        <option value="STR">Stärke</option>
+                        <option value="DEX" selected>Geschicklichkeit</option>
+                        <option value="CON">Konstitution</option>
+                        <option value="INT">Intelligenz</option>
+                        <option value="WIS">Weisheit</option>
+                        <option value="CHA">Charisma</option>
                     </select>
                 </div>
             </div>
-        </div>
 
-        <div class="stats-display">
+            <div class="form-group">
+                <label class="label-select" for="backgroundSelect">Hintergrund wählen:</label>
+                <select class="select" id="backgroundSelect">
+                    <option value="Adliger (Überzeugen (CHA), Geschichte (INT))">Adliger (Überzeugen (CHA), Geschichte (INT))</option>
+                    <option value="Akolyth (Motiv erkennen(WIS), Religion(INT))">Akolyth (Motiv erkennen (WIS), Religion (INT))</option>
+                    <option value="Bauer (Tierumgang (WIS), Naturkunde (INT))">Bauer (Tierumgang (WIS), Naturkunde (INT))</option>
+                    <option value="Einsiedler (Heilkunde (WIS), Religion (INT))">Einsiedler (Heilkunde (WIS), Religion (INT))</option>
+                    <option value="Handwerker (Motiv erkennen(WIS), Überzeugen (CHA))">Handwerker (Motiv erkennen (WIS), Überzeugen (CHA))</option>
+                    <option value="Händler (Motiv erkennen (WIS), Überzeugen (CHA))">Händler (Motiv erkennen (WIS), Überzeugen (CHA))</option>
+                    <option value="Krimineller (Heimlichkeit (DEX), Täuschen (CHA))">Krimineller (Heimlichkeit (DEX), Täuschen (CHA))</option>
+                    <option value="Reisender (Motiv erkennen(WIS),Heimlichkeit (DEX))">Reisender (Motiv erkennen (WIS), Heimlichkeit (DEX))</option>
+                    <option value="Scharlatan (Täuschen (CHA), Fingerfertigkeit (DEX))">Scharlatan (Täuschen (CHA), Fingerfertigkeit (DEX))</option>
+                    <option value="Schreiber (Nachforschung (INT), Wahrnehmung (WIS))">Schreiber (Nachforschung (INT), Wahrnehmung (WIS))</option>
+                    <option value="Seeman (Athletik (STR), Wahrnehmung (WIS))">Seeman (Athletik (STR), Wahrnehmung (WIS))</option>
+                    <option value="Soldat (Athletik (STR), Wahrnehmung (WIS))">Soldat (Athletik (STR), Wahrnehmung (WIS))</option>
+                    <option value="Unterhaltungskünstler (Auftreten (CHA), Akrobatik (STR))">Unterhaltungskünstler (Auftreten (CHA), Akrobatik (DEX))</option>
+                    <option value="Wache (Athletik (STR), Wahrnehmung (WIS))">Wache (Athletik (STR), Wahrnehmung (WIS))</option>
+                    <option value="Wegfinder (Heimlichkeit (DEX), Überleben (WIS)">Wegfinder (Heimlichkeit (DEX), Überleben (WIS))</option>
+                    <option value="Weiser (Arkane Kunde (INT), Geschichte (INT))">Weiser (Arkane Kunde (INT), Geschichte (INT))</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label class="label-select" for="alignmentSelect">Gesinnung:</label>
+                <select class="select" id="alignmentSelect">
+                    <option value="RechtschaffenGut">Rechtschaffen Gut</option>
+                    <option value="RechtschaffenNeutral">Rechtschaffen Neutral</option>
+                    <option value="RechtschaffenBöse">Rechtschaffen Böse</option>
+                    <option value="NeutralGut">Neutral Gut</option>
+                    <option value="WahrhaftNeutral" selected>Wahrhaft Neutral</option>
+                    <option value="NeutralBöse">Neutral Böse</option>
+                    <option value="ChaotischGut">Chaotisch Gut</option>
+                    <option value="ChaotischNeutral">Chaotisch Neutral</option>
+                    <option value="ChaotischBöse">Chaotisch Böse</option>
+                </select>
+            </div>
+        </section>
+
+        <section class="stats-display" aria-label="Charakterwerte">
             <div class="stat-card">
                 <div class="stat-label">Geübtenbonus</div>
                 <div class="stat-value" id="pbDisplay">+2</div>
@@ -176,62 +168,32 @@
                 <div class="stat-label">Trefferpunkte</div>
                 <div class="stat-value" id="hpDisplay">0</div>
             </div>
-        </div>
+        </section>
 
-        <div class="form-section" id="attribute">
+        <section class="form-section" id="attribute" aria-labelledby="attribute-heading">
             <div id="AttributeSection">
-                <h2>Attribute</h2>
+                <h2 id="attribute-heading">Attribute</h2>
                 <table class="attribute-table">
                     <thead>
                         <tr>
-                            <th>Attribut</th>
-                            <th class="text-center">Grundwert</th>
-                            <th class="text-center">Völkerbonus</th>
-                            <th class="text-center">Gesamt</th>
-                            <th class="text-center">Modifikator</th>
-                            <th class="text-center">Kosten</th>
+                            <th scope="col">Attribut</th>
+                            <th class="text-center" scope="col">Grundwert</th>
+                            <th class="text-center" scope="col">Völkerbonus</th>
+                            <th class="text-center" scope="col">Gesamt</th>
+                            <th class="text-center" scope="col">Modifikator</th>
+                            <th class="text-center" scope="col">Kosten</th>
                         </tr>
                     </thead>
                     <tbody id="attributesTable"></tbody>
                 </table>
             </div>
-            <div style="margin-top: 1.5rem;" id="pointsDisplaySection">
-                <div class="points-display">Verbrauchte Punkte: <strong id="pointsDisplay">0 / 27</strong>
-                </div>
-                <button id="randomAttribute" class="random-button" onclick="randomScore()"
-                    style="background-color: var(--paper-bg)">🎲 Zufällig generieren</button>
+            <div style="margin-top:1.5rem;" id="pointsDisplaySection">
+                <div class="points-display">Verbrauchte Punkte: <strong id="pointsDisplay">0 / 27</strong></div>
+                <button class="random-button" onclick="randomScore()" style="background-color:var(--paper-bg)">🎲 Zufällig generieren</button>
             </div>
-        </div>
+        </section>
 
-        <div class="form-section" id="skills">
-            <div class="skills-section">
-                <div>
-                    <h2>Rettungswürfe</h2>
-                    <ul class="saves-list" id="savesList"></ul>
-                </div>
-
-                <div>
-                    <h2>Fertigkeiten <span style="font-size: 1rem; color: var(--text-light);">(Limit: <span
-                                id="skillLimit">0</span>)</span></h2>
-                    <ul class="skills-list" id="skillsList"></ul>
-                </div>
-            </div>
-        </div>
-
-        <div>
-            <button id="resetBtn" class="reset-button" style="margin-left: 0px;">↻ Zurücksetzen</button>
-            <button id="randomizerButton" class="random-button" onclick="randomizeEverything()"
-                style="background-color: var(--paper-bg);">🎲 Zufällig generieren</button>
-            <button class="print-button random-button" onclick="dropdownMenuOpenClose()">In PDF drucken <i
-                    class="fa fa-caret-down"></i></button>
-            <div id="dropdownContent" class="dropdown-content">
-                <button onclick="fillFormFull()" class="dropdown-content-button">Alle Felder ausfüllen</button>
-                <button onclick="fillFormEssential()" class="dropdown-content-button">Nur esenziele Felder ausfüllen
-                    (Empfohlen)</button>
-            </div>
-        </div>
-
-        <div class="info-box" id="info">
+        <aside class="info-box" id="info" aria-label="Regelinfo Punktekauf">
             <h3>Regeln (Punktekauf):</h3>
             <ul>
                 <li>Verfügbare Punkte: 27</li>
@@ -239,15 +201,42 @@
                 <li>Maximalwert vor Völkerbonus: 15</li>
                 <li>Die Kosten steigen nicht-linear (8=0, 9=1, 10=2, 11=3, 12=4, 13=5, 14=7, 15=9)</li>
             </ul>
-        </div>
-    </div>
+        </aside>
+
+        <section class="form-section" id="skills" aria-labelledby="skills-heading">
+            <h2 id="skills-heading" class="visually-hidden">Rettungswürfe und Fertigkeiten</h2>
+            <div class="skills-section">
+                <div>
+                    <h3>Rettungswürfe</h3>
+                    <ul class="saves-list" id="savesList"></ul>
+                </div>
+                <div>
+                    <h3>
+                        Fertigkeiten
+                        <span style="font-size:1rem;color:var(--text-light);">(Limit: <span id="skillLimit">0</span>)</span>
+                    </h3>
+                    <ul class="skills-list" id="skillsList"></ul>
+                </div>
+            </div>
+        </section>
+
+        <section aria-label="Aktionen">
+            <button id="resetBtn" class="reset-button" style="margin-left:0;">↻ Zurücksetzen</button>
+            <button class="random-button" onclick="randomizeEverything()" style="background-color:var(--paper-bg);">🎲 Zufällig generieren</button>
+            <button class="print-button random-button" onclick="dropdownMenuOpenClose()">In PDF drucken <i class="fa fa-caret-down" aria-hidden="true"></i></button>
+            <div id="dropdownContent" class="dropdown-content" role="menu">
+                <button onclick="fillFormFull()" class="dropdown-content-button" role="menuitem">Alle Felder ausfüllen</button>
+                <button onclick="fillFormEssential()" class="dropdown-content-button" role="menuitem">Nur esenzielle Felder (Empfohlen)</button>
+            </div>
+        </section>
+
+    </main>
+
     <footer>
-        <p>Erstellt von Paul S.| Alle Rechte vorbehalten © 2025 | owner@tools-n-trinkets.at </p>
-        <p style="margin-top: 1rem; font-size: 0.9rem;">
+        <p>Erstellt von Paul S. | Alle Rechte vorbehalten © 2025 | owner@tools-n-trinkets.at</p>
+        <p style="margin-top:1rem;font-size:0.9rem;">
             DnD 5e Charakter-Creator ist ein inoffizieller Fan-Inhalt im Rahmen der Richtlinie für Fan-Inhalte.
-            Nicht von Wizards gefördert/gesponsert. Bestandteile des enthaltenen Materials sind Eigentum von Wizards
-            of the Coast.
-            ©Wizards of the Coast LLC.
+            Nicht von Wizards gefördert/gesponsert.
         </p>
     </footer>
 </body>

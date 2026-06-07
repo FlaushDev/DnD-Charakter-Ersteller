@@ -4,38 +4,43 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Online-Würfel</title>
+    <title>Online-Würfel | Tools n' Trinkets</title>
+    <meta name="description" content="Online-Würfel für D&D – von W2 bis W1.000.000">
+    <meta name="keywords" content="Fantasy D&D DnD Würfel Online">
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <meta name="description" content="Eine Website zur Vereinfachung von D&D Spielen">
-    <meta name="keywords" content="Fantasy D&D DnD Würfel Charakter+Ersteller Charakter Ersteller 2014 2024">
     <link rel="icon" type="image/x-icon" href="logo.ico">
     <script type="module" src="main-script.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
 </head>
 
 <body>
-    <div class="nav-header">
+    <header class="nav-header">
         <div class="nav-container">
             <a class="logo" href="homepage.html">
                 <div class="logo-banner">
                     <span class="logo-text">Tools n' Trinkets</span>
                 </div>
             </a>
-            <nav>
+            <nav aria-label="Hauptnavigation">
                 <a href="https://github.com/FlaushDev/DnD-Charakter-Ersteller">Github</a>
                 <a href="impressum.html">Impressum</a>
             </nav>
         </div>
-    </div>
+    </header>
+
     <div class="hero">
         <h1>Online-Würfel</h1>
     </div>
-    <div class="container">
-        <div class="form-section">
+
+    <main class="container">
+        <section class="form-section" aria-labelledby="wuerfel-heading">
+            <h2 id="wuerfel-heading" class="visually-hidden">Würfel konfigurieren</h2>
+
             <div class="form-group">
-                <label>Würfel auswählen:</label>
+                <label class="label-select" for="wuerfelAuswahl">Würfel auswählen:</label>
                 <select class="select" id="wuerfelAuswahl">
+                    <option value="1">1-seitiger Würfel</option>
                     <option value="3">3-seitiger Würfel</option>
                     <option value="4">4-seitiger Würfel</option>
                     <option value="6">6-seitiger Würfel</option>
@@ -48,20 +53,23 @@
                     <option value="1000">1000-seitiger Würfel</option>
                     <option value="1000000">1.000.000-seitiger Würfel (Könnte die Webseite crashen)</option>
                 </select>
-                <label>Anzahl an Würfeln:</label>
+
+                <label class="label-select" for="wuerfelAnzahl">Anzahl an Würfeln:</label>
                 <input type="number" min="1" max="999" step="1" value="1" class="spinner-control" id="wuerfelAnzahl">
-                <button class="wuerfel-button" onclick="getDiceRoll()"
-                    style="margin-top: 15px; margin-bottom: 10px; margin-left: 0px;">🎲 Würfeln</button>
-                <button class="reset-button" onclick="resetDicePage()">↻ Zurücksetzen</button>
-                <div>
-                    <label class="label-select">Ergebnisse:</label>
+
+                <div style="margin-top:15px;margin-bottom:10px;">
+                    <button class="wuerfel-button" onclick="getDiceRoll()" style="margin-left:0;">🎲 Würfeln</button>
+                    <button class="reset-button" onclick="resetDicePage()">↻ Zurücksetzen</button>
                 </div>
-                <textarea class="wuerfel-output" id="wuerfelOutput" readonly></textarea>
+
+                <label class="label-select" for="wuerfelOutput">Ergebnisse:</label>
+                <textarea class="wuerfel-output" id="wuerfelOutput" readonly aria-live="polite"></textarea>
             </div>
-        </div>
-    </div>
+        </section>
+    </main>
+
     <footer>
-        <p>Erstellt von Paul S.| Alle Rechte vorbehalten © 2025 | owner@tools-n-trinkets.at </p>
+        <p>Erstellt von Paul S. | Alle Rechte vorbehalten © 2025 | owner@tools-n-trinkets.at</p>
     </footer>
 </body>
 

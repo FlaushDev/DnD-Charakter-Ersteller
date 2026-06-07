@@ -1,74 +1,30 @@
-/** main-script.js
- *  All functions in this JS are essential for the website with the 2024 Character Creator to work
- *  If you change something in other JS modules you MUST import and export for it to work
+/** side-script.js
+ *  Kernlogik für den 2024 Charakter-Ersteller.
+ *  Struktur identisch zu main-script.js, importiert jedoch data2024.js.
  */
 import { CLASS_DATA, SKILLS, POINT_COSTS, PROFICIENCY_BONUS, ATTRIBUTES_MAP, HINTERGRÜNDE, RACES, RACE_GROUPS, ALIGNMENT } from './data2024.js';
 import { fillFormFull, fillFormEssential } from './pdf.js';
 
-/*State — als Objekt damit pdf.js darauf zugreifen kann*/
 export const state = {
     scores: { STR: 8, DEX: 8, CON: 8, INT: 8, WIS: 8, CHA: 8 },
     selectedSkills: []
 };
 
-/*Functions*/
+/* ── Hilfsfunktionen ───────────────────────────────────────────── */
 
-/*Core Update Display*/
-function updateDisplay() {
-    updateAttributeTable();
-    updateSavesAndSkills();
-    updateSkillLimit();
-    getBackgroundBonus();
-    document.getElementById('pointsDisplay').textContent = `${getTotalPoints()} / 27`;
-    document.getElementById('pbDisplay').textContent = `+${getPB()}`;
-    document.getElementById('hpDisplay').textContent = calculateTotalHP();
-    const cls = document.getElementById('classSelect').value;
-    document.getElementById('hdDisplay').textContent = CLASS_DATA[cls] ? `1d${CLASS_DATA[cls].hd}` : 'k.A.';
-}
+export function calculateModifier(score) { return Math.floor((score - 10) / 2); }
 
-/*Misc*/
-function copyEmail() {
-    const text = document.getElementById("E-mail").innerText;
-    navigator.clipboard.writeText(text).then(() => { });
-}
-
-function dropdownMenuOpenClose() {
-    if (document.getElementById('dropdownContent').classList.contains("show-dropdown") === false) {
-        document.getElementById('dropdownContent').classList.add("show-dropdown");
-    }
-    else {
-        document.getElementById('dropdownContent').classList.remove("show-dropdown");
-    }
-}
-
-
-/*HitDice, HitPoints, ProficiencyBonus*/
-function calculateTotalHP() {
-    const levelVal = document.getElementById('levelSelect').value;
-    const level = parseInt(levelVal) || 1;
-    const classKey = document.getElementById('classSelect').value;
-    const classData = CLASS_DATA[classKey];
-    if (!classData) return 0;
-    const conMod = calculateModifier(getAttributeTotal('CON'));
-    const level1HP = classData.hd + conMod;
-
-    if (level === 1) return Math.max(1, level1HP);
-
-    const avgHPPerLevel = Math.floor(classData.hd / 2) + 1 + conMod;
-    return level1HP + (level - 1) * avgHPPerLevel;
+function getTotalPoints() {
+    return Object.values(state.scores).reduce((sum, val) => sum + POINT_COSTS[val], 0);
 }
 
 export function getPB() {
-    const lvlEl = document.getElementById('levelSelect');
-    const lvl = lvlEl ? parseInt(lvlEl.value) : 1;
-    return PROFICIENCY_BONUS[lvl] || 2;
+    const lvl = parseInt(document.getElementById('levelSelect')?.value) || 1;
+    return PROFICIENCY_BONUS[lvl] ?? 2;
 }
 
-/*Background, Race, Class*/
-function getBackgroundBonus(attr) {
-    const bgKey = document.getElementById('backgroundSelect').value;
-    return HINTERGRÜNDE[bgKey] ? (HINTERGRÜNDE[bgKey][attr] || 0) : 1;
-}
+export function getAttributeTotal(attr) { return state.scores[attr] + getRacialBonus(attr); }
+export function getModifierTotal(attr)  { return calculateModifier(getAttributeTotal(attr)); }
 
 function getRacialBonus(attr) {
     const main = document.getElementById('mainRaceSelect').value;
@@ -85,42 +41,62 @@ function getRacialBonus(attr) {
     return race[attr] || 0;
 }
 
-function handleMainRaceChange() {
-    const main = document.getElementById('mainRaceSelect').value;
-    const subDiv = document.getElementById('subRaceSelection');
-    const subs = RACE_GROUPS[main] || [];
-    subDiv.style.display = subs.length > 1 ? 'block' : 'none';
-    if (subs.length > 1) {
-        const sel = document.getElementById('subRaceSelect');
-        sel.innerHTML = '';
-        subs.forEach(s => sel.innerHTML += `<option value="${s}">${s}</option>`);
-    }
-    updateCustomRaceLogic();
+/* ── Dropdown ──────────────────────────────────────────────────── */
+
+function dropdownMenuOpenClose() {
+    document.getElementById('dropdownContent').classList.toggle('show-dropdown');
 }
+
+/* ── E-Mail ────────────────────────────────────────────────────── */
+
+function copyEmail() {
+    navigator.clipboard.writeText('owner@tools-n-trinkets.at').then(() => {});
+}
+
+/* ── HP / PB ───────────────────────────────────────────────────── */
+
+function calculateTotalHP() {
+    const level = parseInt(document.getElementById('levelSelect').value) || 1;
+    const classData = CLASS_DATA[document.getElementById('classSelect').value];
+    if (!classData) return 0;
+    const conMod = calculateModifier(getAttributeTotal('CON'));
+    const level1HP = classData.hd + conMod;
+    if (level === 1) return Math.max(1, level1HP);
+    return level1HP + (level - 1) * (Math.floor(classData.hd / 2) + 1 + conMod);
+}
+
+/* ── Klasse / Rasse ────────────────────────────────────────────── */
 
 function handleClassChange() {
     const cls = document.getElementById('classSelect').value;
-    const lvlVal = document.getElementById('levelSelect').value;
-    const lvl = parseInt(lvlVal) || 1;
+    const lvl = parseInt(document.getElementById('levelSelect').value) || 1;
     const data = CLASS_DATA[cls];
     const subDiv = document.getElementById('subClassSelection');
+
     if (data && data.subclasses.length > 0 && lvl >= data.subLevel) {
         subDiv.style.display = 'block';
-        const sel = document.getElementById('subClassSelect');
-        sel.innerHTML = '';
-        data.subclasses.forEach(s => sel.innerHTML += `<option value="${s}">${s}</option>`);
-        if (cls === "Hexenmeister") {
-            document.getElementById("subClassSelectLabel").textContent = "Patron wählen:"
-            document.getElementById("warlockInfoLabel").style.display = "block"
-        } else {
-            document.getElementById("warlockInfoLabel").style.display = "none"
-            document.getElementById("subClassSelectLabel").textContent = "Subklasse wählen:"
-        };
+        document.getElementById('subClassSelect').innerHTML =
+            data.subclasses.map(s => `<option value="${s}">${s}</option>`).join('');
+        const isWarlock = cls === 'Hexenmeister';
+        document.getElementById('subClassSelectLabel').textContent = isWarlock ? 'Patron wählen:' : 'Subklasse wählen:';
+        document.getElementById('warlockInfoLabel').style.display = isWarlock ? 'block' : 'none';
     } else {
         subDiv.style.display = 'none';
-        document.getElementById("warlockInfoLabel").style.display = "none"
+        document.getElementById('warlockInfoLabel').style.display = 'none';
     }
     updateDisplay();
+}
+
+function handleMainRaceChange() {
+    const main = document.getElementById('mainRaceSelect').value;
+    const subs = RACE_GROUPS[main] || [];
+    const subDiv = document.getElementById('subRaceSelection');
+    subDiv.style.display = subs.length > 1 ? 'block' : 'none';
+    if (subs.length > 1) {
+        document.getElementById('subRaceSelect').innerHTML =
+            subs.map(s => `<option value="${s}">${s}</option>`).join('');
+    }
+    updateCustomRaceLogic();
 }
 
 function updateCustomRaceLogic() {
@@ -132,189 +108,172 @@ function updateCustomRaceLogic() {
     updateDisplay();
 }
 
-/*Attribute Table*/
-export function getAttributeTotal(attr) { return state.scores[attr] + getRacialBonus(attr); }
-export function getModifierTotal(attr) { return Math.floor((getAttributeTotal(attr) - 10) / 2); }
+/* ── Attribut-Tabelle ──────────────────────────────────────────── */
 
 function updateAttributeTable() {
     const table = document.getElementById('attributesTable');
     if (!table) return;
-    table.innerHTML = '';
-    for (const [attr, name] of Object.entries(ATTRIBUTES_MAP)) {
-        const base = state.scores[attr];
+    table.innerHTML = Object.entries(ATTRIBUTES_MAP).map(([attr, name]) => {
+        const base   = state.scores[attr];
         const racial = getRacialBonus(attr);
-        const total = getAttributeTotal(attr);
-        const mod = calculateModifier(total);
-
-        table.innerHTML += `
-            <tr>
-                <td>${name}</td>
-                <td class="text-center">
-                    <button class="attr-btn-minus" onclick="adjustScore('${attr}', -1)">−</button>
-                    <span style="min-width: 20px; display: inline-block; font-size: 15">${base}</span>
-                    <button class="attr-btn-plus" onclick="adjustScore('${attr}', 1)">+</button>
-                </td>
-                <td class="text-center">+${racial}</td>
-                <td class="text-center"><strong class="total-score">${total}</strong></td>
-                <td class="text-center"><span class="mod-badge">${mod >= 0 ? '+' + mod : mod}</span></td>
-                <td class="text-center" style="color: #888;">${POINT_COSTS[base]} Pkt</td>
-            </tr>`;
-    }
+        const total  = getAttributeTotal(attr);
+        const mod    = calculateModifier(total);
+        return `
+        <tr>
+            <td>${name}</td>
+            <td class="text-center">
+                <button class="attr-btn-minus" onclick="adjustScore('${attr}', -1)">−</button>
+                <span style="min-width:20px;display:inline-block">${base}</span>
+                <button class="attr-btn-plus"  onclick="adjustScore('${attr}',  1)">+</button>
+            </td>
+            <td class="text-center">+${racial}</td>
+            <td class="text-center"><strong class="total-score">${total}</strong></td>
+            <td class="text-center"><span class="mod-badge">${mod >= 0 ? '+' + mod : mod}</span></td>
+            <td class="text-center" style="color:#888">${POINT_COSTS[base]} Pkt</td>
+        </tr>`;
+    }).join('');
 }
 
 function adjustScore(attr, delta) {
     const newValue = state.scores[attr] + delta;
-    if (newValue >= 8 && newValue <= 15) {
-        const costDiff = POINT_COSTS[newValue] - POINT_COSTS[state.scores[attr]];
-        if (delta > 0 && (getTotalPoints() + costDiff) > 27) return;
-        state.scores[attr] = newValue;
-        updateDisplay();
-    }
+    if (newValue < 8 || newValue > 15) return;
+    const costDiff = POINT_COSTS[newValue] - POINT_COSTS[state.scores[attr]];
+    if (delta > 0 && getTotalPoints() + costDiff > 27) return;
+    state.scores[attr] = newValue;
+    updateDisplay();
 }
 
-export function calculateModifier(score) { return Math.floor((score - 10) / 2); }
-function getTotalPoints() { return Object.values(state.scores).reduce((sum, val) => sum + POINT_COSTS[val], 0); }
+/* ── Fertigkeiten / Rettungswürfe ──────────────────────────────── */
 
-/*Saves and Skills*/
+function updateSkillLimit() {
+    const raceData  = RACES[document.getElementById('mainRaceSelect').value];
+    const classData = CLASS_DATA[document.getElementById('classSelect').value];
+    // FIX: Klammern nötig wegen Operatoren-Präzedenz
+    const limit = (classData?.skillChoices ?? 0) + (raceData?.skillChoices ?? 0);
+    document.getElementById('skillLimit').textContent = limit;
+}
+
 function updateSavesAndSkills() {
-    const savesList = document.getElementById('savesList');
+    const savesList  = document.getElementById('savesList');
     const skillsList = document.getElementById('skillsList');
     if (!savesList || !skillsList) return;
 
-    savesList.innerHTML = ''; skillsList.innerHTML = '';
-    const cls = document.getElementById('classSelect').value;
+    const cls       = document.getElementById('classSelect').value;
     const classData = CLASS_DATA[cls] || { saves: [], skillChoices: 0 };
-    const bgKey = document.getElementById('backgroundSelect').value;
-    const bgSkills = HINTERGRÜNDE[bgKey]?.skills || [];
-    const pb = getPB();
+    const bgKey     = document.getElementById('backgroundSelect').value;
+    const bgSkills  = HINTERGRÜNDE[bgKey]?.skills || [];
+    const pb        = getPB();
 
-    for (const [attr, name] of Object.entries(ATTRIBUTES_MAP)) {
+    savesList.innerHTML = Object.entries(ATTRIBUTES_MAP).map(([attr, name]) => {
         const isProf = classData.saves.includes(attr);
-        const val = calculateModifier(getAttributeTotal(attr)) + (isProf ? pb : 0);
-        savesList.innerHTML += `<li>${isProf ? '❤' : '◯'} ${name}: ${val >= 0 ? '+' + val : val}</li>`;
-    }
+        const val    = calculateModifier(getAttributeTotal(attr)) + (isProf ? pb : 0);
+        return `<li>${isProf ? '❤' : '◯'} ${name}: ${val >= 0 ? '+' + val : val}</li>`;
+    }).join('');
 
-    for (const [skill, attr] of Object.entries(SKILLS)) {
-        const isBgProf = bgSkills.includes(skill);
+    skillsList.innerHTML = Object.entries(SKILLS).map(([skill, attr]) => {
+        const isBgProf   = bgSkills.includes(skill);
         const isSelected = state.selectedSkills.includes(skill);
-        const isProf = isBgProf || isSelected;
-        const val = calculateModifier(getAttributeTotal(attr)) + (isProf ? pb : 0);
-        skillsList.innerHTML += `<li><input type="checkbox" onchange="handleSkillChange('${skill}')" ${isProf ? 'checked' : ''} ${isBgProf ? 'disabled' : ''}> ${skill}: ${val >= 0 ? '+' + val : val}</li>`;
-    }
-    getBackgroundBonus();
+        const isProf     = isBgProf || isSelected;
+        const val        = calculateModifier(getAttributeTotal(attr)) + (isProf ? pb : 0);
+        return `<li>
+            <input type="checkbox" onchange="handleSkillChange('${skill}')"
+                ${isProf ? 'checked' : ''} ${isBgProf ? 'disabled' : ''}>
+            ${skill}: ${val >= 0 ? '+' + val : val}
+        </li>`;
+    }).join('');
 }
 
 function handleSkillChange(skill) {
-    const bgKey = document.getElementById('backgroundSelect').value;
-    const bgSkills = HINTERGRÜNDE[bgKey]?.skills || [];
-
+    const bgSkills = HINTERGRÜNDE[document.getElementById('backgroundSelect').value]?.skills || [];
     if (bgSkills.includes(skill)) return;
 
-    const classData = CLASS_DATA[document.getElementById('classSelect').value];
-    const limit = classData?.skillChoices ?? 0;
-    document.getElementById('skillLimit').textContent = limit;
-
-    const currentClassSkills = state.selectedSkills.filter(s => !bgSkills.includes(s));
+    const limit = CLASS_DATA[document.getElementById('classSelect').value]?.skillChoices ?? 0;
+    const classSkills = state.selectedSkills.filter(s => !bgSkills.includes(s));
 
     if (state.selectedSkills.includes(skill)) {
         state.selectedSkills = state.selectedSkills.filter(s => s !== skill);
-    } else if (currentClassSkills.length < limit) {
+    } else if (classSkills.length < limit) {
         state.selectedSkills.push(skill);
     }
-    getBackgroundBonus();
     updateSavesAndSkills();
 }
 
-function updateSkillLimit() {
-    const raceData = RACES[document.getElementById('mainRaceSelect').value];
-    const classData = CLASS_DATA[document.getElementById('classSelect').value];
-    const limit = classData?.skillChoices + raceData?.skillChoices ?? 0;
-    document.getElementById('skillLimit').textContent = limit;
-    getBackgroundBonus();
+/* ── Haupt-Update ──────────────────────────────────────────────── */
+
+function updateDisplay() {
+    updateAttributeTable();
+    updateSavesAndSkills();
+    updateSkillLimit();
+    document.getElementById('pointsDisplay').textContent = `${getTotalPoints()} / 27`;
+    document.getElementById('pbDisplay').textContent     = `+${getPB()}`;
+    document.getElementById('hpDisplay').textContent     = calculateTotalHP();
+    const cls = document.getElementById('classSelect').value;
+    document.getElementById('hdDisplay').textContent     = CLASS_DATA[cls] ? `1d${CLASS_DATA[cls].hd}` : 'k.A.';
 }
 
-/*Random*/
-function random(arr) {
-    return arr[Math.floor(Math.random() * arr.length)];
-}
+/* ── Zufallsgenerator ──────────────────────────────────────────── */
+
+function random(arr) { return arr[Math.floor(Math.random() * arr.length)]; }
 
 function randomScore() {
-    var scoreArray1 = { STR: 15, DEX: 14, CON: 13, INT: 12, WIS: 10, CHA: 8 };
-    var scoreArray2 = { STR: 8, DEX: 15, CON: 14, INT: 13, WIS: 12, CHA: 10 };
-    var scoreArray3 = { STR: 10, DEX: 8, CON: 15, INT: 14, WIS: 13, CHA: 12 };
-    var scoreArray4 = { STR: 12, DEX: 10, CON: 8, INT: 15, WIS: 14, CHA: 13 };
-    var scoreArray5 = { STR: 13, DEX: 12, CON: 10, INT: 8, WIS: 15, CHA: 14 };
-    var scoreArray6 = { STR: 14, DEX: 13, CON: 12, INT: 10, WIS: 8, CHA: 15 };
-
-    let number = Math.floor(Math.random() * 7)
-    if (number === 1) { Object.assign(state.scores, scoreArray1); }
-    else if (number === 2) { Object.assign(state.scores, scoreArray2); }
-    else if (number === 3) { Object.assign(state.scores, scoreArray3); }
-    else if (number === 4) { Object.assign(state.scores, scoreArray4); }
-    else if (number === 5) { Object.assign(state.scores, scoreArray5); }
-    else if (number === 6) { Object.assign(state.scores, scoreArray6); }
-
-    updateAttributeTable();
+    const presets = [
+        { STR: 15, DEX: 14, CON: 13, INT: 12, WIS: 10, CHA:  8 },
+        { STR:  8, DEX: 15, CON: 14, INT: 13, WIS: 12, CHA: 10 },
+        { STR: 10, DEX:  8, CON: 15, INT: 14, WIS: 13, CHA: 12 },
+        { STR: 12, DEX: 10, CON:  8, INT: 15, WIS: 14, CHA: 13 },
+        { STR: 13, DEX: 12, CON: 10, INT:  8, WIS: 15, CHA: 14 },
+        { STR: 14, DEX: 13, CON: 12, INT: 10, WIS:  8, CHA: 15 },
+    ];
+    Object.assign(state.scores, random(presets));
     handleMainRaceChange();
     handleClassChange();
     updateDisplay();
 }
 
 function randomizeEverything() {
-    const mainRaceSel = document.getElementById('mainRaceSelect');
-    mainRaceSel.value = random(Object.keys(RACE_GROUPS));
+    document.getElementById('mainRaceSelect').value = random(Object.keys(RACE_GROUPS));
     handleMainRaceChange();
+
     const subRaceSel = document.getElementById('subRaceSelect');
-    if (subRaceSel && subRaceSel.options.length > 0) {
+    if (subRaceSel?.options.length > 0)
         subRaceSel.selectedIndex = Math.floor(Math.random() * subRaceSel.options.length);
-    }
-    const classSel = document.getElementById('classSelect');
-    classSel.value = random(Object.keys(CLASS_DATA));
-    const bgSel = document.getElementById('backgroundSelect');
-    bgSel.value = random(Object.keys(HINTERGRÜNDE));
-    if (bgSel.value === "") {
-        bgSel.value = random(Object.keys(HINTERGRÜNDE));
-        return;
-    }
-    const alSel = document.getElementById('alignmentSelect');
-    alSel.value = random(Object.keys(ALIGNMENT));
-    state.selectedSkills = [random(Object.keys(SKILLS)), random(Object.keys(SKILLS))];
-    const classData = CLASS_DATA[classSel.value];
-    if (classData?.skillChoices === 3)
-        state.selectedSkills = [random(Object.keys(SKILLS)), random(Object.keys(SKILLS)), random(Object.keys(SKILLS))];
+
+    document.getElementById('classSelect').value = random(Object.keys(CLASS_DATA));
+    document.getElementById('backgroundSelect').value = random(Object.keys(HINTERGRÜNDE));
+    document.getElementById('alignmentSelect').value = random(Object.keys(ALIGNMENT));
+
+    const limit = CLASS_DATA[document.getElementById('classSelect').value]?.skillChoices ?? 2;
+    const skillKeys = Object.keys(SKILLS);
+    state.selectedSkills = Array.from({ length: limit }, () => random(skillKeys));
+
     randomScore();
-    handleMainRaceChange();
-    handleClassChange();
-    updateDisplay();
 }
 
-/*Event Listeners — müssen global sein für onclick= im HTML*/
-window.adjustScore = adjustScore;
-window.handleSkillChange = handleSkillChange;
-window.randomScore = randomScore;
-window.randomizeEverything = randomizeEverything;
-window.getDiceRoll = getDiceRoll;
-window.resetDicePage = resetDicePage;
-window.copyEmail = copyEmail;
-window.fillFormFull = fillFormFull;
-window.fillFormEssential = fillFormEssential;
+/* ── Globale Funktionen ────────────────────────────────────────── */
+window.adjustScore          = adjustScore;
+window.handleSkillChange    = handleSkillChange;
+window.randomScore          = randomScore;
+window.randomizeEverything  = randomizeEverything;
+window.copyEmail            = copyEmail;
+window.fillFormFull         = fillFormFull;
+window.fillFormEssential    = fillFormEssential;
 window.dropdownMenuOpenClose = dropdownMenuOpenClose;
 
-document.getElementById('classSelect').addEventListener('change', updateSkillLimit);
-document.getElementById('mainRaceSelect').addEventListener('change', handleMainRaceChange);
-document.getElementById('subRaceSelect').addEventListener('change', updateCustomRaceLogic);
-document.getElementById('classSelect').addEventListener('change', handleClassChange);
-document.getElementById('levelSelect').addEventListener('change', updateDisplay);
-document.getElementById('backgroundSelect').addEventListener('change', updateDisplay);
-document.getElementById('alignmentSelect').addEventListener('change', updateDisplay);
-document.getElementById('customAttr1').addEventListener('change', updateDisplay);
-document.getElementById('customAttr2').addEventListener('change', updateDisplay);
-document.getElementById('resetBtn').addEventListener('click', () => {
-    document.getElementById('mainRaceSelect').value = 'Mensch';
-    const subRaceSel = document.getElementById('subRaceSelect');
-    if (subRaceSel) subRaceSel.selectedIndex = 0;
-    document.getElementById('classSelect').value = 'Kämpfer';
-    document.getElementById('levelSelect').value = '1';
+/* ── Event-Listener ────────────────────────────────────────────── */
+document.getElementById('classSelect')?.addEventListener('change', handleClassChange);
+document.getElementById('classSelect')?.addEventListener('change', updateSkillLimit);
+document.getElementById('mainRaceSelect')?.addEventListener('change', handleMainRaceChange);
+document.getElementById('subRaceSelect')?.addEventListener('change', updateCustomRaceLogic);
+document.getElementById('levelSelect')?.addEventListener('change', updateDisplay);
+document.getElementById('backgroundSelect')?.addEventListener('change', updateDisplay);
+document.getElementById('alignmentSelect')?.addEventListener('change', updateDisplay);
+document.getElementById('customAttr1')?.addEventListener('change', updateDisplay);
+document.getElementById('customAttr2')?.addEventListener('change', updateDisplay);
+document.getElementById('resetBtn')?.addEventListener('click', () => {
+    document.getElementById('mainRaceSelect').value  = 'Mensch';
+    document.getElementById('subRaceSelect').selectedIndex = 0;
+    document.getElementById('classSelect').value     = 'Kämpfer';
+    document.getElementById('levelSelect').value     = '1';
     document.getElementById('backgroundSelect').value = 'Scharlatan (Täuschen (CHA), Fingerfertigkeit (DEX))';
     document.getElementById('alignmentSelect').value = 'WahrhaftNeutral';
     state.selectedSkills = [];
@@ -326,33 +285,26 @@ document.getElementById('resetBtn').addEventListener('click', () => {
 
 document.addEventListener('DOMContentLoaded', () => {
     const lvl = document.getElementById('levelSelect');
-    lvl.innerHTML = '';
-    for (let i = 1; i <= 20; i++) {
-        let opt = document.createElement('option');
-        opt.value = i;
-        opt.textContent = `Level ${i}`;
-        lvl.appendChild(opt);
-    }
+    if (!lvl) return;
+
+    lvl.innerHTML = Array.from({ length: 20 }, (_, i) =>
+        `<option value="${i + 1}">Level ${i + 1}</option>`).join('');
+
     handleMainRaceChange();
     handleClassChange();
     updateDisplay();
 
     const sel1 = document.getElementById('customAttr1');
     const sel2 = document.getElementById('customAttr2');
+    if (!sel1 || !sel2) return;
 
     function syncCustomSelectors() {
-        const val1 = sel1.value;
-        const val2 = sel2.value;
-        Array.from(sel1.options).forEach(opt => opt.disabled = false);
-        Array.from(sel2.options).forEach(opt => opt.disabled = false);
-        if (val1) {
-            const optIn2 = Array.from(sel2.options).find(o => o.value === val1);
-            if (optIn2) optIn2.disabled = true;
-        }
-        if (val2) {
-            const optIn1 = Array.from(sel1.options).find(o => o.value === val2);
-            if (optIn1) optIn1.disabled = true;
-        }
+        [...sel1.options].forEach(o => o.disabled = false);
+        [...sel2.options].forEach(o => o.disabled = false);
+        const inSel2 = [...sel2.options].find(o => o.value === sel1.value);
+        const inSel1 = [...sel1.options].find(o => o.value === sel2.value);
+        if (inSel2) inSel2.disabled = true;
+        if (inSel1) inSel1.disabled = true;
     }
 
     sel1.addEventListener('change', () => { syncCustomSelectors(); updateDisplay(); });

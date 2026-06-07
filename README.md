@@ -15,7 +15,7 @@
 | Charakter-Ersteller (D&D 5e 2014) | Verfügbar |
 | Charakter-Ersteller (D&D 5.5e 2024) | In Entwicklung |
 | PDF-Export (Charakterbogen ausfüllen) | Verfügbar |
-| Online-Würfel (W4 bis W1.000.000) | Verfügbar |
+| Online-Würfel (W2 bis W1.000.000) | Verfügbar |
 | Karten-Tool (Grid auf Maps legen) | Geplant |
 | Tageszeit-Tracker | Geplant |
 | Encounter-Tracker mit Mobliste | Geplant |

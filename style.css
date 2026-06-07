@@ -18,15 +18,17 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+    overscroll-behavior-x: none;
+}
+
+body {
+    overflow-x: hidden;
 }
 
 body {
     background-color: var(--bg-light);
     color: var(--text-dark);
-    font-family: Georgia, 'Times New Roman', serif;
     font-size: 16px;
-    line-height: 1.8;
-    min-height: 100vh;
 }
 
 .hero {
@@ -59,8 +61,8 @@ body {
     padding: 4rem 2rem;
     text-align: center;
     border-bottom: 3px solid var(--border-light);
-    background-image: url(/img/hero_image.png); 
-    background-size: cover; 
+    background-image: url(/img/hero_image.png);
+    background-size: cover;
     height: 500px;
     background-attachment: fixed;
     background-position: center;
@@ -70,9 +72,10 @@ body {
 }
 
 .parallax-hero-text {
-    color: var(--border-light);
+    height: 70px;
+    color: white;
     backdrop-filter: blur(8px);
-    border-radius: 6px;
+    border-radius: 10px;
     width: auto
 }
 
@@ -187,16 +190,37 @@ button {
 }
 
 .print-button {
+    font-size: 1.2rem;
     color: var(--paper-bg);
     background-color: var(--accent-teal);
-    border-color: var(--bg-darker);
+    border-color: var(--border-light);
+    border-radius: 6px;
+    border-style: solid;
     margin-left: 20px;
+    padding: 0.75rem 1rem;
+    width: fit-content;
+    height: 76px;
+    margin-left: 20px;
+    font-family: Georgia, 'Times New Roman', serif;
+}
+
+.print-button-left {
+    border-right: none;
+}
+
+.print-button-left:hover {
+    border-right: 3px
 }
 
 .print-button:hover {
     border-color: var(--border-orange);
     background-color: var(--accent-orange);
     transition: 0.2s;
+}
+
+.print-button-right {
+    margin-left: 0px;
+    border-left: none;
 }
 
 .form-section {
@@ -251,21 +275,30 @@ h2 {
     margin: 0 0 10px 0;
 }
 
+.large-subheader {
+    font-size: 1.3rem;
+}
+
+.larger-subheader {
+    font-size: 1.8rem;
+}
+
 footer {
     padding: 2rem 0;
     text-align: center;
     color: var(--text-light);
     border-top: 2px solid var(--border-light);
     background: linear-gradient(135deg, var(--paper-bg) 0%, #ddd5c7 100%);
-    width:auto;
+    width: auto;
 }
 
 /*Containers and Boxes*/
 
 .nav-header {
     background-color: var(--accent-teal);
-    padding: 1rem 0;
+    padding: 1rem 0 1rem 0;
     box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+    height: 90px;
 }
 
 .nav-container {
@@ -331,6 +364,8 @@ footer {
     align-items: center;
     gap: 1rem;
     text-decoration: none;
+    overflow: hidden;
+    height: 60px;
 }
 
 .logo-banner {
@@ -338,7 +373,6 @@ footer {
     padding: 0.5rem 1.5rem;
     border-radius: 0;
     position: relative;
-    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
     transform: rotate(-2deg);
 }
 
@@ -385,6 +419,11 @@ nav a:hover {
     color: var(--accent-orange);
 }
 
+#E-Mail {
+    color: var(--accent-orange);
+    text-decoration: solid;
+}
+
 /*Labels*/
 
 label {
@@ -406,56 +445,61 @@ label-button {
 
 /*Dropdown*/
 
-.dropdown-button {
-    color: var(--paper-bg);
-    background-color: var(--accent-teal);
-    border-color: var(--bg-darker);
+.split-button {
     position: relative;
+    display: inline-flex;
+    overflow: visible;
+    border: var(--border-light);
 }
 
-.dropdown-button:hover {
-    border-color: var(--border-orange);
-    background-color: var(--accent-orange);
+.split-button button {
+    padding: 10px 16px;
+    cursor: pointer;
+    background: var(--paper-bg);
+    color: var(--text-dark);
+    font-size: 14px;
+}
+
+.split-button button:hover {
     transition: 0.2s;
+    background: var(--bg-dark)
 }
 
-.dropdown-content {
-    color: var(--paper-bg);
-    background-color: var(--accent-teal);
-    border-color: var(--bg-darker);
-    float: none;
-    text-decoration: none;
-    display: none;
-    box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+.main-btn {
     border-radius: 6px;
-    border-style: solid;
-    margin-top: 10px;
-    padding: 0.75rem 1rem;
-    width: 400px;
+}
+
+.dropdown-toggle {
+    border-radius: 0 6px 6px 0;
+    width: 40px;
+}
+
+.dropdown-menu {
     position: absolute;
-}
-
-.show-dropdown {
-    display: block;
-}
-
-.dropdown-content-button {
-    color: var(--bg-darker);
-    font-size: 1.2rem;
-    background-color: var(--bg-light);
-    border-color: var(--border-light);
+    top: 100%;
+    left: 0;
+    min-width: 160px;
+    background: white;
     border-radius: 6px;
-    border-style: solid;
-    padding: 0.75rem 1rem;
-    width: fit-content;
-    height: 76px;
-    margin-left: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    display: none;
+    z-index: 1000;
+    overflow: visible;
 }
 
-.dropdown-content-button:hover {
-    border-color: var(--border-dark);
-    background-color: var(--bg-dark);
-    transition: 0.2s;
+.dropdown-menu a {
+    display: block;
+    padding: 10px;
+    text-decoration: none;
+    color: #333;
+}
+
+.dropdown-menu a:hover {
+    background: #f1f1f1;
+}
+
+.dropdown-menu.show {
+    display: block;
 }
 
 /*Stat-Card*/
@@ -554,6 +598,7 @@ label-button {
     padding: 1rem;
     border-bottom: 1px solid var(--border-light);
     background: white;
+    white-space: nowrap;
 }
 
 .attribute-table tbody {

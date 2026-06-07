@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tools n' trinkets | Die deutsche D&D Website</title>
+    <title>Tools n' Trinkets | Die deutsche D&D Website</title>
     <link rel="stylesheet" href="style.css">
     <link rel="icon" type="image/x-icon" href="logo.ico">
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
@@ -13,54 +13,57 @@
 </head>
 
 <body>
-    <div class="nav-header">
+    <header class="nav-header">
         <div class="nav-container">
             <a class="logo" href="homepage.html">
                 <div class="logo-banner">
                     <span class="logo-text">Tools n' Trinkets</span>
                 </div>
             </a>
-            <nav>
+            <nav aria-label="Hauptnavigation">
                 <a href="https://github.com/FlaushDev/DnD-Charakter-Ersteller">Github</a>
                 <a href="impressum.html">Impressum</a>
             </nav>
         </div>
-    </div>
+    </header>
+
     <div class="hero parallax-hero">
         <h1 class="parallax-hero-text">Willkommen Reisende/r</h1>
-    </div> 
-    <div class="subheader introduction-text">
-            Tools n' Trinkets ist eine Seite gedacht für alle deutschen DnD-Spieler mit mehreren Tools um das Spielen von D&D-Kampagnen zu
-            erleichtern. Bitte beachten Sie, dass diese Seite noch nicht fertig ist, weswegen einige Features nicht
-            so funktionieren wie sie sollen. Wenn sie auf einen Fehler stoßen, schreiben Sie mir bitte eine Mail an <a onclick="copyEmail()" id="E-mail" style=":hover {cursor: pointer;}">owner@tools-n-trinkets.at</a>.
     </div>
-    <!-- "Das Leben ist entweder ein wagemutiges Abenteuer oder nichts." – Helen Keller -->
-    <div class="button-container">
-        <div class="button-container-flex">
-            <div class="max-size">
-                <button onclick="document.location.href='charakter-ersteller.html'" class="button img-button"></button>
-                <label class="label-button">Regelwerk 5e 2014</label>
+
+    <main>
+        <p class="subheader introduction-text">
+            Tools n' Trinkets ist eine Seite gedacht für alle deutschen DnD-Spieler mit mehreren Tools um das Spielen
+            von D&D-Kampagnen zu erleichtern. Bitte beachten Sie, dass diese Seite noch nicht fertig ist, weswegen
+            einige Features nicht so funktionieren wie sie sollen. Wenn Sie auf einen Fehler stoßen, schreiben Sie mir
+            bitte eine <a onclick="copyEmail()" id="E-mail" style="cursor:pointer;">E-Mail</a>.
+        </p>
+
+        <nav class="button-container" aria-label="Tool-Auswahl">
+            <div class="button-container-flex">
+                <div class="max-size">
+                    <button onclick="document.location.href='charakter-ersteller.html'" class="button img-button" aria-label="Charakter-Ersteller Regelwerk 5e 2014"></button>
+                    <label class="label-button">Regelwerk 5e 2014</label>
+                </div>
+                <div class="max-size">
+                    <button class="button img-button" disabled aria-label="Charakter-Ersteller 2024 – momentan nicht verfügbar"></button>
+                    <label class="label-button">Momentan nicht verfügbar</label>
+                </div>
+                <div class="max-size">
+                    <button onclick="document.location.href='wuerfel.html'" class="button img-button" aria-label="Online-Würfel"></button>
+                    <label class="label-button">Online-Würfel</label>
+                </div>
+                <div class="max-size">
+                    <button class="button img-button" disabled aria-label="Forum – momentan nicht verfügbar"></button>
+                    <label class="label-button">Momentan nicht verfügbar</label>
+                </div>
             </div>
-            <div class="max-size">
-                <button class="button img-button"></button>
-                <!-- onclick="document.location.href='charakter-ersteller-2024.html'" -->
-                <label class="label-button">Momentan nicht verfügbar</label>
-            </div>
-            <div class="max-size">
-                <button onclick="document.location.href='wuerfel.html'" class="button img-button"></button>
-                <label class="label-button">Online-Würfel</label>
-            </div>
-            <div class="max-size">
-                <button class="button img-button"></button> 
-                <!-- onclick="document.location.href='forum.html'" -->
-                <label class="label-button">Momentan nicht verfügbar</label>
-            </div>
-        </div>
-    </div>
+        </nav>
+    </main>
+
     <footer>
-        <p>Erstellt von Paul S. | Alle Rechte vorbehalten © 2025 | owner@tools-n-trinkets.at </p>
+        <p>Erstellt von Paul S. | Alle Rechte vorbehalten © 2025 | owner@tools-n-trinkets.at</p>
     </footer>
 </body>
-
 
 </html>

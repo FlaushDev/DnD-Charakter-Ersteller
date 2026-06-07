@@ -4,68 +4,74 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>D&D 5e Charakter-Creator</title>
+    <title>Impressum | Tools n' Trinkets</title>
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="icon" type="image/x-icon" href="logo.ico">
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
-    <script src="main-script.js"></script>
+    <!-- FIX: type="module" fehlte, was den ES-Module-Import zerstört hat -->
+    <script type="module" src="main-script.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
 </head>
 
 <body>
-    <div class="nav-header">
+    <header class="nav-header">
         <div class="nav-container">
             <a class="logo" href="homepage.html">
                 <div class="logo-banner">
                     <span class="logo-text">Tools n' Trinkets</span>
                 </div>
             </a>
-            <nav>
+            <nav aria-label="Hauptnavigation">
                 <a href="https://github.com/FlaushDev/DnD-Charakter-Ersteller">Github</a>
                 <a href="impressum.html">Impressum</a>
             </nav>
         </div>
-    </div>
+    </header>
+
     <div class="hero">
         <h1>Impressum und Rechtliches</h1>
     </div>
 
-    <div class="container text-center">
-        <h1 style="border-bottom: 2px solid var(--border-light); border-top: 2px solid var(--border-light);">Impressum
-        </h1>
-        <div class="subheader">
-            <strong>Medieninhaber:</strong> <br>
-            Paul S. <br>
-            Österreich <br>
-            <br>
-            <strong>Kontakt:</strong> <br>
-            <a onclick="copyEmail()" id="E-mail">owner@tools-n-trinkets.at</a><br>
-            <br>
-            <strong>Offenlegung gemäß §25 MedienG:</strong> <br>
-            <br>
-            Diese Website hilft Leuten bei ihrem D&D-Abenteueren und verfolgt keine kommerziellen oder politischen
-            Zwecke.<br>
-        </div>
-        <h1
-            style="border-bottom: 2px solid var(--border-light); border-top: 2px solid var(--border-light); margin-top: 50px;">
-            Rechtliches</h1>
-        <h2 style="border-bottom: none;">Content von Wizards of the coast</h2>
-        <div class="subheader">
-            DnD 5e Charakter-Ersteller ist ein inoffizieller Fan-Inhalt im Rahmen der Richtlinie für Fan-Inhalte. Nicht
-            von Wizards gefördert/gesponsert. Bestandteile des enthaltenen Materials sind Eigentum von Wizards of the
-            Coast. ©Wizards of the Coast LLC.
-        </div>
-        <h2 style="border-bottom: none;">Copyright</h2>
-        <div class="subheader">
-            Die Inhalte und Werke dieser Website unterliegen dem österreichischen Urheberrechtsgesetz (UrhG). Alle
-            Rechte sind vorbehalten. Jede Nutzung, Vervielfältigung oder Weitergabe von Inhalten dieser Website ist ohne
-            ausdrückliche schriftliche Zustimmung des Urhebers nicht gestattet.
-        </div>
-    </div>
+    <main class="container text-center">
+
+        <section aria-labelledby="impressum-heading">
+            <h2 id="impressum-heading" style="border-bottom:2px solid var(--border-light);border-top:2px solid var(--border-light);">Impressum</h2>
+            <address class="subheader" style="font-style:normal;">
+                <strong>Medieninhaber:</strong><br>
+                Paul Steinkogler<br>
+                Österreich<br>
+                <br>
+                <strong>Kontakt:</strong><br>
+                <a onclick="copyEmail()" id="E-mail" style="cursor:pointer;">E-Mail</a>
+            </address>
+            <p class="subheader">
+                <strong>Offenlegung gemäß §25 MedienG:</strong><br>
+                Diese Website hilft Leuten bei ihren D&D-Abenteuern und verfolgt keine kommerziellen oder politischen Zwecke.
+            </p>
+        </section>
+
+        <section aria-labelledby="rechtliches-heading" style="margin-top:50px;">
+            <h2 id="rechtliches-heading" style="border-bottom:2px solid var(--border-light);border-top:2px solid var(--border-light);">Rechtliches</h2>
+
+            <h3 style="border-bottom:none;">Content von Wizards of the Coast</h3>
+            <p class="subheader">
+                DnD 5e Charakter-Ersteller ist ein inoffizieller Fan-Inhalt im Rahmen der Richtlinie für Fan-Inhalte.
+                Nicht von Wizards gefördert/gesponsert. Bestandteile des enthaltenen Materials sind Eigentum von Wizards of the Coast. ©Wizards of the Coast LLC.
+            </p>
+
+            <h3 style="border-bottom:none;">Copyright</h3>
+            <p class="subheader">
+                Die Inhalte und Werke dieser Website unterliegen dem österreichischen Urheberrechtsgesetz (UrhG).
+                Alle Rechte sind vorbehalten. Jede Nutzung, Vervielfältigung oder Weitergabe von Inhalten dieser Website
+                ist ohne ausdrückliche schriftliche Zustimmung des Urhebers nicht gestattet.
+            </p>
+        </section>
+
+    </main>
 
     <footer>
-        <p>Erstellt von Paul S.| Alle Rechte vorbehalten © 2025 | owner@tools-n-trinkets.at </p>
+        <p>Erstellt von Paul S. | Alle Rechte vorbehalten © 2025 | owner@tools-n-trinkets.at</p>
     </footer>
 </body>
 
