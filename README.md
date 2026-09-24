@@ -30,14 +30,25 @@
 ├── charakter-ersteller-2024.html  # Charakter-Ersteller 2024 (WIP)
 ├── wuerfel.html                # Online-Würfel
 ├── impressum.html              # Impressum & Rechtliches
-├── main-script.js              # Kernlogik (2014 Ersteller, Würfel)
-├── side-script.js              # Logik für den 2024 Ersteller
+├── zauber.html                 # Zauberkarten-Generator
+├── main-script.js              # Seiten-Skript: 2014-Ersteller, Würfel, E-Mail-Kopie
+├── side-script.js              # Seiten-Skript: 2024-Ersteller
+├── charakter-logik.js          # Gemeinsame Charakter-Logik (von main-/side-script.js benutzt)
 ├── pdf.js                      # PDF-Export Modul (pdf-lib)
 ├── data.js                     # Spieldaten 2014 (Klassen, Völker, etc.)
 ├── data2024.js                 # Spieldaten 2024 (Klassen, Völker, etc.)
-├── style.css                   # Globales Stylesheet
+├── zauber-script.js            # Logik für den Zauberkarten-Generator
+├── spells.json                 # SRD-Zauberdaten (Deutsch) für zauber.html
+├── style.css                   # Globales Stylesheet (ganze Seite)
 └── charakterbogen.pdf          # Leerer Charakterbogen (Pflichtdatei für PDF-Export)
 ```
+
+Die 2014er- und 2024er-Charakter-Ersteller teilen sich seit Kurzem ihre
+komplette Logik über `charakter-logik.js` — vorher gab es sie zweimal
+(einmal in `main-script.js`, einmal in `side-script.js`), was auf Dauer
+eine Bug-Quelle war. `main-script.js`/`side-script.js` füttern die
+gemeinsame Logik nur noch mit ihren jeweiligen Spieldaten und kümmern
+sich um alles, was wirklich seitenspezifisch ist (Würfel, Toasts, …).
 
 ---
 

@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="de">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Zauberkarten Generator | Tools n' Trinkets</title>
+  <meta name="description" content="Erstelle und drucke Zauberkarten für D&D 5e auf Deutsch">
+  <link rel="icon" type="image/x-icon" href="logo.ico">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&family=Merriweather:wght@700&family=JetBrains+Mono&display=swap">
+  <link rel="stylesheet" href="style.css">
+  <script src="zauber-script.js" defer></script>
+</head>
+
+<body class="zauber-page">
+  <div class="nav-header">
+    <div class="nav-container">
+      <a class="logo" href="homepage.html">
+        <div class="logo-banner">
+          <span class="logo-text">Tools n' Trinkets</span>
+        </div>
+      </a>
+      <nav>
+        <a href="https://github.com/FlaushDev/DnD-Charakter-Ersteller">Github</a>
+        <a href="impressum.html">Impressum</a>
+      </nav>
+    </div>
+  </div>
+  <div class="toolbar">
+    <div class="dropdown" id="lvlDropdown">
+      <button type="button" class="dropdown-btn" id="lvlBtn">Grad <span id="lvlSummary"></span><span class="arrow">&#9660;</span></button>
+      <div class="dropdown-panel" id="lvlPanel">
+        <label><input type="checkbox" class="lvl-cb" value="0" checked> Zaubertrick</label><label><input type="checkbox" class="lvl-cb" value="1" checked> 1. Grad</label><label><input type="checkbox" class="lvl-cb" value="2" checked> 2. Grad</label><label><input type="checkbox" class="lvl-cb" value="3" checked> 3. Grad</label><label><input type="checkbox" class="lvl-cb" value="4" checked> 4. Grad</label><label><input type="checkbox" class="lvl-cb" value="5" checked> 5. Grad</label><label><input type="checkbox" class="lvl-cb" value="6" checked> 6. Grad</label><label><input type="checkbox" class="lvl-cb" value="7" checked> 7. Grad</label><label><input type="checkbox" class="lvl-cb" value="8" checked> 8. Grad</label><label><input type="checkbox" class="lvl-cb" value="9" checked> 9. Grad</label>
+        <div class="panel-actions">
+          <button type="button" class="panel-all" data-target="lvl">Alle</button>
+          <button type="button" class="panel-none" data-target="lvl">Keine</button>
+        </div>
+      </div>
+    </div>
+    <div class="dropdown" id="clsDropdown">
+      <button type="button" class="dropdown-btn" id="clsBtn">Klasse <span id="clsSummary"></span><span class="arrow">&#9660;</span></button>
+      <div class="dropdown-panel" id="clsPanel">
+        <label><input type="checkbox" class="cls-cb" value="Barde" checked> Barde</label><label><input type="checkbox" class="cls-cb" value="Druide" checked> Druide</label><label><input type="checkbox" class="cls-cb" value="Erfinder" checked> Erfinder</label><label><input type="checkbox" class="cls-cb" value="Hexenmeister" checked> Hexenmeister</label><label><input type="checkbox" class="cls-cb" value="Kleriker" checked> Kleriker</label><label><input type="checkbox" class="cls-cb" value="Magier" checked> Magier</label><label><input type="checkbox" class="cls-cb" value="Paladin" checked> Paladin</label><label><input type="checkbox" class="cls-cb" value="Waldläufer" checked> Waldläufer</label><label><input type="checkbox" class="cls-cb" value="Zauberer" checked> Zauberer</label>
+        <div class="panel-actions">
+          <button type="button" class="panel-all" data-target="cls">Alle</button>
+          <button type="button" class="panel-none" data-target="cls">Keine</button>
+        </div>
+      </div>
+    </div>
+    <div class="dropdown" id="srcDropdown">
+      <button type="button" class="dropdown-btn" id="srcBtn">Quelle <span id="srcSummary"></span><span class="arrow">&#9660;</span></button>
+      <div class="dropdown-panel" id="srcPanel">
+        <div class="panel-actions">
+          <button type="button" class="panel-all" data-target="src">Alle</button>
+          <button type="button" class="panel-none" data-target="src">Keine</button>
+        </div>
+      </div>
+    </div>
+    <div class="dropdown" id="sortDropdown">
+      <button type="button" class="dropdown-btn" id="sortBtn">Sortierung <span id="sortSummary"></span><span class="arrow">&#9660;</span></button>
+      <div class="dropdown-panel" id="sortPanel">
+        <label><input type="radio" name="sortOpt" class="sort-rb" value="name" checked> Name (A-Z)</label>
+        <label><input type="radio" name="sortOpt" class="sort-rb" value="level"> Grad</label>
+        <label><input type="radio" name="sortOpt" class="sort-rb" value="source"> Quelle</label>
+      </div>
+    </div>
+    <div class="actions">
+      <button class="print-btn" id="newSpellBtn">+ Eigener Zauber</button>
+      <input type="file" id="importFile" accept=".json" hidden>
+      <button class="print-btn" id="printBtn">Drucken / Als PDF speichern</button>
+      <span class="count" id="count"></span>
+    </div>
+  </div>
+  <div id="pages"></div>
+  <div class="modal" id="spellModal">
+
+    <div class="modal-box">
+
+      <h2>Eigenen Zauber erstellen</h2>
+
+      <div class="modal-grid">
+
+        <div>
+
+          <label>Name</label>
+          <input id="spellName">
+
+          <label>Englischer Name</label>
+          <input id="spellNameEn">
+
+          <label>Grad</label>
+          <select id="spellLevel">
+            <option value="0">Zaubertrick</option>
+            <option>1</option>
+            <option>2</option>
+            <option>3</option>
+            <option>4</option>
+            <option>5</option>
+            <option>6</option>
+            <option>7</option>
+            <option>8</option>
+            <option>9</option>
+          </select>
+
+          <label>Schule</label>
+          <input id="spellSchool">
+
+          <label>Wirkzeit</label>
+          <input id="spellCast">
+
+          <label>Reichweite</label>
+          <input id="spellRange">
+
+          <label>Komponenten</label>
+          <input id="spellComponents">
+
+          <label>Dauer</label>
+          <input id="spellDuration">
+
+          <label>Material</label>
+          <input id="spellMaterial">
+
+        </div>
+        <div>
+
+          <h3>Vorschau</h3>
+
+          <div class="card tier-medium" id="previewCard">
+
+            <div class="card-head">
+              <div class="spell-name">Zaubername</div>
+              <div class="spell-name-en"></div>
+            </div>
+
+            <div class="level-school">
+              Zaubertrick · Schule
+            </div>
+
+            <table class="meta">
+
+              <tr>
+                <td class="k">Wirkzeit</td>
+                <td>-</td>
+                <td class="k">Reichweite</td>
+                <td>-</td>
+              </tr>
+
+              <tr>
+                <td class="k">Komponenten</td>
+                <td>-</td>
+                <td class="k">Dauer</td>
+                <td>-</td>
+              </tr>
+
+            </table>
+
+            <div class="desc">
+              <p>Beschreibung…</p>
+            </div>
+
+            <div class="material"></div>
+
+            <div class="classes">
+              <b>Klassen:</b>—
+            </div>
+          </div>
+        </div>
+
+        <div>
+          <label>Beschreibung</label>
+          <textarea id="spellDescription"></textarea>
+          <label>Klassen (Komma getrennt)</label>
+          <input id="spellClasses">
+          <label>Ritual</label>
+          <input type="checkbox" id="spellRitual">
+        </div>
+      </div>
+
+      <div class="modal-footer">
+        <button id="cancelSpell">Abbrechen</button>
+        <button id="saveSpell">Speichern</button>
+      </div>
+
+    </div>
+  </div>
+  <footer>
+    <p>Erstellt von Paul S. | Alle Rechte vorbehalten © 2025 | owner@tools-n-trinkets.at </p>
+  </footer>
+</body>
+
+</html>

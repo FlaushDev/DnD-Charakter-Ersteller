@@ -1,5 +1,8 @@
-/*Root Styles, Body and large Containers*/
+/* -------------------------------------------
+   1. Geteilte Farben für alle Elemente
+   ------------------------------------------- */
 :root {
+    /* Farben */
     --bg-teal: #1a3e47;
     --bg-darker: #0f2529;
     --bg-dark: #e3bf9c;
@@ -12,6 +15,54 @@
     --border-light: #d4c9bb;
     --paper-bg: #f5f0e8;
     --border-dark: #88827a;
+    --danger: #c24641;
+    --danger-dark: #70140f;
+    --success: #1ba101;
+    --success-dark: #147101;
+
+    /* Abstände — die kleinen (1–3) bleiben in festen rem, die großen
+       (4–6) skalieren mit der Fensterbreite (clamp: Minimum, bevorzugter
+       Wert in vw, Maximum), damit z. B. große Innenabstände auf einem
+       Handy nicht genauso riesig wirken wie auf einem Breitbildschirm. */
+    --space-1: 0.25rem;
+    --space-2: 0.5rem;
+    --space-3: 1rem;
+    --space-4: clamp(1.15rem, 1vw + 0.9rem, 1.5rem);
+    --space-5: clamp(1.4rem, 2vw + 1rem, 2rem);
+    --space-6: clamp(1.8rem, 3vw + 1.2rem, 3rem);
+
+    /* Ecken-Radien — einheitlich statt überall eigene Werte */
+    --radius-sm: 6px;
+    --radius-md: 8px;
+    --radius-lg: 10px;
+    --radius-pill: 999px;
+
+    /* Schatten — von dezent bis deutlich */
+    --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.06);
+    --shadow-md: 0 4px 15px rgba(0, 0, 0, 0.08);
+    --shadow-lg: 0 10px 30px rgba(0, 0, 0, 0.2);
+
+    /* Übergänge & Schriften — Poppins für alles Interaktive/UI,
+       Merriweather nur für die großen Überschriften (die Google-Fonts-
+       Datei lädt sie extra fett/bold, wirkt sonst falsch dünn), und
+       JetBrains Mono für Zahlen (Werte, Boni, Würfelergebnisse) — die
+       stehen damit schön ruhig und tabellarisch nebeneinander. */
+    --transition: 0.2s ease;
+    --font-ui: 'Poppins', Arial, Helvetica, sans-serif;
+    --font-display: 'Merriweather', Georgia, 'Times New Roman', serif;
+    --font-mono: 'JetBrains Mono', 'Courier New', monospace;
+}
+
+/* -------------------------------------------
+   2. Grundlagen
+   ------------------------------------------- */
+/* Die Wurzel-Schriftgröße bekommt selbst einen fluiden Wert (statt fix
+   16px) — dadurch skalieren automatisch ALLE rem-Werte im ganzen
+   Stylesheet (Abstände, die meisten Schriftgrößen, …) sanft mit der
+   Fensterbreite mit, ohne dass man jede einzelne Regel anfassen muss.
+   15px–18px als Grenzen, damit es nie zu klein oder zu ausufernd wird. */
+html {
+    font-size: clamp(15px, 0.6vw + 13.5px, 18px);
 }
 
 * {
@@ -23,248 +74,70 @@
 
 body {
     overflow-x: hidden;
-}
-
-body {
     background-color: var(--bg-light);
     color: var(--text-dark);
-    font-size: 16px;
+    font-size: 1rem;
+    font-family: var(--font-ui);
 }
 
-.hero {
-    background: linear-gradient(135deg, var(--paper-bg) 0%, #ddd5c7 100%);
-    padding: 4rem 2rem;
-    text-align: center;
-    border-bottom: 3px solid var(--border-light);
-    position: relative;
-}
-
-.hero::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" opacity="0.03"><path d="M20,50 L80,50 M50,20 L50,80" stroke="%23000" stroke-width="0.5"/></svg>');
-    background-size: 50px 50px;
-    pointer-events: none;
+/* Sichtbarer Fokus-Rahmen für Tastatur-Nutzer:innen — vorher fehlte
+   das komplett für Links/Buttons, nur Inputs hatten einen Fokus-Stil. */
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible {
+    outline: 3px solid var(--accent-orange);
+    outline-offset: 2px;
 }
 
 .text-center {
     text-align: center;
 }
 
-/*Special Effects*/
-
-.parallax-hero {
-    padding: 4rem 2rem;
-    text-align: center;
-    border-bottom: 3px solid var(--border-light);
-    background-image: url(/img/hero_image.png);
-    background-size: cover;
-    height: 500px;
-    background-attachment: fixed;
-    background-position: center;
-    background-repeat: no-repeat;
-    background-size: cover;
-    margin-bottom: 50px;
-}
-
-.parallax-hero-text {
-    height: 70px;
-    color: white;
-    backdrop-filter: blur(8px);
-    border-radius: 10px;
-    width: auto
-}
-
-/*Buttons and their containers*/
-
-button {
-    font-family: Georgia, 'Times New Roman', serif;
-}
-
-.button-container {
-    margin: 50px;
-    padding: 20px;
-    text-align: center;
-    background-color: var(--bg-light);
-    margin-left: 100px;
-    align-content: center;
-    justify-content: center;
-}
-
-.button-container-flex {
-    align-content: center;
-    align-self: center;
-    display: grid;
-    grid-template-columns: 505px 505px;
-    align-items: center;
-    justify-content: center;
-}
-
-.button-container-flex-small {
-    align-content: center;
-    align-self: center;
-    align-items: center;
-    justify-content: center;
-}
-
-.button {
-    color: #5a6d6e;
-    width: 440px;
-    height: 300px;
-    color: var(--text-dark);
-    border: 2px solid var(--border-light);
-    border-radius: 6px;
-    padding: 0.75rem 1rem;
-    font-size: 1rem;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    font-family: Georgia, serif;
-}
-
-.button:hover {
-    transform: scale(1.05);
-    transition-duration: 0.2s;
-}
-
-.img-button {
-    background-size: cover;
-}
-
-.reset-button {
-    background: #c24641;
-    width: fit-content;
-    color: #f9f7f4;
-    border-color: #70140f;
-    border-radius: 6px;
-    border-style: solid;
-    padding: 0.75rem 1rem;
-    height: 76px;
-    font-size: 1.2rem;
-    margin-left: 20px;
-}
-
-.reset-button:hover {
-    transition: 0.2s;
-    background: #70140f;
-    border-color: #3b0502;
-}
-
-.wuerfel-button {
-    font-size: 1.2rem;
-    background-color: var(--bg-light);
-    border-color: var(--border-light);
-    border-radius: 6px;
-    border-style: solid;
-    padding: 0.75rem 1rem;
-    width: 150px;
-    height: 76px;
-    margin-left: 20px;
-}
-
-.wuerfel-button:hover {
-    border-color: var(--border-dark);
-    background-color: var(--border-light);
-    transition: 0.2s;
-}
-
-.random-button {
-    font-size: 1.2rem;
-    background-color: var(--bg-light);
-    border-color: var(--border-light);
-    border-radius: 6px;
-    border-style: solid;
-    padding: 0.75rem 1rem;
-    width: fit-content;
-    height: 76px;
-    margin-left: 20px;
-}
-
-.random-button:hover {
-    border-color: var(--border-dark);
-    background-color: var(--border-light);
-    transition: 0.2s;
-}
-
-.print-button {
-    font-size: 1.2rem;
-    color: var(--paper-bg);
-    background-color: var(--accent-teal);
-    border-color: var(--border-light);
-    border-radius: 6px;
-    border-style: solid;
-    margin-left: 20px;
-    padding: 0.75rem 1rem;
-    width: fit-content;
-    height: 76px;
-    margin-left: 20px;
-    font-family: Georgia, 'Times New Roman', serif;
-}
-
-.print-button-left {
-    border-right: none;
-}
-
-.print-button-left:hover {
-    border-right: 3px
-}
-
-.print-button:hover {
-    border-color: var(--border-orange);
-    background-color: var(--accent-orange);
-    transition: 0.2s;
-}
-
-.print-button-right {
-    margin-left: 0px;
-    border-left: none;
-}
-
-.form-section {
-    background: white;
-    border: 2px solid var(--border-light);
-    border-radius: 6px;
-    padding: 2.5rem;
-    margin-bottom: 2rem;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
-}
-
-.form-group {
-    margin-bottom: 1.5rem;
-}
-
-/*Header, Subheader and Footer*/
-
+/* -------------------------------------------
+   3. Überschriften & Fließtext
+   ------------------------------------------- */
 h1 {
     color: var(--accent-teal);
-    font-size: 3.5rem;
+    font-size: clamp(2.2rem, 4vw + 1rem, 3.5rem);
     font-weight: 700;
-    margin-bottom: 1rem;
-    font-family: Georgia, serif;
+    margin-bottom: var(--space-3);
+    font-family: var(--font-display);
     position: relative;
 }
 
 h2 {
     font-weight: bold;
     color: var(--accent-teal);
-    font-size: 2rem;
-    margin-bottom: 1.5rem;
-    padding-bottom: 0.5rem;
+    font-size: clamp(1.5rem, 1.5vw + 1.1rem, 2rem);
+    margin-bottom: var(--space-4);
+    padding-bottom: var(--space-2);
     border-bottom: 2px solid var(--border-light);
+    font-family: var(--font-display);
 }
 
-.subheader {
+h3 {
+    font-family: var(--font-display);
+    color: var(--accent-teal);
+}
+
+.subheader,
+.introduction-text {
     color: var(--text-light);
-    font-size: 1.3rem;
+    font-size: clamp(1.05rem, 0.4vw + 0.95rem, 1.3rem);
     font-style: italic;
-    max-width: 900px;
+    max-width: min(900px, 90vw);
     margin: 0 auto;
 }
 
-.subheader a {
+.introduction-text {
+    text-align: justify;
+    align-self: center;
+}
+
+.subheader a,
+.introduction-text a {
     color: var(--accent-orange);
     text-decoration: none;
     border-bottom: 1px solid var(--accent-orange);
@@ -280,89 +153,121 @@ h2 {
 }
 
 .larger-subheader {
-    font-size: 1.8rem;
+    font-size: clamp(1.4rem, 1vw + 1.15rem, 1.8rem);
+    font-family: var(--font-display);
+    color: var(--accent-teal);
 }
 
-footer {
-    padding: 2rem 0;
-    text-align: center;
-    color: var(--text-light);
-    border-top: 2px solid var(--border-light);
+/* Bugfix: hieß vorher "#E-Mail" (Großbuchstabe), die IDs im HTML sind aber
+   alle klein "E-mail" geschrieben — CSS-IDs sind case-sensitive, die Regel
+   hat also nie gegriffen. Genauso war "text-decoration: solid" ungültig
+   (das ist nur der Linien-Stil, ohne "underline" bleibt die Linie unsichtbar). */
+#E-mail {
+    color: var(--accent-orange);
+    text-decoration: underline;
+    cursor: pointer;
+}
+
+/* -------------------------------------------
+   4. Hero-Bereiche
+   ------------------------------------------- */
+.hero {
     background: linear-gradient(135deg, var(--paper-bg) 0%, #ddd5c7 100%);
-    width: auto;
+    padding: var(--space-6) var(--space-5);
+    text-align: center;
+    border-bottom: 3px solid var(--border-light);
+    position: relative;
 }
 
-/*Containers and Boxes*/
+.hero::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" opacity="0.03"><path d="M20,50 L80,50 M50,20 L50,80" stroke="%23000" stroke-width="0.5"/></svg>');
+    background-size: 50px 50px;
+    pointer-events: none;
+}
 
+/* Der parallaxe Hero auf der Startseite hatte vorher ein Bild
+   (/img/hero_image.png), das es im Projekt gar nicht gibt — der Hero
+   war dadurch einfach kaputt/leer. Stattdessen jetzt ein eigener,
+   an das Farbschema angepasster Verlauf mit demselben Karten-Muster
+   wie der normale Hero, damit nichts mehr fehlen kann. */
+.parallax-hero {
+    padding: var(--space-6) var(--space-5);
+    text-align: center;
+    border-bottom: 3px solid var(--border-light);
+    background: radial-gradient(circle at 30% 20%, #24545f 0%, var(--bg-teal) 45%, var(--bg-darker) 100%);
+    height: clamp(320px, 55vh, 560px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    margin-bottom: clamp(2rem, 4vw, 3.5rem);
+    position: relative;
+    overflow: hidden;
+}
+
+.parallax-hero::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" opacity="0.05"><path d="M20,50 L80,50 M50,20 L50,80" stroke="%23fff" stroke-width="0.5"/></svg>');
+    background-size: 60px 60px;
+    pointer-events: none;
+}
+
+.parallax-hero-text {
+    height: auto;
+    padding: var(--space-3) var(--space-5);
+    color: white;
+    background: rgba(15, 37, 41, 0.35);
+    backdrop-filter: blur(8px);
+    border-radius: var(--radius-md);
+    width: auto;
+    font-size: clamp(1.6rem, 3vw + 1rem, 2.5rem);
+    position: relative;
+}
+
+/* -------------------------------------------
+   5. Navigation (Kopfzeile)
+   ------------------------------------------- */
 .nav-header {
     background-color: var(--accent-teal);
-    padding: 1rem 0 1rem 0;
+    padding: var(--space-3) 0;
     box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
-    height: 90px;
+    height: clamp(70px, 9vh, 90px);
 }
 
 .nav-container {
     max-width: 1400px;
+    height: 100%;
     margin: 0 auto;
-    padding: 0 2rem;
+    padding: 0 var(--space-5);
     display: flex;
     justify-content: space-between;
     align-items: center;
 }
 
-.container {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 3rem 2rem;
-}
-
-.info-box {
-    background: white;
-    border-left: 4px solid var(--accent-teal);
-    padding: 1.5rem;
-    border-radius: 6px;
-    margin: 2rem 0;
-    border: 2px solid var(--border-light);
-    border-left-width: 4px;
-}
-
-.info-box h3 {
-    color: var(--accent-teal);
-    margin-bottom: 1rem;
-    font-size: 1.5rem;
-}
-
-.info-box ul {
-    margin-left: 1.5rem;
-    color: var(--text-dark);
-}
-
-.info-box li {
-    margin-bottom: 0.5rem;
-}
-
-.introduction-text {
-    text-align: justify;
-    color: var(--text-light);
-    font-size: 1.3rem;
-    font-style: italic;
-    max-width: 900px;
-    margin: 0 auto;
-    align-self: center;
-}
-
-.introduction-text a {
-    color: var(--accent-orange);
+nav a {
+    color: var(--paper-bg);
     text-decoration: none;
-    border-bottom: 1px solid var(--accent-orange);
+    margin-left: var(--space-5);
+    font-size: 1.2rem;
+    transition: color var(--transition);
 }
 
-/*Logo*/
+nav a:hover {
+    color: var(--accent-orange);
+}
 
+/* Logo */
 .logo {
     display: flex;
     align-items: center;
-    gap: 1rem;
+    gap: var(--space-3);
     text-decoration: none;
     overflow: hidden;
     height: 60px;
@@ -370,10 +275,10 @@ footer {
 
 .logo-banner {
     background: var(--paper-bg);
-    padding: 0.5rem 1.5rem;
-    border-radius: 0;
+    padding: var(--space-2) var(--space-4);
     position: relative;
     transform: rotate(-2deg);
+    box-shadow: var(--shadow-sm);
 }
 
 .logo-banner::before,
@@ -384,380 +289,387 @@ footer {
     height: 10px;
     background: var(--accent-teal);
     border-radius: 50%;
+    top: 50%;
+    transform: translateY(-50%);
 }
 
 .logo-banner::before {
     left: 5px;
-    top: 50%;
-    transform: translateY(-50%);
 }
 
 .logo-banner::after {
     right: 5px;
-    top: 50%;
-    transform: translateY(-50%);
 }
 
 .logo-text {
-    font-size: 1.8rem;
+    font-size: clamp(1.4rem, 2vw + 0.8rem, 1.8rem);
     font-weight: bold;
     color: var(--accent-teal);
     font-family: 'Brush Script MT', cursive;
 }
 
-/*Navigation*/
-
-nav a {
-    color: var(--paper-bg);
-    text-decoration: none;
-    margin-left: 2rem;
-    font-size: 1.2rem;
-    transition: color 0.3s ease;
-}
-
-nav a:hover {
-    color: var(--accent-orange);
-}
-
-#E-Mail {
-    color: var(--accent-orange);
-    text-decoration: solid;
-}
-
-/*Labels*/
-
-label {
-    color: var(--accent-teal);
-    font-weight: 600;
-    margin-bottom: 0.5rem;
-    margin-top: 0.5rem;
-    font-size: 1.1rem;
-}
-
-label-select {
-    display: block;
-}
-
-label-button {
-    display: inline-block;
+/* -------------------------------------------
+   6. Footer
+   ------------------------------------------- */
+footer {
+    padding: var(--space-5) 0;
     text-align: center;
+    color: var(--text-light);
+    border-top: 2px solid var(--border-light);
+    background: linear-gradient(135deg, var(--paper-bg) 0%, #ddd5c7 100%);
+    width: auto;
 }
 
-/*Dropdown*/
+/* -------------------------------------------
+   7. Layout-Container
+   ------------------------------------------- */
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: var(--space-6) var(--space-5);
+}
 
+/* Karten-artige Bausteine (Formular-Abschnitte, Info-Kästen, Stat-Karten)
+   teilen sich hier bewusst dieselbe Basis: weißer Hintergrund, 2px
+   Rahmen in --border-light und denselben Radius. Das war vorher an
+   drei Stellen fast identisch dupliziert. */
+.form-section,
+.info-box,
+.stat-card {
+    background: white;
+    border: 2px solid var(--border-light);
+    border-radius: var(--radius-sm);
+}
+
+.form-section {
+    padding: clamp(1.25rem, 3vw, 2.5rem);
+    margin-bottom: var(--space-5);
+    box-shadow: var(--shadow-md);
+}
+
+.form-group {
+    margin-bottom: var(--space-4);
+}
+
+.info-box {
+    padding: var(--space-4);
+    margin: var(--space-5) 0;
+    border-left-width: 4px;
+    border-left-color: var(--accent-teal);
+}
+
+.info-box h3 {
+    margin-bottom: var(--space-3);
+    font-size: 1.5rem;
+}
+
+.info-box ul {
+    margin-left: var(--space-4);
+    color: var(--text-dark);
+}
+
+.info-box li {
+    margin-bottom: var(--space-2);
+}
+
+/* -------------------------------------------
+   8. Buttons
+   ------------------------------------------- */
+button {
+    font-family: var(--font-ui);
+}
+
+/* Gemeinsame Basis für alle "großen" Aktions-Buttons der Seite. Vorher
+   stand dieselbe Höhe/Radius/Padding/Border in .reset-button,
+   .wuerfel-button, .random-button und .print-button praktisch
+   viermal — jetzt einmal zentral, die einzelnen Klassen ändern nur
+   noch die Farbe. */
+.reset-button,
+.wuerfel-button,
+.random-button,
+.print-button {
+    font-size: 1.2rem;
+    border-style: solid;
+    border-width: 2px;
+    border-radius: var(--radius-sm);
+    padding: 0.75rem 1rem;
+    height: clamp(3.25rem, 6vh, 4.75rem);
+    width: fit-content;
+    margin-left: var(--space-4);
+    cursor: pointer;
+    transition: background-color var(--transition), border-color var(--transition);
+    font-family: var(--font-ui);
+}
+
+.wuerfel-button {
+    width: clamp(120px, 15vw, 170px);
+}
+
+.reset-button,
+.wuerfel-button,
+.random-button {
+    background-color: var(--bg-light);
+    border-color: var(--border-light);
+}
+
+.reset-button {
+    background: var(--danger);
+    color: #f9f7f4;
+    border-color: var(--danger-dark);
+}
+
+.reset-button:hover {
+    background: var(--danger-dark);
+    border-color: #3b0502;
+}
+
+.wuerfel-button:hover,
+.random-button:hover {
+    border-color: var(--border-dark);
+    background-color: var(--border-light);
+}
+
+.print-button {
+    color: var(--paper-bg);
+    background-color: var(--accent-teal);
+    border-color: var(--border-light);
+}
+
+.print-button:hover {
+    border-color: var(--border-orange);
+    background-color: var(--accent-orange);
+}
+
+/* Geteilter Button (z. B. "PDF drucken" mit Pfeil daneben)
+   Bugfix: ".split-button button" war eine generische Regel für JEDEN
+   <button> im Container — mit Spezifität 0-1-1 schlug sie ".print-button"
+   (0-1-0) und hat dessen Farben/Padding/Schriftgröße überschrieben. Die
+   beiden Hälften sahen dadurch aus wie ein anderer, hellerer Button-Stil
+   statt wie EIN durchgehendes Bauteil. Jetzt gibt's nur noch die
+   passenden, spezifischen Regeln für die beiden echten Klassen. */
 .split-button {
     position: relative;
     display: inline-flex;
-    overflow: visible;
-    border: var(--border-light);
-}
-
-.split-button button {
-    padding: 10px 16px;
-    cursor: pointer;
-    background: var(--paper-bg);
-    color: var(--text-dark);
-    font-size: 14px;
-}
-
-.split-button button:hover {
-    transition: 0.2s;
-    background: var(--bg-dark)
 }
 
 .main-btn {
-    border-radius: 6px;
+    border-radius: var(--radius-sm) 0 0 var(--radius-sm);
 }
 
-.dropdown-toggle {
-    border-radius: 0 6px 6px 0;
-    width: 40px;
+.print-button-left {
+    margin-left: 0;
+    border-right: none;
 }
 
-.dropdown-menu {
+.print-button-right {
+    margin-left: 0;
+    border-left: 1px solid rgba(245, 240, 232, 0.35);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Bugfix: hießen vorher ".dropdown-toggle" / ".dropdown-menu" — genau
+   wie die gleichnamigen Bootstrap-Komponenten! charakter-ersteller.html
+   lädt Bootstrap, und Bootstraps eigenes ".dropdown-toggle" hat einen
+   automatischen ::after-Pfeil eingebaut (ein per CSS gezeichnetes
+   Dreieck). Der landete unsichtbar-aber-vorhanden zusätzlich zu unserem
+   eigenen Pfeil-Zeichen im Button — sah dadurch komisch/doppelt aus.
+   Jetzt eigene, garantiert kollisionsfreie Klassennamen. */
+.pdf-dropdown-toggle {
+    border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+    width: clamp(2.2rem, 4vw, 2.6rem);
+    font-size: 0.8rem;
+}
+
+.pdf-dropdown-menu {
     position: absolute;
-    top: 100%;
+    top: calc(100% + 6px);
     left: 0;
     min-width: 160px;
     background: white;
-    border-radius: 6px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border: 2px solid var(--border-light);
+    border-radius: var(--radius-sm);
+    box-shadow: var(--shadow-md);
     display: none;
     z-index: 1000;
     overflow: visible;
 }
 
-.dropdown-menu a {
+.pdf-dropdown-menu a {
     display: block;
-    padding: 10px;
+    padding: var(--space-3);
     text-decoration: none;
-    color: #333;
+    color: var(--text-dark);
+    font-family: var(--font-ui);
 }
 
-.dropdown-menu a:hover {
-    background: #f1f1f1;
+.pdf-dropdown-menu a:hover {
+    background: var(--bg-light);
 }
 
-.dropdown-menu.show {
+.pdf-dropdown-menu.show,
+.dropdown-content.show-dropdown {
     display: block;
 }
 
-/*Stat-Card*/
-
-.stats-display {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-    gap: 1.5rem;
-    margin: 2rem 0;
-}
-
-.stat-card {
+/* Der 2024-Ersteller nutzt eine etwas andere Dropdown-Struktur
+   (.dropdown-content statt .pdf-dropdown-menu) für denselben Zweck —
+   Stil bewusst identisch gehalten. */
+.dropdown-content {
+    display: none;
+    position: relative;
+    min-width: 220px;
     background: white;
-    border: 2px solid var(--border-light);
-    border-radius: 6px;
-    padding: 1.5rem;
-    text-align: center;
-    transition: all 0.3s ease;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+    border-radius: var(--radius-sm);
+    box-shadow: var(--shadow-sm);
+    margin-top: var(--space-2);
+    overflow: hidden;
 }
 
-.stat-card:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-    border-color: var(--accent-teal);
-}
-
-.stat-label {
-    color: var(--text-light);
-    font-size: 0.9rem;
-    margin-bottom: 0.5rem;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-}
-
-.stat-value {
-    color: var(--accent-teal);
-    font-size: 2.2rem;
-    font-weight: bold;
-}
-
-.wuerfel-output {
-    background-color: var(--bg-light);
-    border-style: solid;
-    border-color: var(--border-light);
-    border-radius: 6px;
-    height: 200px;
+.dropdown-content-button {
+    display: block;
     width: 100%;
-    padding: 1rem 1rem;
-    font-size: 25px;
+    text-align: left;
+    padding: var(--space-3);
+    border: none;
+    background: white;
+    color: var(--text-dark);
+    cursor: pointer;
+    font-size: 0.95rem;
 }
 
-.wuerfel-output:focus,
-.wuerfel-output:hover {
+.dropdown-content-button:hover {
+    background: var(--bg-light);
+}
+
+/* Homepage-Kacheln (Regelwerk, Zauberkarten, Würfel, …). Statt fixer
+   440x300px füllen sie jetzt ihre Grid-Zelle (bis zu einer Obergrenze)
+   und behalten über aspect-ratio ihr Seitenverhältnis bei — das bleibt
+   auch bei sehr schmalen oder sehr breiten Fenstern proportional. */
+.button {
+    width: 100%;
+    max-width: 440px;
+    aspect-ratio: 22 / 15;
+    height: auto;
+    color: var(--text-dark);
+    border: 2px solid var(--border-light);
+    border-radius: var(--radius-sm);
+    padding: 0.75rem 1rem;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: transform 0.2s ease, box-shadow var(--transition);
+    font-family: var(--font-ui);
+    box-shadow: var(--shadow-sm);
+}
+
+.button:hover {
+    transform: scale(1.05) translateY(-3px);
+    box-shadow: var(--shadow-md);
     border-color: var(--accent-teal);
-    transition: 0.2s ease;
+}
+
+.img-button {
+    background-size: cover;
+    background-color: var(--bg-light);
+}
+
+.button-container {
+    margin: clamp(1.5rem, 5vw, 3.2rem);
+    padding: var(--space-4);
+    text-align: center;
+    background-color: var(--bg-light);
+    align-content: center;
+    justify-content: center;
+}
+
+/* auto-fit + eine relative Mindestbreite lässt die Kacheln selbst
+   entscheiden, wie viele pro Zeile passen — kein fester Pixel-Wert und
+   keine explizite Media Query mehr nötig, um auf schmalen Screens auf
+   eine Spalte umzuklappen. */
+.button-container-flex {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 320px), 1fr));
+    align-items: center;
+    justify-content: center;
+    gap: var(--space-5);
 }
 
 .max-size {
-    max-width: 500px;
-    margin-bottom: 20px;
+    max-width: min(500px, 90vw);
+    margin-bottom: var(--space-3);
 }
 
-/*Attribute Table*/
-
-.attribute-table {
-    width: 100%;
-    border-collapse: separate;
-    border-spacing: 0;
-    margin-top: 1rem;
-    background: white;
-    border-radius: 6px;
-    overflow: hidden;
-    border: 2px solid var(--border-light);
-    overflow-x: auto;
-    display: block;
-    overscroll-behavior: none;
-}
-
-.attribute-table thead {
-    background: var(--accent-teal);
-}
-
-.attribute-table th {
-    color: white;
-    padding: 1rem;
-    text-align: left;
-    font-weight: 600;
-    text-transform: uppercase;
-    font-size: 0.85rem;
-    letter-spacing: 1px;
-    width: 100%;
-}
-
-.attribute-table td {
-    padding: 1rem;
-    border-bottom: 1px solid var(--border-light);
-    background: white;
-    white-space: nowrap;
-}
-
-.attribute-table tbody {
-    width: 100%;
-}
-
-.attribute-table tbody tr:hover {
-    background: #f9f7f4;
-}
-
-.attr-controls {
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-}
-
-.attr-btn-minus {
-    border-color: #c24641;
-    color: #c24641;
-    width: 32px;
-    height: 32px;
-    border-radius: 50%;
-    cursor: pointer;
-    border: 2px solid;
-    font-weight: bold;
-}
-
-.attr-btn-minus:hover {
-    background: #c24641;
-    color: white;
-    transition: 0.3s;
-    border-color: #a83c37;
-}
-
-.attr-btn-plus {
-    border-color: #1ba101;
-    color: #1ba101;
-    width: 32px;
-    height: 32px;
-    border-radius: 50%;
-    cursor: pointer;
-    border: 2px solid;
-    font-weight: bold;
-}
-
-.attr-btn-plus:hover {
-    background: #1ba101;
-    color: white;
-    transition: 0.3s;
-    border-color: #147101;
-}
-
-.attr-btn:hover {
-    transform: scale(1.1);
-}
-
-.attr-value {
-    min-width: 30px;
-    text-align: center;
-    font-weight: bold;
-    font-size: 1.1rem;
-}
-
-.total-score {
-    color: var(--accent-teal);
-    font-size: 1.3rem;
-    font-weight: bold;
-}
-
-.mod-badge {
-    color: var(--accent-teal);
-    background-color: var(--paper-bg);
-    font-size: 1.3rem;
-    font-weight: bold;
-    border: var(--border-light);
-    border-style: solid;
-    padding: 0.5rem 0.7rem;
-    border-radius: 1rem;
-    text-align: center;
-}
-
-.points-display {
-    display: inline-block;
-    background: #f9f7f4;
-    border: 2px solid var(--border-light);
-    padding: 1rem 2rem;
-    border-radius: 6px;
-    margin: 1rem 0;
-    font-size: 1.2rem;
-}
-
-.points-display strong {
-    color: var(--accent-teal);
-    font-size: 1.5rem;
-}
-
-/*Select*/
-
+/* -------------------------------------------
+   9. Formulare (Selects, Inputs, Checkboxen)
+   ------------------------------------------- */
 select,
-.select {
+.select,
+.spinner-control {
     width: 100%;
     background: white;
     color: var(--text-dark);
     border: 2px solid var(--border-light);
-    border-radius: 6px;
+    border-radius: var(--radius-sm);
     padding: 0.75rem 1rem;
     font-size: 1rem;
     cursor: pointer;
-    transition: all 0.3s ease;
-    font-family: Georgia, serif;
+    transition: border-color var(--transition), box-shadow var(--transition);
+    font-family: var(--font-ui);
+}
+
+.spinner-control {
+    width: clamp(5.5rem, 10vw, 6.5rem);
+    display: block;
+    color: var(--accent-teal);
+    margin-bottom: var(--space-2);
+    font-size: 1.1rem;
 }
 
 select:hover,
-select:focus {
+select:focus,
+.spinner-control:hover,
+.spinner-control:focus {
     border-color: var(--accent-teal);
     outline: none;
     box-shadow: 0 0 0 3px rgba(26, 62, 71, 0.1);
 }
 
-/*Skill and Saves List*/
-
-.skills-section {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 2rem;
-    margin-top: 2rem;
+/* Bugfix: hieß vorher "label-select" / "label-button" — also Element-
+   Selektoren für Tags, die es gar nicht gibt — statt ".label-select" /
+   ".label-button". Die Klassen aus dem HTML wurden dadurch nie gestylt.
+   Jetzt korrekt als Klassen-Selektoren. */
+label {
+    color: var(--accent-teal);
+    font-weight: 600;
+    margin-bottom: var(--space-2);
+    margin-top: var(--space-2);
+    font-size: 1.1rem;
 }
 
-.skills-list,
-.saves-list {
-    list-style: none;
+.label-select {
+    display: block;
 }
 
-.skills-list li,
-.saves-list li {
-    padding: 0.75rem;
-    margin-bottom: 0.5rem;
-    background: #f9f7f4;
-    border-radius: 6px;
-    border-left: 3px solid var(--accent-teal);
+.label-button {
+    display: inline-block;
+    text-align: center;
+    margin-top: var(--space-2);
+    color: var(--text-dark);
+    font-weight: 600;
 }
-
-.skills-list li:hover {
-    background: #f0ece5;
-}
-
-/*Input: Checkbox and Spinwheel*/
 
 input[type="checkbox"] {
     appearance: none;
-    width: 20px;
-    height: 20px;
+    width: clamp(1.1rem, 1.5vw + 0.85rem, 1.3rem);
+    height: clamp(1.1rem, 1.5vw + 0.85rem, 1.3rem);
     border: 2px solid var(--accent-teal);
     border-radius: 4px;
     cursor: pointer;
-    margin-right: 0.75rem;
+    margin-right: var(--space-2);
     vertical-align: middle;
     position: relative;
-    transition: all 0.2s ease;
+    transition: background-color var(--transition);
     background: white;
 }
 
@@ -782,95 +694,720 @@ input[type="checkbox"]:disabled {
     cursor: not-allowed;
 }
 
-.spinner-control {
-    width: 104px;
-    display: block;
-    color: var(--accent-teal);
-    margin-bottom: 0.5rem;
-    font-size: 1.1rem;
-    background: white;
-    color: var(--text-dark);
-    border: 2px solid var(--border-light);
-    border-radius: 6px;
-    padding: 0.75rem 1rem;
-    font-size: 1rem;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    font-family: Georgia, serif;
+/* -------------------------------------------
+   10. Statistik-Karten (Geübtenbonus, Trefferwürfel, …)
+   ------------------------------------------- */
+.stats-display {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: var(--space-4);
+    margin: var(--space-5) 0;
 }
 
-.spinner-control:hover,
-.spinner-control:focus {
+.stat-card {
+    padding: var(--space-4);
+    text-align: center;
+    transition: transform var(--transition), box-shadow var(--transition), border-color var(--transition);
+    box-shadow: var(--shadow-sm);
+}
+
+.stat-card:hover {
+    transform: translateY(-3px);
+    box-shadow: var(--shadow-md);
     border-color: var(--accent-teal);
-    outline: none;
-    box-shadow: 0 0 0 3px rgba(26, 62, 71, 0.1);
 }
 
-/*Media*/
+.stat-label {
+    color: var(--text-light);
+    font-size: 0.9rem;
+    margin-bottom: var(--space-2);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
 
+.stat-value {
+    color: var(--accent-teal);
+    font-size: clamp(1.7rem, 1.5vw + 1.3rem, 2.2rem);
+    font-weight: bold;
+    font-family: var(--font-mono);
+}
+
+.points-display {
+    display: inline-block;
+    background: #f9f7f4;
+    border: 2px solid var(--border-light);
+    padding: var(--space-3) var(--space-5);
+    border-radius: var(--radius-sm);
+    margin: var(--space-3) 0;
+    font-size: 1.2rem;
+}
+
+.points-display strong {
+    color: var(--accent-teal);
+    font-size: 1.5rem;
+    font-family: var(--font-mono);
+}
+
+/* -------------------------------------------
+   11. Attribut-Tabelle
+   ------------------------------------------- */
+.attribute-table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    margin-top: var(--space-3);
+    background: white;
+    border-radius: var(--radius-sm);
+    overflow: hidden;
+    border: 2px solid var(--border-light);
+    overflow-x: auto;
+    display: block;
+    overscroll-behavior: none;
+}
+
+.attribute-table thead {
+    background: var(--accent-teal);
+}
+
+.attribute-table th {
+    color: white;
+    padding: var(--space-3);
+    text-align: left;
+    font-weight: 600;
+    text-transform: uppercase;
+    font-size: 0.85rem;
+    letter-spacing: 1px;
+    width: 100%;
+}
+
+.attribute-table td {
+    padding: var(--space-3);
+    border-bottom: 1px solid var(--border-light);
+    background: white;
+    white-space: nowrap;
+}
+
+.attribute-table tbody tr:hover {
+    background: #f9f7f4;
+}
+
+.attr-controls {
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+}
+
+/* Plus/Minus-Knöpfe teilen sich Form & Größe, nur die Farbe (rot/grün)
+   unterscheidet sich. */
+.attr-btn-minus,
+.attr-btn-plus {
+    width: clamp(1.75rem, 2vw + 1.25rem, 2.1rem);
+    height: clamp(1.75rem, 2vw + 1.25rem, 2.1rem);
+    border-radius: 50%;
+    cursor: pointer;
+    border: 2px solid;
+    font-weight: bold;
+    transition: background-color var(--transition), color var(--transition);
+}
+
+.attr-btn-minus {
+    border-color: var(--danger);
+    color: var(--danger);
+}
+
+.attr-btn-minus:hover {
+    background: var(--danger);
+    color: white;
+    border-color: var(--danger-dark);
+}
+
+.attr-btn-plus {
+    border-color: var(--success);
+    color: var(--success);
+}
+
+.attr-btn-plus:hover {
+    background: var(--success);
+    color: white;
+    border-color: var(--success-dark);
+}
+
+.attr-btn:hover {
+    transform: scale(1.1);
+}
+
+.attr-value {
+    min-width: 30px;
+    text-align: center;
+    font-weight: bold;
+    font-size: 1.1rem;
+    font-family: var(--font-mono);
+}
+
+.total-score {
+    color: var(--accent-teal);
+    font-size: 1.3rem;
+    font-weight: bold;
+    font-family: var(--font-mono);
+}
+
+.mod-badge {
+    color: var(--accent-teal);
+    background-color: var(--paper-bg);
+    font-size: 1.3rem;
+    font-weight: bold;
+    font-family: var(--font-mono);
+    border: 2px solid var(--border-light);
+    padding: 0.5rem 0.7rem;
+    border-radius: var(--radius-pill);
+    text-align: center;
+}
+
+/* -------------------------------------------
+   12. Rettungswürfe & Fertigkeiten
+   ------------------------------------------- */
+.skills-section {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: var(--space-5);
+    margin-top: var(--space-5);
+}
+
+.skills-list,
+.saves-list {
+    list-style: none;
+}
+
+.skills-list li,
+.saves-list li {
+    padding: var(--space-3);
+    margin-bottom: var(--space-2);
+    background: #f9f7f4;
+    border-radius: var(--radius-sm);
+    border-left: 3px solid var(--accent-teal);
+    transition: background-color var(--transition);
+}
+
+.skills-list li:hover {
+    background: #f0ece5;
+}
+
+/* -------------------------------------------
+   13. Würfel-Seite
+   ------------------------------------------- */
+.wuerfel-output {
+    background-color: var(--bg-light);
+    border: 2px solid var(--border-light);
+    border-radius: var(--radius-sm);
+    height: clamp(150px, 25vh, 260px);
+    width: 100%;
+    padding: var(--space-3);
+    font-size: clamp(1.15rem, 1.5vw + 0.9rem, 1.6rem);
+    font-family: var(--font-mono);
+    transition: border-color var(--transition);
+}
+
+.wuerfel-output:focus,
+.wuerfel-output:hover {
+    border-color: var(--accent-teal);
+}
+
+/* -------------------------------------------
+   14. Responsive Anpassungen
+   ------------------------------------------- */
+/* Die meisten Größen sind inzwischen selbst fluid (clamp/vw/vh/%), daher
+   braucht es hier nur noch Anpassungen an der LAYOUT-Richtung, nicht mehr
+   an einzelnen Pixel-Werten. */
 @media (max-width: 768px) {
-    h1 {
-        font-size: 2.5rem;
-    }
 
-    .stats-display {
-        grid-template-columns: 1fr;
-    }
-
+    .stats-display,
     .skills-section {
         grid-template-columns: 1fr;
     }
 
-    .form-section {
-        padding: 1.5rem;
-    }
-
     .nav-container {
         flex-direction: column;
-        gap: 1rem;
+        gap: var(--space-3);
+        height: auto;
+        padding: var(--space-2) var(--space-5);
+    }
+
+    .nav-header {
+        height: auto;
     }
 
     nav a {
-        margin: 0 1rem;
-    }
-}
-
-@media (max-width: 900px) {
-    .button-container-flex {
-        align-content: center;
-        align-self: center;
-        display: grid;
-        grid-template-columns: auto;
-        align-items: center;
-        margin-left: 0px;
-    }
-
-    .button-container {
-        padding-left: 0px;
-    }
-
-    .reset-button {
-        margin-bottom: 10px;
+        margin: 0 var(--space-3);
     }
 }
 
 @media (max-width: 680px) {
+    .reset-button {
+        margin-left: 0;
+        margin-bottom: var(--space-2);
+    }
 
     .print-button {
-        margin-top: 10px;
-        margin-left: 0px;
+        margin-top: var(--space-2);
+        margin-left: 0;
     }
 
     #randomAttribute {
-        margin-left: 0px;
+        margin-left: 0;
     }
-
 }
 
-@media (max-width: 500px) {
+/* ==========================================================================
+   Zauberkarten-Generator (zauber.html)
+   ----------------------------------------------------------------------
+   Eigener Abschnitt, weil die Zauberkarten zum Ausdrucken gedacht sind:
+   die Karten selbst bleiben bewusst schwarz/weiß (gutes Druckbild),
+   Werkzeugleiste & Modal folgen aber demselben Farbschema wie der Rest
+   der Seite, damit sich zauber.html nicht wie eine Fremdseite anfühlt.
+   ========================================================================== */
 
-    .print-button {
-        margin-top: 10px;
-        margin-left: 0px;
+@page {
+    size: A4;
+    margin: 8mm;
+}
+
+body.zauber-page {
+    font-family: var(--font-ui);
+    background: #ccc;
+}
+
+.toolbar {
+    position: sticky;
+    top: 0;
+    background: var(--paper-bg);
+    color: var(--text-dark);
+    padding: var(--space-3) var(--space-4);
+    font-family: var(--font-ui);
+    font-size: 14px;
+    z-index: 100;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 10px;
+    border-bottom: 3px solid var(--border-light);
+}
+
+.dropdown {
+    position: relative;
+}
+
+.dropdown-btn {
+    background: white;
+    color: var(--text-dark);
+    border: 2px solid var(--border-light);
+    padding: 8px 14px;
+    border-radius: var(--radius-sm);
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 600;
+    font-family: var(--font-ui);
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+    transition: border-color var(--transition), background-color var(--transition);
+}
+
+.dropdown-btn:hover {
+    border-color: var(--accent-teal);
+}
+
+.dropdown.open .dropdown-btn {
+    background: var(--accent-teal);
+    color: var(--paper-bg);
+    border-color: var(--accent-teal);
+}
+
+.dropdown-btn .arrow {
+    font-size: 10px;
+    transition: transform 0.15s ease;
+}
+
+.dropdown.open .dropdown-btn .arrow {
+    transform: rotate(180deg);
+}
+
+.dropdown-panel {
+    display: none;
+    position: absolute;
+    top: calc(100% + 6px);
+    left: 0;
+    background: white;
+    border: 2px solid var(--border-light);
+    border-radius: var(--radius-md);
+    padding: var(--space-2);
+    min-width: 200px;
+    box-shadow: var(--shadow-md);
+    flex-direction: column;
+    gap: 2px;
+}
+
+.dropdown.open .dropdown-panel {
+    display: flex;
+}
+
+.dropdown-panel label {
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+    padding: 5px 6px;
+    border-radius: 4px;
+    cursor: pointer;
+    user-select: none;
+    white-space: nowrap;
+    color: var(--text-dark);
+    font-weight: normal;
+    font-size: 1rem;
+}
+
+.dropdown-panel label:hover {
+    background: var(--bg-light);
+}
+
+.dropdown-panel input[type=checkbox] {
+    cursor: pointer;
+}
+
+.dropdown-panel .panel-actions {
+    display: flex;
+    gap: var(--space-2);
+    border-top: 1px solid var(--border-light);
+    margin-top: var(--space-2);
+    padding-top: var(--space-2);
+}
+
+.dropdown-panel .panel-actions button {
+    flex: 1;
+    background: white;
+    color: var(--text-dark);
+    border: 2px solid var(--border-light);
+    border-radius: 4px;
+    padding: 5px 8px;
+    font-size: 11px;
+    cursor: pointer;
+    font-family: var(--font-ui);
+    transition: background-color var(--transition), color var(--transition);
+}
+
+.dropdown-panel .panel-actions button:hover {
+    background: var(--accent-teal);
+    color: var(--paper-bg);
+    border-color: var(--accent-teal);
+}
+
+.actions {
+    margin-left: auto;
+    display: flex;
+    gap: var(--space-2);
+    align-items: center;
+}
+
+.toolbar button.print-btn {
+    background: var(--accent-teal);
+    color: var(--paper-bg);
+    border: 2px solid var(--border-light);
+    padding: 8px 16px;
+    border-radius: var(--radius-sm);
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 600;
+    font-family: var(--font-ui);
+    transition: border-color var(--transition), background-color var(--transition);
+}
+
+.toolbar button.print-btn:hover {
+    border-color: var(--border-orange);
+    background: var(--accent-orange);
+}
+
+.count {
+    color: var(--text-light);
+    font-size: 12px;
+    white-space: nowrap;
+}
+
+/* Druckbare Zauberkarten: bewusst schlicht schwarz/weiß, damit sie
+   gut lesbar bleiben, wenn man sie ausdruckt und ausschneidet. */
+.page {
+    box-sizing: border-box;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(3, 1fr);
+    max-width: fit-content;
+    max-height: fit-content;
+    margin: 6mm auto;
+    background: white;
+    box-shadow: 0 0 8px rgba(0, 0, 0, 0.3);
+    padding: 0;
+}
+
+.card {
+    border: 1.3pt solid #000;
+    /*border-radius: 3mm;*/
+    padding: 2.2mm 2.6mm;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    background: #fff;
+    position: relative;
+    width: 61mm;
+    height: 87mm;
+}
+
+.card-topright {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    z-index: 100;
+}
+
+.source-tag {
+    font-size: 5.5pt;
+    font-weight: 700;
+    letter-spacing: 0.3px;
+    text-transform: uppercase;
+    color: #000;
+    background: #fff;
+    border: 0.8pt solid #000;
+    border-radius: 2mm;
+    padding: 0.5mm 1.4mm;
+    white-space: nowrap;
+}
+
+.card-tools {
+    display: flex;
+    gap: 4px;
+}
+
+.card-tool-btn {
+    cursor: pointer;
+    font-size: 10px;
+    border: 1px solid #000;
+    background: #fff;
+    padding: 2px 4px;
+}
+
+.card-tool-btn-danger {
+    border-color: #c00;
+    color: #c00;
+}
+
+.card-head {
+    border-bottom: 1pt solid #000;
+    padding-bottom: 0.8mm;
+    padding-right: 9mm;
+    margin-bottom: 0.8mm;
+}
+
+.spell-name {
+    font-weight: 700;
+    font-size: 9.5pt;
+    line-height: 1.1;
+    color: #000;
+}
+
+.spell-name-en {
+    font-size: 6pt;
+    font-style: italic;
+    color: #444;
+}
+
+.level-school {
+    font-size: 6.6pt;
+    font-style: italic;
+    color: #000;
+    margin-bottom: 1mm;
+}
+
+.badge {
+    background: #fff;
+    border: 0.8pt solid #000;
+    color: #000;
+    border-radius: 2mm;
+    padding: 0.2mm 1.2mm;
+    font-style: normal;
+    font-size: 5.8pt;
+    margin-left: 1mm;
+}
+
+table.meta {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 6.1pt;
+    margin-bottom: 1mm;
+}
+
+table.meta td {
+    padding: 0.2mm 0.6mm;
+    vertical-align: top;
+}
+
+table.meta td.k {
+    font-weight: 700;
+    color: #000;
+    white-space: nowrap;
+    width: 15mm;
+}
+
+.desc {
+    font-size: 6.4pt;
+    line-height: 1.25;
+    flex: 1;
+    overflow: hidden;
+}
+
+.desc p {
+    margin: 0 0 0.9mm 0;
+}
+
+.desc ul {
+    margin: 0.3mm 0 0.9mm 0;
+    padding-left: 3mm;
+}
+
+.desc table.spelltable {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 5.6pt;
+    margin: 0.5mm 0;
+}
+
+.desc table.spelltable td,
+.desc table.spelltable th {
+    border: 0.5pt solid #000;
+    padding: 0.3mm 0.6mm;
+    text-align: left;
+}
+
+.material {
+    font-size: 6.1pt;
+    font-style: italic;
+    color: #000;
+    margin-top: 0.5mm;
+}
+
+.classes {
+    font-size: 6.1pt;
+    color: #000;
+    margin-top: 0.5mm;
+    border-top: 0.5pt solid #000;
+    padding-top: 0.5mm;
+}
+
+.tier-medium .desc {
+    font-size: 5.9pt;
+}
+
+.tier-small .desc {
+    font-size: 5.4pt;
+}
+
+.tier-small .spell-name {
+    font-size: 8.7pt;
+}
+
+.tier-tiny .desc {
+    font-size: 4.7pt;
+    line-height: 1.15;
+}
+
+.tier-tiny .spell-name {
+    font-size: 8.2pt;
+}
+
+.tier-tiny table.meta {
+    font-size: 5.5pt;
+}
+
+.empty-msg {
+    font-family: Arial, sans-serif;
+    text-align: center;
+    color: var(--text-light);
+    padding: 40px;
+}
+
+.modal {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, .55);
+    display: none;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+    font-family: var(--font-ui);
+}
+
+.modal.show {
+    display: flex;
+}
+
+.modal-box {
+    width: min(900px, 95vw);
+    max-height: 95vh;
+    overflow: auto;
+    background: white;
+    border-radius: var(--radius-lg);
+    padding: var(--space-4);
+    box-shadow: var(--shadow-lg);
+}
+
+.modal-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-4);
+}
+
+.modal-grid input,
+.modal-grid select,
+.modal-grid textarea {
+    width: 100%;
+    padding: 8px;
+    font-size: 14px;
+}
+
+.modal-grid textarea {
+    min-height: 160px;
+    resize: vertical;
+}
+
+.modal-footer {
+    display: flex;
+    justify-content: flex-end;
+    gap: var(--space-2);
+    margin-top: var(--space-4);
+}
+
+@media print {
+    body.zauber-page {
+        background: white;
+    }
+
+    .toolbar {
+        display: none;
+    }
+
+    .page {
+        box-shadow: none;
+        margin: 0;
+        page-break-after: always;
+    }
+
+    .empty-msg {
+        display: none;
+    }
+
+    .card-tools {
+        display: none !important;
+    }
+
+    .nav-header {
+        display: none !important;
     }
 }

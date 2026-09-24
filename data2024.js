@@ -1,4 +1,8 @@
-/*Fixed Data for Class, Subclass, etc. for the 2024 Character Creator*/
+/* Feste Spieldaten (Klassen, Subklassen, Völker, Hintergründe, …) für den
+ * 2024er Charakter-Ersteller. Reine Daten, keine Logik — die steckt in
+ * charakter-logik.js und wird von side-script.js hiermit gefüttert.
+ * Achtung: die Attributsboni bei RACES sind noch Platzhalter, ich hab das
+ * 2024er PHB noch nicht — bitte nicht als Quelle der Wahrheit nehmen. */
 export const POINT_COSTS = { 8: 0, 9: 1, 10: 2, 11: 3, 12: 4, 13: 5, 14: 7, 15: 9 };
 export const PROFICIENCY_BONUS = { 1: 2, 2: 2, 3: 2, 4: 2, 5: 3, 6: 3, 7: 3, 8: 3, 9: 4, 10: 4, 11: 4, 12: 4, 13: 5, 14: 5, 15: 5, 16: 5, 17: 6, 18: 6, 19: 6, 20: 6 };
 export const ATTRIBUTES_MAP = {
@@ -33,20 +37,30 @@ export const SKILLS = {
 
 export const HINTERGRÜNDE = {
     'Adliger (Überzeugen (CHA), Geschichte (INT))': { skills: ['Überzeugen (CHA)', 'Geschichte (INT)'] },
-    'Akolyth (Motiv erkennen(WIS), Religion(INT))': { skills: ['Motiv erkennen(WIS)', 'Religion(INT)'] },
-    'Bauer (Tierumgang (WIS), Naturkunde (INT))': { skills: ['(Tierumgang (WIS)', 'Naturkunde (INT)'] },
+    // Bugfix: hier fehlten die Leerzeichen vor den Klammern ("Motiv erkennen(WIS)"
+    // statt "Motiv erkennen (WIS)") — dadurch matchte das nie einen echten
+    // Skill aus SKILLS, der Akolyth bekam also nie seine beiden Boni.
+    'Akolyth (Motiv erkennen (WIS), Religion (INT))': { skills: ['Motiv erkennen (WIS)', 'Religion (INT)'] },
+    // Bugfix: "'(Tierumgang (WIS)'" hatte eine überzählige Klammer am Anfang
+    // und matchte dadurch ebenfalls nie "Tierumgang (WIS)" aus SKILLS.
+    'Bauer (Tierumgang (WIS), Naturkunde (INT))': { skills: ['Tierumgang (WIS)', 'Naturkunde (INT)'] },
     'Einsiedler (Heilkunde (WIS), Religion (INT))': { skills: ['Heilkunde (WIS)', 'Religion (INT)'] },
-    'Handwerker (Motiv erkennen(WIS), Überzeugen (CHA))': { skills: ['Motiv erkennen (WIS)', 'Überzeugen (CHA)'] },
+    'Handwerker (Motiv erkennen (WIS), Überzeugen (CHA))': { skills: ['Motiv erkennen (WIS)', 'Überzeugen (CHA)'] },
     'Händler (Motiv erkennen (WIS), Überzeugen (CHA))': { skills: ['Motiv erkennen (WIS)', 'Überzeugen (CHA)'] },
     'Krimineller (Heimlichkeit (DEX), Täuschen (CHA))': { skills: ['Heimlichkeit (DEX)', 'Täuschen (CHA)'] },
-    'Reisender (Motiv erkennen(WIS),Heimlichkeit (DEX))': { skills: ['Heimlichkeit (DEX)', 'Motiv erkennen (WIS)'] },
+    'Reisender (Motiv erkennen (WIS), Heimlichkeit (DEX))': { skills: ['Heimlichkeit (DEX)', 'Motiv erkennen (WIS)'] },
     'Scharlatan (Täuschen (CHA), Fingerfertigkeit (DEX))': { skills: ['Täuschen (CHA)', 'Fingerfertigkeit (DEX)'] },
     'Schreiber (Nachforschung (INT), Wahrnehmung (WIS))': { skills: ['Nachforschung (INT)', 'Wahrnehmung (WIS)'] },
     'Seeman (Athletik (STR), Wahrnehmung (WIS))': { skills: ['Athletik (STR)', 'Wahrnehmung (WIS)'] },
     'Soldat (Athletik (STR), Wahrnehmung (WIS))': { skills: ['Athletik (STR)', 'Wahrnehmung (WIS)'] },
-    'Unterhaltungskünstler (Auftreten (CHA), Akrobatik (STR))': { skills: ['Auftreten (CHA)', 'Akrobatik (STR)'] },
+    // Bugfix: gleicher Fehler wie im 2014er data.js — "Akrobatik (STR)" gibt
+    // es in SKILLS nicht, nur "Akrobatik (DEX)".
+    'Unterhaltungskünstler (Auftreten (CHA), Akrobatik (DEX))': { skills: ['Auftreten (CHA)', 'Akrobatik (DEX)'] },
     'Wache (Athletik (STR), Wahrnehmung (WIS))': { skills: ['Athletik (STR)', 'Wahrnehmung (WIS)'] },
-    'Wegfinder (Heimlichkeit (DEX), Überleben (WIS)': { skills: ['Heimlichkeit (DEX)', 'Überleben (WIS)'] },
+    // Bugfix: der Schlüssel hier hatte eine fehlende schließende Klammer
+    // ("...Überleben (WIS)" statt "...Überleben (WIS))") — dadurch griff die
+    // Zuordnung im Dropdown nie richtig, weil HTML und JS nicht übereinstimmten.
+    'Wegfinder (Heimlichkeit (DEX), Überleben (WIS))': { skills: ['Heimlichkeit (DEX)', 'Überleben (WIS)'] },
     'Weiser (Arkane Kunde (INT), Geschichte (INT))': { skills: ['Arkane Kunde (INT)', 'Geschichte (INT)'] }
 };
 
@@ -79,7 +93,7 @@ export const RACE_GROUPS = {
 
 };
 
-export const RACES = { /*Note that these Values are currently only placeholders, as I do not have access to the PHB 2024 yet */
+export const RACES = {
     'Mensch': { STR: 1, DEX: 1, CON: 1, INT: 1, WIS: 1, CHA: 1 },
     'Mensch (Variante)': { custom: 2, skillChoices: 1 },
     'Hochelf': { DEX: 2, INT: 1, skills: ['Wahrnehmung (WIS)'] },
