@@ -1,11 +1,5 @@
 /** main-script.js
  * Skript für: homepage.html, charakter-ersteller.html, wuerfel.html, impressum.html.
- *
- * Die eigentliche Charakter-Logik steckt jetzt in charakter-logik.js und wird
- * von hier nur noch mit den 2014er-Spieldaten (data.js) gefüttert. Was hier
- * übrig bleibt, sind die Sachen, die nur auf DIESEN Seiten vorkommen: der
- * Würfel, das E-Mail-kopieren mit kleiner Erfolgs-Meldung, und das Dropdown
- * beim "PDF drucken"-Button.
  */
 import { CLASS_DATA, SKILLS, POINT_COSTS, PROFICIENCY_BONUS, ATTRIBUTES_MAP, HINTERGRÜNDE, RACES, RACE_GROUPS, ALIGNMENT } from './data.js';
 import { erstelleCharakterErsteller } from './charakter-logik.js';
@@ -17,10 +11,7 @@ const ctx = erstelleCharakterErsteller(DATEN_2014);
 const { fillFormFull, fillFormEssential } = erstellePdfExport(ctx, DATEN_2014);
 ctx.init();
 
-/* --- Kleine Toast-Meldungen (Toastify) ---
- * Vorher stand derselbe Toastify-Aufruf (mit Farben, Positionierung, …)
- * drei separate Male im Code. Jetzt gibt es einen Helfer, der nur noch
- * Text + Farbvariante braucht. */
+/* --- Kleine Toast-Meldungen (Toastify) --- */
 function zeigeToast(text, variante = 'teal') {
     const farben = variante === 'danger'
         ? { background: '#c24641', border: 'solid #70140f' }
@@ -67,12 +58,6 @@ function getDiceRoll() {
         return;
     }
 
-    // Bugfix: hier wurde vorher ".value === 1000000" verglichen — .value ist
-    // bei einem <select> aber immer ein String, "1000000" === 1000000 ist
-    // also NIE wahr. Der Riesenwürfel (der laut Label "die Webseite crashen"
-    // könnte) bekam dadurch nie seine Sonderbehandlung und die 999er-Grenze
-    // griff überall gleich. Jetzt wird "seiten" (schon als Zahl geparst)
-    // verglichen, und nur der Riesenwürfel darf die Grenze sprengen.
     if (seiten !== 1000000 && anzahl > 999) {
         alert('Bitte eine Zahl zwischen 1 und 999 eingeben.');
         anzahlEl.value = 1;
@@ -84,8 +69,7 @@ function getDiceRoll() {
         ergebnis += Math.floor(Math.random() * seiten) + 1;
     }
 
-    // Kleines Easter Egg — aber nur bei einem einzelnen d20-Wurf, nicht wenn
-    // zufällig die SUMME mehrerer Würfel auf 20 oder 1 landet.
+    // Easter Egg: nur bei einem einzelnen d20-Wurf
     let zusatz = '';
     if (anzahl === 1 && seiten === 20) {
         if (ergebnis === 20) zusatz = '!';
@@ -101,9 +85,6 @@ function resetDicePage() {
     document.getElementById('wuerfelOutput').value = '';
 }
 
-/* --- Kleine Erfolgs-Meldungen für Zufall & Zurücksetzen ---
- * (nutzen die Funktionen aus charakter-logik.js, hängen aber nur hier
- * dran, weil nur diese Seite Toastify geladen hat) */
 function randomizeEverything() {
     ctx.randomizeEverything();
     zeigeToast('Alles zufällig ausgewählt!');
@@ -111,8 +92,7 @@ function randomizeEverything() {
 
 document.getElementById('resetBtn')?.addEventListener('click', () => zeigeToast('Alles zurückgesetzt', 'danger'));
 
-/* --- Alles, was per onclick="..." aus dem HTML heraus aufgerufen wird,
- * muss am window-Objekt hängen. --- */
+/* --- Alles, was per onclick="..." aus dem HTML heraus aufgerufen wird --- */
 window.adjustScore = ctx.adjustScore;
 window.handleSkillChange = ctx.handleSkillChange;
 window.randomScore = ctx.randomScore;

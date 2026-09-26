@@ -28,7 +28,7 @@ async function init() {
     console.error("Fehler beim Laden von spells.json:", err);
   }
 
-  // Ältere eigene Zauber (vor der ID-Einführung) bekommen hier nachträglich eine ID
+  // Ältere eigene Zauber bekommen hier nachträglich eine ID
   let mussNeuGespeichertWerden = false;
   CUSTOM_SPELLS.forEach(s => {
     if (!s.id) {
@@ -44,25 +44,19 @@ async function init() {
 // --- 3. Gesamtliste aufbauen & Zauber-HTML erzeugen ---
 
 function refreshMasterList() {
-  // Eigene Zauber zuerst, damit sie auf den ersten Seiten auftauchen —
-  // ist einfach praktisch, wenn man gerade an ihnen bastelt.
+  // Eigene Zauber zuerst
   ALL_SPELLS = [];
 
   CUSTOM_SPELLS.forEach(s => {
     const vollstaendig = { ...s };
     vollstaendig.custom = true;
     vollstaendig.source = vollstaendig.source || "Eigene";
-    // HTML wird hier immer neu erzeugt, damit Bearbeiten-/Löschen-Knöpfe
-    // garantiert mit drin sind (auch wenn s.html noch veraltet wäre).
     vollstaendig.html = createSpellHTML(vollstaendig);
     ALL_SPELLS.push(vollstaendig);
   });
 
   CORE_SPELLS.forEach(s => {
     const quelle = s.source || "SRD";
-    // Core-Zauber bekommen (wie eigene) eine kleine Quellen-Marke oben rechts
-    // auf der Karte, damit man z.B. "SRD 2014" und "SRD 2024" auseinanderhalten
-    // kann, wenn derselbe Zauber in beiden Ausgaben auf der Seite liegt.
     const htmlMitQuelle = `<div class="card-topright"><div class="source-tag">${quelle}</div></div>` + s.html;
     ALL_SPELLS.push({ ...s, custom: false, source: quelle, html: htmlMitQuelle });
   });
@@ -85,8 +79,6 @@ function buildSourcePanel() {
   quellen.forEach(quelle => {
     const label = document.createElement('label');
     label.className = 'src-cb-label';
-    // Beim allerersten Aufbau ist noch nichts angehakt -> alles anzeigen.
-    // Danach merken wir uns, was der Nutzer selbst ausgewählt hatte.
     const angehakt = warLeer ? true : vorherAngehakt.has(quelle);
     label.innerHTML = `<input type="checkbox" class="src-cb" value="${quelle}" ${angehakt ? 'checked' : ''}> ${quelle}`;
     panel.insertBefore(label, actions);
@@ -106,9 +98,6 @@ function createSpellHTML(spell) {
     .map(p => `<p>${p}</p>`)
     .join("");
 
-  // Bearbeiten/Duplizieren/Löschen gibt's nur bei eigenen Zaubern mit einer
-  // ID — in der Live-Vorschau des Modals ist die ID absichtlich null,
-  // sonst hätte man mitten in der Vorschau auf einmal Lösch-Knöpfe.
   const werkzeugeZeigen = spell.custom && spell.id;
   const werkzeuge = werkzeugeZeigen ? `
     <button onclick="editSpell('${spell.id}')" class="card-tool-btn">✏️</button>

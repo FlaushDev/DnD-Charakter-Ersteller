@@ -1,16 +1,6 @@
 /** pdf.js
  * Füllt den leeren 'charakterbogen.pdf' mit den Werten aus dem
  * Charakter-Ersteller und bietet ihn zum Download an.
- *
- * Bugfix: Diese Datei hat früher fest "import { state, getPB, ... } from
- * './main-script.js'" gemacht — auch wenn side-script.js (2024-Seite) sie
- * eingebunden hat! ES-Module laden alles, was importiert wird, das heißt
- * main-script.js (samt seiner ganzen 2014er-Logik und Event-Listenern)
- * wurde auf der 2024-Seite heimlich MIT geladen. Beide Skripte haben dann
- * auf dieselben Formularfelder gehört und doppelt reagiert — mit den
- * falschen Spieldaten im Hintergrund. Jetzt bekommt erstellePdfExport()
- * einfach übergeben, was es braucht, statt sich eine bestimmte Datei zu
- * schnappen. Sauberer und ohne versteckte Nebenwirkungen.
  */
 
 const PDF_URL = 'charakterbogen.pdf';

@@ -1,17 +1,10 @@
 /** charakter-logik.js
  *
- * Das ist das Herzstück beider Charakter-Ersteller (2014 & 2024).
- *
- * Vorher stand praktisch derselbe Code zweimal in main-script.js und
- * side-script.js — Copy-Paste zwischen den beiden Editionen. Das ist auf
- * Dauer keine gute Idee: findet man einen Bug in einer Kopie, vergisst
- * man ihn gerne in der anderen zu fixen (ist hier tatsächlich auch
- * passiert, siehe die Kommentare bei den Bugfixes weiter unten).
- *
- * Jetzt gibt es die Logik nur noch einmal hier. erstelleCharakterErsteller()
- * ist eine kleine "Fabrik": man gibt ihr die Spieldaten (aus data.js oder
- * data2024.js) und bekommt einen fertigen Ersteller zurück, der weiß, wie
- * man Attribute berechnet, Skills verwaltet und alles zufällig auswürfelt.
+ * Herzstück beider Charakter-Ersteller (2014 & 2024).
+ * erstelleCharakterErsteller() ist eine kleine "Fabrik": man gibt ihr die
+ * Spieldaten (aus data.js oder data2024.js) und bekommt einen fertigen
+ * Ersteller zurück, der weiß, wie man Attribute berechnet, Skills verwaltet
+ * und alles zufällig auswürfelt.
  */
 
 export function erstelleCharakterErsteller(DATEN) {
@@ -20,8 +13,7 @@ export function erstelleCharakterErsteller(DATEN) {
         ATTRIBUTES_MAP, HINTERGRÜNDE, RACES, RACE_GROUPS, ALIGNMENT
     } = DATEN;
 
-    // Der aktuelle Stand des Charakters. Liegt in einem eigenen Objekt,
-    // damit pdf.js beim PDF-Export direkt darauf zugreifen kann.
+    // Aktueller Stand des Charakters
     const state = {
         scores: { STR: 8, DEX: 8, CON: 8, INT: 8, WIS: 8, CHA: 8 },
         selectedSkills: []
@@ -211,10 +203,6 @@ export function erstelleCharakterErsteller(DATEN) {
     function getSkillLimit() {
         const classData = CLASS_DATA[document.getElementById('classSelect').value];
         const raceData = RACES[document.getElementById('mainRaceSelect').value];
-        // Bugfix: vorher stand hier "classData?.skillChoices + raceData?.skillChoices ?? 0" —
-        // wegen der Operator-Reihenfolge (? : und ?? binden schwächer als +) wurde daraus
-        // "undefined + irgendwas", sobald eine der beiden Klassen/Völker mal nicht gefunden
-        // wurde, statt sauber auf 0 zurückzufallen. Jetzt wird jede Seite einzeln abgesichert.
         return (classData?.skillChoices ?? 0) + (raceData?.skillChoices ?? 0);
     }
 
@@ -265,10 +253,6 @@ export function erstelleCharakterErsteller(DATEN) {
     ];
 
     function randomScore() {
-        // Bugfix: vorher wurde mit "Math.random() * 7" eine Zahl von 0 bis 6
-        // gewürfelt, aber nur die Fälle 1–6 hatten ein passendes Array — bei
-        // einer 0 (statistisch jedes 7. Mal!) passierte schlicht gar nichts.
-        // Jetzt wird einfach direkt eines der sechs Arrays zufällig gewählt.
         Object.assign(state.scores, random(ZUFALLS_ATTRIBUTSSAETZE));
 
         updateAttributeTable();
@@ -320,9 +304,6 @@ export function erstelleCharakterErsteller(DATEN) {
     }
 
     // --- Aufbau: Event-Listener anhängen & ersten Render anstoßen ---
-    // (läuft direkt beim Import, nicht erst bei DOMContentLoaded — Modul-
-    // Skripte werden vom Browser sowieso erst nach dem Parsen der Seite
-    // ausgeführt, das Warten war also unnötig.)
 
     function init() {
         const lvlSelect = document.getElementById('levelSelect');
